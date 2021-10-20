@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Address {
 
-    private int addressID;
+    private Integer addressID;
     private String street;
     private String number;
     private String postalCode;
@@ -13,7 +13,7 @@ public class Address {
     private String state;
     private String complement;
 
-    public Address (int addressID, String street, String number, String postalCode, String city, String state, String complement) {
+    public Address (Integer addressID, String street, String number, String postalCode, String city, String state, String complement) {
         this.addressID = addressID;
         this.street = street;
         this.number = number;
