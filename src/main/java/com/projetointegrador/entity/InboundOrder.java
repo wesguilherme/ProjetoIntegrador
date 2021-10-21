@@ -2,7 +2,9 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 
 @Entity
@@ -10,25 +12,22 @@ import java.time.LocalDate;
 public class InboundOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inboundOrderId;
+    private Integer orderNumberId;
     private Integer orderNumber;
     private LocalDate orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sectionCode")
+    @OneToMany
     private Section section;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "batchId")
+    @OneToMany
     private BatchStock batchStock;
 
     public InboundOrder() {
 
     }
 
-    public InboundOrder(Long inboundOrderId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
-        this.inboundOrderId = inboundOrderId;
+    public InboundOrder(Integer orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
+        this.orderNumberId = orderNumberId;
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;
         this.section = section;
@@ -38,7 +37,7 @@ public class InboundOrder {
     @Override
     public String toString() {
         return "{" +
-                " \"inboundOrderId\": " + inboundOrderId +
+                " \"orderNumberId\": " + orderNumberId +
                 ", \"orderNumber\":" + orderNumber +
                 ", \"orderDate\":" + orderDate +
                 ", \"section\":" + section +
