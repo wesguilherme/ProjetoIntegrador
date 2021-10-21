@@ -2,28 +2,42 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
+@Entity
 @Data
 public class Section {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String sectionId;
-    private String warehouseCode;
     private Double totalCapacity;
-    private Enum sectionType;
+
+    @Enumerated(EnumType.STRING)
+    private SectionType sectionType;
+
     private Long representativeId;
 
-    public Section (String sectionId, String warehouseCode, Double totalCapacity, Enum sectionType, Long representativeId) {
+    @ManyToOne
+    private Warehouse warehouse;
+
+    public Section() {
+
+    }
+
+    public Section(String sectionId, Double totalCapacity, SectionType sectionType, Long representativeId, Warehouse warehouse) {
         this.sectionId = sectionId;
-        this.warehouseCode = warehouseCode;
         this.totalCapacity = totalCapacity;
         this.sectionType = sectionType;
         this.representativeId = representativeId;
+        this.warehouse = warehouse;
     }
 
     @Override
     public String toString ( ) {
         return "Section{" +
                 "sectionId='" + sectionId + '\'' +
-                ", warehouseCode='" + warehouseCode + '\'' +
+                ", warehouse='" + warehouse + '\'' +
                 ", totalCapacity=" + totalCapacity +
                 ", sectionType=" + sectionType +
                 ", representativeId=" + representativeId +

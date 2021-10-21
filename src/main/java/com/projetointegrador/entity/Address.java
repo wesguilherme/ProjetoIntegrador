@@ -2,9 +2,17 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 @Data
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer addressId;
     private String street;
     private String number;
@@ -12,6 +20,10 @@ public class Address {
     private String city;
     private String state;
     private String complement;
+
+    public Address() {
+
+    }
 
     public Address (Integer addressID, String street, String number, String postalCode, String city, String state, String complement) {
         this.addressId = addressID;
