@@ -10,9 +10,10 @@ import java.util.List;
 public class Representative extends Person{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String representativeId;
 
-    @OneToMany(mappedBy = "Seller", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Address> Addresses;
 
     public Representative() {

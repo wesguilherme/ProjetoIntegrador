@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
@@ -14,7 +13,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
+    private Integer addressId;
     private String street;
     private String number;
     private String postalCode;
@@ -26,7 +25,7 @@ public class Address {
 
     }
 
-    public Address (Long addressID, String street, String number, String postalCode, String city, String state, String complement) {
+    public Address (Integer addressID, String street, String number, String postalCode, String city, String state, String complement) {
         this.addressId = addressID;
         this.street = street;
         this.number = number;
