@@ -4,36 +4,44 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
 public class Section {
 
     @Id
-    private String sectionCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String sectionId;
     private Double totalCapacity;
-    private Double usedSpace;
 
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
-    @ManyToOne
-    @JoinColumn(name = "representativeId")
-    private Representative representative;
+    private Long representativeId;
 
     @ManyToOne
-    @JoinColumn(name = "warehouseCode")
     private Warehouse warehouse;
 
     public Section() {
 
     }
 
-    public Section(String sectionCode, Double totalCapacity, Double usedSpace, SectionType sectionType, Representative representative, Warehouse warehouse) {
-        this.sectionCode = sectionCode;
+    public Section(String sectionId, Double totalCapacity, SectionType sectionType, Long representativeId, Warehouse warehouse) {
+        this.sectionId = sectionId;
         this.totalCapacity = totalCapacity;
-        this.usedSpace = usedSpace;
         this.sectionType = sectionType;
-        this.representative = representative;
+        this.representativeId = representativeId;
         this.warehouse = warehouse;
     }
+
+    @Override
+    public String toString ( ) {
+        return "Section{" +
+                "sectionId='" + sectionId + '\'' +
+                ", warehouse='" + warehouse + '\'' +
+                ", totalCapacity=" + totalCapacity +
+                ", sectionType=" + sectionType +
+                ", representativeId=" + representativeId +
+                '}';
+    }
+
 }
