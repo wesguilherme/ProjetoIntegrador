@@ -18,7 +18,7 @@ public class BatchStock {
     private String currentTemperature;
 
 //    @OneToMany
-    private Section sectionId;
+    private Section section;
 
 //    @OneToMany
     private Product product;
@@ -26,7 +26,7 @@ public class BatchStock {
     public BatchStock() {
     }
 
-    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section sectionId, Product product) {
+    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section section, Product product) {
         this.batchId = batchId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -35,7 +35,7 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
-        this.sectionId = sectionId;
+        this.section = section;
         this.product = product;
     }
 
@@ -43,7 +43,7 @@ public class BatchStock {
     public String toString() {
         return "{" +
                 "\"batchid\":" + batchId +
-                ", \"sectionid\":\"" + sectionId + "\"" +
+                ", \"section\":\"" + section + "\"" +
                 ", \"duedate\":\"" + dueDate + "\"" +
                 ", \"manufacturingtime\":\"" + manufacturingTime + "\"" +
                 ", \"manufacturingdate\":\"" + manufacturingDate + "\"" +
