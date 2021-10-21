@@ -2,12 +2,16 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Entity
 @Data
 public class BatchStock {
 
+    @Id
     private String batchId;
     private LocalDate dueDate;
     private LocalDateTime manufacturingTime;
@@ -17,16 +21,16 @@ public class BatchStock {
     private Float minimumTemperature;
     private String currentTemperature;
 
-//    @OneToMany
+    @OneToMany
     private Section sectionId;
 
-//    @OneToMany
-    private Product product;
+    @OneToMany(mappedBy = "batchStock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> product;
 
     public BatchStock() {
     }
 
-    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section sectionId, Product product) {
+    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section sectionId, List<Product> product) {
         this.batchId = batchId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
