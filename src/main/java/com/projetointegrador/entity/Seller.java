@@ -9,9 +9,10 @@ import java.util.List;
 public class Seller extends Person{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String sellerId;
 
-    @OneToMany(mappedBy = "Seller", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Address> Addresses;
 
     public Seller(){
