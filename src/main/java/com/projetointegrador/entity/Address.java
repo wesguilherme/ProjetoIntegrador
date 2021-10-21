@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Address {
 
-    private Integer addressID;
+    private Integer addressId;
     private String street;
     private String number;
     private String postalCode;
@@ -14,7 +14,7 @@ public class Address {
     private String complement;
 
     public Address (Integer addressID, String street, String number, String postalCode, String city, String state, String complement) {
-        this.addressID = addressID;
+        this.addressId = addressID;
         this.street = street;
         this.number = number;
         this.postalCode = postalCode;
@@ -26,7 +26,7 @@ public class Address {
     @Override
     public String toString ( ) {
         return "Address{" +
-                "addressID=" + addressID +
+                "addressID=" + addressId +
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +
                 ", postalCode='" + postalCode + '\'' +
