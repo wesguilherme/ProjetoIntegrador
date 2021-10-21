@@ -10,6 +10,7 @@ import javax.persistence.Id;
 public class Warehouse {
 
     @Id
+    private String warehouseId;
     private String warehouseCode;
     private String description;
 
@@ -17,7 +18,8 @@ public class Warehouse {
 
     }
 
-    public Warehouse(String warehouseCode, String description) {
+    public Warehouse(String warehouseId, String warehouseCode, String description) {
+        this.warehouseId = warehouseId;
         this.warehouseCode = warehouseCode;
         this.description = description;
     }
@@ -25,6 +27,7 @@ public class Warehouse {
     @Override
     public String toString() {
         return "{" +
+                " \"warehouseId\": \"" + warehouseId + "\"" +
                 ", \"warehouseCode\":\"" + warehouseCode + "\"" +
                 ", \"description\":\"" + description + "\"" +
                 "}";

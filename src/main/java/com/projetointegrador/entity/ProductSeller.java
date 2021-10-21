@@ -2,30 +2,30 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @Entity
 public class ProductSeller {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productSellerId;
+    private String productSellerId;
     private Double volume;
     private Double maximumTemperature;
     private Double minimumTemperature;
 
-    @ManyToOne
+    //@OneToMany
     private Seller seller;
 
-    @ManyToOne
+    //@OneToMany
     private Product product;
 
     public ProductSeller() {
 
     }
 
-    public ProductSeller(Long productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Seller seller, Product product) {
+    public ProductSeller(String productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Seller seller, Product product) {
         this.productSellerId = productSellerId;
         this.volume = volume;
         this.maximumTemperature = maximumTemperature;

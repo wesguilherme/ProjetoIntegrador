@@ -2,7 +2,9 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 
 @Entity
@@ -10,22 +12,21 @@ import java.time.LocalDate;
 public class InboundOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderNumberId;
+    private Integer orderNumberId;
     private Integer orderNumber;
     private LocalDate orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany
     private Section section;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany
     private BatchStock batchStock;
 
     public InboundOrder() {
 
     }
 
-    public InboundOrder(Long orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
+    public InboundOrder(Integer orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
         this.orderNumberId = orderNumberId;
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;
