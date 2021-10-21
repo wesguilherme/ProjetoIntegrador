@@ -2,8 +2,6 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
