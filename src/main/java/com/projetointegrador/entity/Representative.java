@@ -2,27 +2,36 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Data
+@Entity
 public class Representative extends Person{
 
+    @Id
     private String representativeId;
-    private String name;
-    private Integer addressId;
 
-    public Representative(String cpf, String name, Integer addressId, String representativeId) {
-        super(cpf, name, addressId);
+    @OneToMany(mappedBy = "Seller", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Address> Addresses;
+
+    public Representative() {
+
+    }
+
+    public Representative(String cpf, String name, String representativeId, List<Address> addresses) {
+        super(cpf, name);
         this.representativeId = representativeId;
-        this.name = name;
-        this.addressId = addressId;
+        Addresses = addresses;
     }
 
-    @Override
-    public String toString() {
-        return "Seller{" +
-                " \"nome\":" + super.getName() + "\"" +
-                ", \"cpf\":\"" + super.getCpf() + "\"" +
-                ", \"endereço\":\"" + super.getAddressId() + "\"" +
-                "representativeId='" + representativeId + "\"" +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Seller{" +
+//                " \"nome\":" + super.getName() + "\"" +
+//                ", \"cpf\":\"" + super.getCpf() + "\"" +
+//                ", \"endereço\":\"" + super.getAddressId() + "\"" +
+//                "representativeId='" + representativeId + "\"" +
+//                '}';
+//    }
 }
