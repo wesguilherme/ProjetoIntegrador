@@ -2,7 +2,7 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +22,7 @@ public class BatchStock {
     private String currentTemperature;
 
     @OneToMany
-    private Section section;
+    private Section sectionId;
 
     @OneToMany(mappedBy = "batchStock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> product;
@@ -30,7 +30,7 @@ public class BatchStock {
     public BatchStock() {
     }
 
-    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section section, List<Product> product) {
+    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Section sectionId, List<Product> product) {
         this.batchId = batchId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -39,7 +39,7 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
-        this.section = section;
+        this.sectionId = sectionId;
         this.product = product;
     }
 
@@ -47,7 +47,7 @@ public class BatchStock {
     public String toString() {
         return "{" +
                 "\"batchid\":" + batchId +
-                ", \"section\":\"" + section + "\"" +
+                ", \"sectionid\":\"" + sectionId + "\"" +
                 ", \"duedate\":\"" + dueDate + "\"" +
                 ", \"manufacturingtime\":\"" + manufacturingTime + "\"" +
                 ", \"manufacturingdate\":\"" + manufacturingDate + "\"" +
