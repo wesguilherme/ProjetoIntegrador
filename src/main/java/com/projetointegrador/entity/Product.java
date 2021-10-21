@@ -2,13 +2,21 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 @Data
 public class Product {
 
-    //@Id
+    @Id
     private String productId;
     private String name;
     private String description;
+
+    public Product() {
+
+    }
 
     public Product(String productId, String name, String description) {
         this.productId = productId;
