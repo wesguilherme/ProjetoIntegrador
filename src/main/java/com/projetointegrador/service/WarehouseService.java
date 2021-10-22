@@ -20,21 +20,16 @@ public class WarehouseService {
         this.warehousePersistence = warehousePersistence;
     }
 
-    private String codigoUnico() {
-        return "MLB" + ThreadLocalRandom.current().nextInt(100, 999);
-    }
-
     private boolean codigoNaoUtilizado(String codigo) {
         Warehouse warehouseExistente = warehousePersistence.findByWarehouseCode(codigo);
         if(warehouseExistente == null){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public Warehouse cadastrar(Warehouse warehouse) {
         if(codigoNaoUtilizado(warehouse.getWarehouseCode())) {
-            warehouse.setWarehouseCode(codigoUnico());
             return warehousePersistence.save(warehouse);
         }else{
             throw new RuntimeException("Código já utilizado");
