@@ -1,78 +1,77 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dao.SellerPersistence;
 import com.projetointegrador.entity.Seller;
-import com.projetointegrador.repository.SellerPersistence;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Service
 public class SellerService {
 
-    @Autowired
     private SellerPersistence sellerPersistence;
 
-    public SellerService() {
-    }
 
-    /**
-     * @param sellerPersistence - é esperado um parâmetro do tipo sellerPersistence para injeção de dependência
-     * @author - Grupo 5 - Tester Wesley
-     */
     public SellerService(SellerPersistence sellerPersistence) {
         this.sellerPersistence = sellerPersistence;
     }
 
-//    private boolean nonUtilizedCode(String cpf) {
-//        Seller sellerExistente = sellerPersistence.findByCpf(cpf);
-//        if (sellerExistente == null) {
-//            return true;
-//        }
-//        return false;
+    /**
+     *
+     * @return
+     * @author Grupo 5 - Tester Wesley
+     */
+    private Long codigoUnico() {
+        return ThreadLocalRandom.current().nextLong(100, 9999);
+    }
+
+    /**
+     *
+     * @param seller
+     * @author Grupo 5 - Tester Wesley
+     */
+    public void salva(Seller seller) {
+        if(seller.getSellerId()==null || seller.getSellerId().isEmpty()) {
+            seller.getSellerId();
+            sellerPersistence.cadastrar(seller);
+        }else{
+            Seller sellerExists = sellerPersistence.get(String.valueOf(seller.getSellerId()));
+            if(sellerExists == null){
+                throw new RuntimeException("Algo de muito errado aconteceu");
+            }
+            sellerExists.setCpf(seller.getCpf());
+            sellerExists.setName(seller.getName());
+            sellerExists.setAddresses(seller.getAddresses());
+            sellerPersistence.atualiza(sellerExists);
+        }
+    }
+
+//    /**
+//     *
+//     * @return uma lista de sellers ordenada (em ordem crescente) pelo nome
+//     */
+//    public List<Seller> listagem(){
+//        List<Seller> lista = sellerPersistence.lista();
+//        lista.sort((Seller v1, Seller v2) -> v1.getName().compareToIgnoreCase(v2.getName()));
+//        return lista;
 //    }
-//    alterei aqui
 
     /**
-     * @param cpf - é esperado o parametro cpf do seller
-     * @return - retorna a verificaçao de duplicidade do código
-     * @author - Grupo 5 - Tester Wesley
+     *
+     * @param codigo
+     * @return
+     * @author Grupo 5 - Tester Wesley
      */
-    private boolean utilizedCode(String cpf) {
-        Seller existentSeller = sellerPersistence.findByCpf(cpf);
-        if (existentSeller != null) {
-            return true;
-        }
-        return false;
+    public Seller obtem(String codigo) {
+        return sellerPersistence.get(codigo);
     }
 
     /**
-     * @param seller - é esperado um objeto do tipo seller
-     * @return - retorna seller cadastrado na lista
-     * @author - Grupo 5 - Tester Wesley
+     *
+     * @param codigo
+     * @author Grupo 5 - Tester Wesley
      */
-    public Seller insert(Seller seller) {
-        if (!utilizedCode(seller.getCpf())) {
-            return sellerPersistence.save(seller);
-        } else {
-            throw new RuntimeException("Cpf já utilizado");
-        }
-    }
-
-    /**
-     * @param sellerId - é esperado o parametro Id do seller
-     * @return - retorna se o seller existe ou não através do Id
-     * @author - Grupo 5 - Tester Wesley
-     */
-    public Seller getByIdSeller(Long sellerId) {
-        Optional<Seller> val;
-
-        val = sellerPersistence.findById(sellerId);
-
-        if (val.isPresent()) {
-            return val.get();
-        } else {
-            throw new RuntimeException("Não existe resultado para essa busca!");
-        }
+    public void deleta(String codigo) {
+        sellerPersistence.exclui(codigo);
     }
 }
