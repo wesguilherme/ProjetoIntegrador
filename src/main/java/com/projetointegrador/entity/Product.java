@@ -13,7 +13,8 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String productId;
+    private Long productId;
+    private String productCode;
     private String name;
     private String description;
 
@@ -21,8 +22,9 @@ public class Product {
 
     }
 
-    public Product(String productId, String name, String description) {
+    public Product(Long productId, String productCode, String name, String description) {
         this.productId = productId;
+        this.productCode = productCode;
         this.name = name;
         this.description = description;
     }
@@ -30,7 +32,8 @@ public class Product {
     @Override
     public String toString() {
         return "{" +
-                " \"productId\": \"" + productId + "\"" +
+                " \"productId\": " + productId +
+                " \"productCode\": \"" + productCode + "\"" +
                 ", \"name\":\"" + name + "\"" +
                 ", \"description\":\"" + description + "\"" +
                 "}";

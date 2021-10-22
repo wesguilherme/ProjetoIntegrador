@@ -13,7 +13,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer addressId;
+    private Long addressId;
     private String street;
     private String number;
     private String postalCode;
@@ -25,7 +25,7 @@ public class Address {
 
     }
 
-    public Address (Integer addressID, String street, String number, String postalCode, String city, String state, String complement) {
+    public Address (Long addressID, String street, String number, String postalCode, String city, String state, String complement) {
         this.addressId = addressID;
         this.street = street;
         this.number = number;
