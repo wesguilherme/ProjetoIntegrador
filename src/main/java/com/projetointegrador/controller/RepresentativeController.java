@@ -14,17 +14,17 @@ import java.io.IOException;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value="/representative")
 public class RepresentativeController {
 
     @Autowired
     private RepresentativeService representativeService;
 
-    @PostMapping(value = "/representative/insert")
-    public ResponseEntity<Representative> insert(@RequestBody Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
-        Representative representativeCadastrado = representativeService.insert(representative);
+    @PostMapping(value = "/cadastrar")
+    public ResponseEntity<Representative> cadastrar(@RequestBody Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
+        Representative representativeCadastrado = representativeService.cadastrar(representative);
 
-        URI uri = uriBuilder.path("/representative/search/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();
+        URI uri = uriBuilder.path("/representative/buscar/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();
         return ResponseEntity.created(uri).body(representativeCadastrado);
     }
 }
