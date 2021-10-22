@@ -25,7 +25,7 @@ public class Section {
 
     }
 
-    public Section(String sectionId, Double totalCapacity, SectionType sectionType, Long representativeId, Warehouse warehouse) {
+    public Section(Long sectionId, Double totalCapacity, SectionType sectionType, Long representativeId, Warehouse warehouse) {
         this.sectionId = sectionId;
         this.totalCapacity = totalCapacity;
         this.sectionType = sectionType;
