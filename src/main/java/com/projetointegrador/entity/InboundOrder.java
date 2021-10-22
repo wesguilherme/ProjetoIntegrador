@@ -25,7 +25,7 @@ public class InboundOrder {
 
     }
 
-    public InboundOrder(Integer orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
+    public InboundOrder(Long orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
         this.orderNumberId = orderNumberId;
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;
