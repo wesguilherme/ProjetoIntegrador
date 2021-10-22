@@ -17,18 +17,18 @@ public class Representative{
     private String cpf;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Address> Addresses;
+    @Embedded
+    private Address address;
 
     public Representative() {
 
     }
 
-    public Representative(Long representativeId, String cpf, String name, List<Address> addresses) {
+    public Representative(Long representativeId, String cpf, String name, Address address) {
         this.representativeId = representativeId;
         this.cpf = cpf;
         this.name = name;
-        Addresses = addresses;
+        this.address = address;
     }
 
     public String validaCpf(String cpf) throws ParseException {
