@@ -10,7 +10,7 @@ public class ProductSeller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String productSellerId;
+    private Long productSellerId;
     private Double volume;
     private Double maximumTemperature;
     private Double minimumTemperature;
@@ -25,7 +25,7 @@ public class ProductSeller {
 
     }
 
-    public ProductSeller(String productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Seller seller, Product product) {
+    public ProductSeller(Long productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Seller seller, Product product) {
         this.productSellerId = productSellerId;
         this.volume = volume;
         this.maximumTemperature = maximumTemperature;
