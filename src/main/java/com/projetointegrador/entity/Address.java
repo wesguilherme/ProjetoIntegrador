@@ -2,19 +2,12 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
+@Embeddable
 @Data
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
     private String street;
     private String number;
     private String postalCode;
@@ -26,8 +19,7 @@ public class Address {
 
     }
 
-    public Address (Long addressID, String street, String number, String postalCode, String city, String state, String complement) {
-        this.addressId = addressID;
+    public Address (String street, String number, String postalCode, String city, String state, String complement) {
         this.street = street;
         this.number = number;
         this.postalCode = postalCode;
@@ -39,7 +31,6 @@ public class Address {
     @Override
     public String toString ( ) {
         return "Address{" +
-                "addressID=" + addressId +
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +
                 ", postalCode='" + postalCode + '\'' +
