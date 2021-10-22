@@ -13,7 +13,7 @@ public class BatchStock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String batchId;
+    private Long batchId;
     private LocalDate dueDate;
     private LocalDateTime manufacturingTime;
     private LocalDate manufacturingDate;
@@ -28,7 +28,7 @@ public class BatchStock {
     public BatchStock() {
     }
 
-    public BatchStock(String batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, List<Product> product) {
+    public BatchStock(Long batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, List<Product> product) {
         this.batchId = batchId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;

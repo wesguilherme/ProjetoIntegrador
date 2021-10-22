@@ -10,7 +10,7 @@ public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String sectionId;
+    private Long sectionId;
     private Double totalCapacity;
 
     @Enumerated(EnumType.STRING)
