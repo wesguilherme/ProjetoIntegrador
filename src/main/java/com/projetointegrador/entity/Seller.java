@@ -42,8 +42,8 @@ public class Seller{
         this.name = name;
     }
 
-    public void setAddresses(List<Address> addresses) {
-        Addresses = addresses;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String validaCpf(String cpf) throws ParseException {
