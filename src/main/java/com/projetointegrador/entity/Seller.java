@@ -10,7 +10,7 @@ public class Seller extends Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String sellerId;
+    private Long sellerId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Address> Addresses;
@@ -18,7 +18,7 @@ public class Seller extends Person{
     public Seller(){
     }
 
-    public Seller(String cpf, String name, String sellerId, List<Address> addresses) {
+    public Seller(String cpf, String name, Long sellerId, List<Address> addresses) {
         super(cpf, name);
         this.sellerId = sellerId;
         Addresses = addresses;

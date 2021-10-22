@@ -11,7 +11,7 @@ public class Representative extends Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String representativeId;
+    private Long representativeId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Address> Addresses;
@@ -20,7 +20,7 @@ public class Representative extends Person{
 
     }
 
-    public Representative(String cpf, String name, String representativeId, List<Address> addresses) {
+    public Representative(String cpf, String name, Long representativeId, List<Address> addresses) {
         super(cpf, name);
         this.representativeId = representativeId;
         Addresses = addresses;
