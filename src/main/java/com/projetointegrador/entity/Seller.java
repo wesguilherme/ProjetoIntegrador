@@ -16,18 +16,18 @@ public class Seller{
     private String cpf;
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Address> Addresses;
+    @Embedded
+    private Address address;
 
     public Seller(){
 
     }
 
-    public Seller(Long sellerId, String cpf, String name, List<Address> addresses) {
+    public Seller(Long sellerId, String cpf, String name, Address address) {
         this.sellerId = sellerId;
         this.cpf = cpf;
         this.name = name;
-        Addresses = addresses;
+        this.address = address;
     }
 
     public void setSellerId(Long sellerId) {
@@ -42,8 +42,8 @@ public class Seller{
         this.name = name;
     }
 
-    public void setAddresses(List<Address> addresses) {
-        Addresses = addresses;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String validaCpf(String cpf) throws ParseException {
