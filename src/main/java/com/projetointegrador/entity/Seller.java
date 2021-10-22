@@ -30,6 +30,22 @@ public class Seller{
         this.address = address;
     }
 
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        Addresses = addresses;
+    }
+
     public String validaCpf(String cpf) throws ParseException {
         MaskFormatter mf = new MaskFormatter("###.###.###-##");
         mf.setValueContainsLiteralCharacters(false);
