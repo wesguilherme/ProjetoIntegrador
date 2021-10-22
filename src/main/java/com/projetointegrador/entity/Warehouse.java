@@ -3,8 +3,6 @@ package com.projetointegrador.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -12,8 +10,6 @@ import javax.persistence.Id;
 public class Warehouse {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String warehouseId;
     private String warehouseCode;
     private String description;
 
@@ -21,8 +17,7 @@ public class Warehouse {
 
     }
 
-    public Warehouse(String warehouseId, String warehouseCode, String description) {
-        this.warehouseId = warehouseId;
+    public Warehouse(String warehouseCode, String description) {
         this.warehouseCode = warehouseCode;
         this.description = description;
     }
@@ -30,7 +25,6 @@ public class Warehouse {
     @Override
     public String toString() {
         return "{" +
-                " \"warehouseId\": \"" + warehouseId + "\"" +
                 ", \"warehouseCode\":\"" + warehouseCode + "\"" +
                 ", \"description\":\"" + description + "\"" +
                 "}";
