@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/api/v1/")
@@ -21,10 +22,10 @@ public class InboundOrderController {
     private InboundOrderService inboundOrderService;
 
     @PostMapping(value = "fresh-products/inboundorder/")
-    public ResponseEntity<BatchStockDto> insert(@RequestBody InboundOrder inboundOrder, UriComponentsBuilder uriBuilder) {
-        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrder);
+    public ResponseEntity<List<BatchStockDto>> cadastrar(@RequestBody InboundOrder inboundOrder, UriComponentsBuilder uriBuilder){
+        InboundOrder inboundOrderCadastrado = inboundOrderService.cadastrar(inboundOrder);
 
-        URI uri = uriBuilder.path("/inboundorder/search/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
+        URI uri = uriBuilder.path("/inboundorder/buscar/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
         return ResponseEntity.created(uri).body(BatchStockDto.converter(inboundOrderCadastrado.getBatchStock()));
     }
 }
