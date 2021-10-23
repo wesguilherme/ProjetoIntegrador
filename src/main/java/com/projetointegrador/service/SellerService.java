@@ -1,12 +1,9 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.repository.SellerPersistence;
 import com.projetointegrador.entity.Seller;
+import com.projetointegrador.repository.SellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class SellerService {
@@ -29,12 +26,12 @@ public class SellerService {
     private boolean codigoNaoUtilizado(String cpf) {
         Seller sellerExistente = sellerPersistence.findByCpf(cpf);
         if (sellerExistente == null) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public Seller cadastrar(Seller seller) throws IOException {
+    public Seller cadastrar(Seller seller) {
         if (codigoNaoUtilizado(seller.getCpf())) {
             return sellerPersistence.save(seller);
         } else {
