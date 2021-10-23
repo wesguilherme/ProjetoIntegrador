@@ -12,6 +12,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sectionId;
     private Double totalCapacity;
+    private Double usedSpace;
 
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
@@ -22,12 +23,12 @@ public class Section {
     private Warehouse warehouse;
 
     public Section() {
-
     }
 
-    public Section(Long sectionId, Double totalCapacity, SectionType sectionType, Long representativeId, Warehouse warehouse) {
+    public Section(Long sectionId, Double totalCapacity, Double usedSpace, SectionType sectionType, Long representativeId, Warehouse warehouse) {
         this.sectionId = sectionId;
         this.totalCapacity = totalCapacity;
+        this.usedSpace = usedSpace;
         this.sectionType = sectionType;
         this.representativeId = representativeId;
         this.warehouse = warehouse;
