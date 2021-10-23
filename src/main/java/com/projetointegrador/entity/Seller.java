@@ -1,13 +1,13 @@
 package com.projetointegrador.entity;
+
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.util.List;
 
-@Data
 @Entity
+@Data
 public class Seller{
 
     @Id
@@ -30,6 +30,12 @@ public class Seller{
         this.address = address;
     }
 
+    public String validaCpf(String cpf) throws ParseException {
+        MaskFormatter mf = new MaskFormatter("###.###.###-##");
+        mf.setValueContainsLiteralCharacters(false);
+        return mf.valueToString(cpf);
+    }
+
     public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
     }
@@ -46,19 +52,13 @@ public class Seller{
         this.address = address;
     }
 
-    public String validaCpf(String cpf) throws ParseException {
-        MaskFormatter mf = new MaskFormatter("###.###.###-##");
-        mf.setValueContainsLiteralCharacters(false);
-        return mf.valueToString(cpf);
+    @Override
+    public String toString() {
+        return "{" +
+                " \"name\":" + name + "\"" +
+                ", \"cpf\":\"" + cpf + "\"" +
+                ", \"sellerId\":" + sellerId +
+                ", \"address\":" + address +
+                '}';
     }
-
-    // @Override
-//    public String toString() {
-//        return "Seller{" +
-//                " \"name\":" + super.getName() + "\"" +
-//                ", \"cpf\":\"" + super.getCpf() + "\"" +
-//                ", \"sellerId\":" + sellerId +
-//                ", \"address\":" + address +
-//                '}';
-//    }
 }

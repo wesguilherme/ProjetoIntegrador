@@ -30,13 +30,13 @@ public class Address {
 
     @Override
     public String toString ( ) {
-        return "Address{" +
-                ", street='" + street + '\'' +
-                ", number='" + number + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", complement='" + complement + '\'' +
+        return "{" +
+                " street : '" + street + '\'' +
+                ", number:'" + number + '\'' +
+                ", postalCode:'" + postalCode + '\'' +
+                ", city:'" + city + '\'' +
+                ", state:'" + state + '\'' +
+                ", complement:'" + complement + '\'' +
                 '}';
     }
 
