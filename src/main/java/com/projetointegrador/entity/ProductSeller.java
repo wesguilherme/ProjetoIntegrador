@@ -15,10 +15,10 @@ public class ProductSeller {
     private Double maximumTemperature;
     private Double minimumTemperature;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private Seller seller;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private Product product;
 
     public ProductSeller() {
