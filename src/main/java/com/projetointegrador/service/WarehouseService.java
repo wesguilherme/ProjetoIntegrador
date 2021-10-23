@@ -1,11 +1,9 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.repository.WarehousePersistence;
 import com.projetointegrador.entity.Warehouse;
+import com.projetointegrador.repository.WarehousePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class WarehouseService {
@@ -34,5 +32,13 @@ public class WarehouseService {
         }else{
             throw new RuntimeException("Código já utilizado");
         }
+    }
+
+    public boolean warehouseValido(String codigo) {
+        Warehouse warehouseValido = warehousePersistence.findByWarehouseCode(codigo);
+        if(warehouseValido != null){
+            return true;
+        }
+        return false;
     }
 }
