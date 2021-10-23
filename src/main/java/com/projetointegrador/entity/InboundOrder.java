@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -11,22 +12,22 @@ public class InboundOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderNumberId;
+    private Long inboundOrderId;
     private Integer orderNumber;
     private LocalDate orderDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Section section;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private BatchStock batchStock;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BatchStock> batchStock;
 
     public InboundOrder() {
 
     }
 
-    public InboundOrder(Long orderNumberId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
-        this.orderNumberId = orderNumberId;
+    public InboundOrder(Long inboundOrderId, Integer orderNumber, LocalDate orderDate, Section section, List<BatchStock> batchStock) {
+        this.inboundOrderId = inboundOrderId;
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;
         this.section = section;
@@ -36,7 +37,7 @@ public class InboundOrder {
     @Override
     public String toString() {
         return "{" +
-                " \"orderNumberId\": " + orderNumberId +
+                " \"inboundOrderId\": " + inboundOrderId +
                 ", \"orderNumber\":" + orderNumber +
                 ", \"orderDate\":" + orderDate +
                 ", \"section\":" + section +
