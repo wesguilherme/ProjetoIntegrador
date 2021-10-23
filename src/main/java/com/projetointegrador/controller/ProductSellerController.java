@@ -1,6 +1,5 @@
 package com.projetointegrador.controller;
 
-import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.service.ProductSellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +13,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value="/productSeller")
 public class ProductSellerController {
 
     @Autowired
     private ProductSellerService productSellerService;
 
-    @PostMapping(value = "/productseller/insert")
-    public ResponseEntity<ProductSeller> insert(@RequestBody ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
-        ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto);
+    @PostMapping(value = "/cadastrar")
+    public ResponseEntity<ProductSeller> cadastrar(@RequestBody ProductSeller productSeller, UriComponentsBuilder uriBuilder){
+        ProductSeller productSellerCadastrado = productSellerService.cadastrar(productSeller);
 
-        URI uri = uriBuilder.path("/productSeller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
+        URI uri = uriBuilder.path("/productSeller/buscar/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
         return ResponseEntity.created(uri).body(productSellerCadastrado);
     }
 }
