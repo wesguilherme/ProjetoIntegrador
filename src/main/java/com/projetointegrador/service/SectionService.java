@@ -69,4 +69,12 @@ public class SectionService {
 //        Section section = buscaSetorPorId(sectionId);
 //        if (section.get)
 //    }
+
+    public boolean verificaSetorValido(Long sectionId) {
+        Optional<Section> verificaSetorValido = sectionPersistence.findById(sectionId);
+        if (verificaSetorValido != null) {
+            return true;
+        }
+        return false;
+    }
 }
