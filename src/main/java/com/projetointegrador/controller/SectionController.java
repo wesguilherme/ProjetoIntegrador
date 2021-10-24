@@ -36,4 +36,9 @@ public class SectionController {
     public boolean verifyValidSection(@PathVariable("code") String code) {
         return sectionService.verifyValidSection(code);
     }
+
+    @GetMapping("/verificar/{id}")
+    public boolean verificaSetorValido(@PathVariable("id") Long id) {
+        return sectionService.verificaSetorValido(id);
+    }
 }
