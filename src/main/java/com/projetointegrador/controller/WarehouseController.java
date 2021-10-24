@@ -4,10 +4,7 @@ import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -25,5 +22,10 @@ public class WarehouseController {
 
         URI uri = uriBuilder.path("/warehouse/buscar/{id}").buildAndExpand(warehouseCadastrado.getWarehouseCode()).toUri();
         return ResponseEntity.created(uri).body(warehouseCadastrado);
+    }
+
+    @GetMapping("/{code}")
+    public boolean getWarehouseById(@PathVariable("code") String code){
+        return warehouseService.warehouseValido(code);
     }
 }
