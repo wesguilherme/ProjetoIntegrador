@@ -30,4 +30,9 @@ public class SectionController {
     public Optional<Section> buscaSetorPorId(@PathVariable("id") Long id) {
         return sectionService.buscaSetorPorId(id);
     }
+
+    @GetMapping("/verificar/{id}")
+    public boolean verificaSetorValido(@PathVariable("id") Long id) {
+        return sectionService.verificaSetorValido(id);
+    }
 }
