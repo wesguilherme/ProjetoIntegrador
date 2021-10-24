@@ -17,20 +17,23 @@ public class Section {
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
-    private Long representativeId;
+    @ManyToOne
+    @JoinColumn(name = "representativeId")
+    private Representative representative;
 
     @ManyToOne
+    @JoinColumn(name = "warehouseCode")
     private Warehouse warehouse;
 
     public Section() {
     }
 
-    public Section(Long sectionId, Double totalCapacity, Double usedSpace, SectionType sectionType, Long representativeId, Warehouse warehouse) {
+    public Section(Long sectionId, Double totalCapacity, Double usedSpace, SectionType sectionType, Representative representative, Warehouse warehouse) {
         this.sectionId = sectionId;
         this.totalCapacity = totalCapacity;
         this.usedSpace = usedSpace;
         this.sectionType = sectionType;
-        this.representativeId = representativeId;
+        this.representative = representative;
         this.warehouse = warehouse;
     }
 
@@ -41,7 +44,7 @@ public class Section {
                 ", warehouse='" + warehouse + '\'' +
                 ", totalCapacity=" + totalCapacity +
                 ", sectionType=" + sectionType +
-                ", representativeId=" + representativeId +
+                ", representative=" + representative +
                 '}';
     }
 
