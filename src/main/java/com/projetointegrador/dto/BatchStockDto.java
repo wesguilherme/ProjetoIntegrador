@@ -5,8 +5,6 @@ import com.projetointegrador.entity.Product;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class BatchStockDto {
 
@@ -17,7 +15,7 @@ public class BatchStockDto {
     private Integer initialQuantity;
     private Float minimumTemperature;
     private String currentTemperature;
-    private List<Product> product;
+    private Product product;
 
     public BatchStockDto(BatchStock batchStock) {
         this.dueDate = batchStock.getDueDate();
@@ -27,10 +25,11 @@ public class BatchStockDto {
         this.initialQuantity = batchStock.getInitialQuantity();
         this.currentTemperature = batchStock.getCurrentTemperature();
         this.minimumTemperature = batchStock.getMinimumTemperature();
-        this.product = batchStock.getProduct();
+        this.product = product;
     }
 
-    public static List<BatchStockDto> converter(List<BatchStock> batchStock){
-        return batchStock.stream().map(BatchStockDto::new).collect(Collectors.toList());
+    public static BatchStockDto converter(BatchStock batchStock){
+        BatchStockDto batchStockDto = new BatchStockDto(batchStock);
+        return batchStockDto;
     }
 }
