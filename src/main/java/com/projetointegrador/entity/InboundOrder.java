@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
@@ -17,16 +16,18 @@ public class InboundOrder {
     private LocalDate orderDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sectionId")
     private Section section;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BatchStock> batchStock;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "batchId")
+    private BatchStock batchStock;
 
     public InboundOrder() {
 
     }
 
-    public InboundOrder(Long inboundOrderId, Integer orderNumber, LocalDate orderDate, Section section, List<BatchStock> batchStock) {
+    public InboundOrder(Long inboundOrderId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
         this.inboundOrderId = inboundOrderId;
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;

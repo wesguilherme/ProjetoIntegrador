@@ -13,7 +13,7 @@ public class BatchStock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long batchId;
+    private Long batchStockId;
     private LocalDate dueDate;
     private LocalDateTime manufacturingTime;
     private LocalDate manufacturingDate;
@@ -22,14 +22,16 @@ public class BatchStock {
     private Float minimumTemperature;
     private String currentTemperature;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> product;
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
     public BatchStock() {
+
     }
 
-    public BatchStock(Long batchId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, List<Product> product) {
-        this.batchId = batchId;
+    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, List<Product> products) {
+        this.batchStockId = batchStockId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
         this.manufacturingDate = manufacturingDate;
@@ -37,13 +39,12 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
-        this.product = product;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "\"batchid\":" + batchId +
+                "\"batchStockId\":" + batchStockId +
                 ", \"duedate\":\"" + dueDate + "\"" +
                 ", \"manufacturingtime\":\"" + manufacturingTime + "\"" +
                 ", \"manufacturingdate\":\"" + manufacturingDate + "\"" +
@@ -51,7 +52,6 @@ public class BatchStock {
                 ", \"initialquantity\":\"" + initialQuantity + "\"" +
                 ", \"minimumtemperature\":\"" + minimumTemperature + "\"" +
                 ", \"currenttemperature\":\"" + currentTemperature + "\"" +
-                ", \"product\":" + product +
                 '}';
     }
 }
