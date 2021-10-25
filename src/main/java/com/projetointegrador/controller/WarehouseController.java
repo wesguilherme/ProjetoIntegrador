@@ -17,8 +17,8 @@ public class WarehouseController {
     private WarehouseService warehouseService;
 
     @PostMapping(value = "/cadastrar")
-    public ResponseEntity<Warehouse> cadastrar(@RequestBody Warehouse warehouse, UriComponentsBuilder uriBuilder){
-        Warehouse warehouseCadastrado = warehouseService.cadastrar(warehouse);
+    public ResponseEntity<Warehouse> insert(@RequestBody Warehouse warehouse, UriComponentsBuilder uriBuilder){
+        Warehouse warehouseCadastrado = warehouseService.insert(warehouse);
 
         URI uri = uriBuilder.path("/warehouse/buscar/{id}").buildAndExpand(warehouseCadastrado.getWarehouseCode()).toUri();
         return ResponseEntity.created(uri).body(warehouseCadastrado);
@@ -26,6 +26,6 @@ public class WarehouseController {
 
     @GetMapping("/{code}")
     public boolean getWarehouseById(@PathVariable("code") String code){
-        return warehouseService.warehouseValido(code);
+        return warehouseService.validWarehouse(code);
     }
 }
