@@ -29,7 +29,7 @@ public class SectionService {
      */
     private boolean codigoNaoUtilizado(Long sectionId) {
         Optional<Section> sectionExistente = sectionPersistence.findById(sectionId);
-        if (sectionExistente == null) {
+        if (sectionExistente != null) {
             return true;
         }
         return false;
@@ -72,9 +72,9 @@ public class SectionService {
 
     public boolean verificaSetorValido(Long sectionId) {
         Optional<Section> verificaSetorValido = sectionPersistence.findById(sectionId);
-        if (verificaSetorValido != null) {
-            return true;
+        if (verificaSetorValido.isEmpty()) {
+            return false;
         }
-        return false;
+        return true;
     }
 }
