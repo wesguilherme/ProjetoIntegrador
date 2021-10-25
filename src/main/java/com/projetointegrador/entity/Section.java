@@ -9,8 +9,7 @@ import javax.persistence.*;
 public class Section {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sectionId;
+    private String sectionCode;
     private Double totalCapacity;
     private Double usedSpace;
 
@@ -26,26 +25,15 @@ public class Section {
     private Warehouse warehouse;
 
     public Section() {
+
     }
 
-    public Section(Long sectionId, Double totalCapacity, Double usedSpace, SectionType sectionType, Representative representative, Warehouse warehouse) {
-        this.sectionId = sectionId;
+    public Section(String sectionCode, Double totalCapacity, Double usedSpace, SectionType sectionType, Representative representative, Warehouse warehouse) {
+        this.sectionCode = sectionCode;
         this.totalCapacity = totalCapacity;
         this.usedSpace = usedSpace;
         this.sectionType = sectionType;
         this.representative = representative;
         this.warehouse = warehouse;
     }
-
-    @Override
-    public String toString ( ) {
-        return "Section{" +
-                "sectionId='" + sectionId + '\'' +
-                ", warehouse='" + warehouse + '\'' +
-                ", totalCapacity=" + totalCapacity +
-                ", sectionType=" + sectionType +
-                ", representative=" + representative +
-                '}';
-    }
-
 }

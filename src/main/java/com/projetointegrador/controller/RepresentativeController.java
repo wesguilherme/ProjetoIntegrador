@@ -22,7 +22,7 @@ public class RepresentativeController {
 
     @PostMapping(value = "/cadastrar")
     public ResponseEntity<Representative> cadastrar(@RequestBody Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
-        Representative representativeCadastrado = representativeService.cadastrar(representative);
+        Representative representativeCadastrado = representativeService.insert(representative);
 
         URI uri = uriBuilder.path("/representative/buscar/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();
         return ResponseEntity.created(uri).body(representativeCadastrado);

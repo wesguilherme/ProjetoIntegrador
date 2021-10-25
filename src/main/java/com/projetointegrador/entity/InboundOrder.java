@@ -16,7 +16,7 @@ public class InboundOrder {
     private LocalDate orderDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sectionId")
+    @JoinColumn(name = "sectionCode")
     private Section section;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
