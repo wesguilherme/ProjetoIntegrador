@@ -4,8 +4,10 @@ import com.projetointegrador.entity.Representative;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface RepresentativePersistence extends JpaRepository<Representative, Long> {
 
-    Representative findByCpf(String cpf);
+    Optional<Representative> findByCpf(String cpf);
 }
