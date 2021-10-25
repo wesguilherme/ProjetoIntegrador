@@ -1,5 +1,6 @@
 package com.projetointegrador.repository;
 
+import com.projetointegrador.entity.Section;
 import com.projetointegrador.entity.Warehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WarehousePersistence extends JpaRepository<Warehouse, String> {
+public interface SectionPersistence extends JpaRepository<Section, String> {
 
-    Optional<Warehouse> findByWarehouseCode(String code);
+    Optional<Section> findBySectionCode(String code);
 
 }
