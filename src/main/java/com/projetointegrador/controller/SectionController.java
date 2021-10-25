@@ -1,5 +1,6 @@
 package com.projetointegrador.controller;
 
+import com.projetointegrador.dto.SectionDto;
 import com.projetointegrador.entity.Section;
 import com.projetointegrador.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,20 @@ public class SectionController {
     private SectionService sectionService;
 
     @PostMapping(value = "/cadastrar")
-    public ResponseEntity<Section> cadastrar(@RequestBody Section section, UriComponentsBuilder uriBuilder) throws IOException {
-        Section sectionCadastrado = sectionService.cadastrar(section);
+    public ResponseEntity<Section> cadastrar(@RequestBody SectionDto sectionDto, UriComponentsBuilder uriBuilder) throws IOException {
+        Section sectionCadastrado = sectionService.insert(sectionDto);
 
-        URI uri = uriBuilder.path("/section/buscar/{id}").buildAndExpand(sectionCadastrado.getSectionId()).toUri();
+        URI uri = uriBuilder.path("/section/buscar/{id}").buildAndExpand(sectionCadastrado.getSectionCode()).toUri();
         return ResponseEntity.created(uri).body(sectionCadastrado);
     }
 
-    @GetMapping("/buscar/{id}")
-    public Optional<Section> buscaSetorPorId(@PathVariable("id") Long id) {
-        return sectionService.buscaSetorPorId(id);
+    @GetMapping("/buscar/{code}")
+    public Optional<Section> buscaSetorPorId(@PathVariable("id") String code) {
+        return sectionService.buscaSetorPorId(code);
     }
 
-    @GetMapping("/verificar/{id}")
-    public boolean verificaSetorValido(@PathVariable("id") Long id) {
-        return sectionService.verificaSetorValido(id);
+    @GetMapping("/verificar/{code}")
+    public boolean verificaSetorValido(@PathVariable("code") String code) {
+        return sectionService.verificaSetorValido(code);
     }
 }
