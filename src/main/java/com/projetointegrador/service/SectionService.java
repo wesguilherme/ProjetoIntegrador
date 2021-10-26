@@ -1,10 +1,7 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.dto.SectionDto;
-import com.projetointegrador.entity.ProductSeller;
-import com.projetointegrador.entity.Representative;
-import com.projetointegrador.entity.Section;
-import com.projetointegrador.entity.Warehouse;
+import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.SectionPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,13 +53,21 @@ public class SectionService {
      * @return - retorna a section através do Id
      * @author - Grupo 5 - Tester Wesley
      */
-    public Optional<Section> getSectionById(String code) {
-        return sectionPersistence.findBySectionCode(code);
+    public Section getSectionByCode(String code) {
+        Optional<Section> val;
+
+        val = sectionPersistence.findBySectionCode(code);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe resultado para essa busca!");
+        }
     }
 
     /**
      * @param code - é esperado o parametro code da section
-     * @return - retorna a verificação tru ou false sobre a validade da section
+     * @return - retorna a verificação true ou false sobre a validade da section
      * @author - Grupo 5 - Tester Wesley
      */
     public boolean verifyValidSection(String code) {
@@ -107,7 +112,11 @@ public class SectionService {
         }
     }
 
-//    public
-
-    // falta fazer
+    public boolean verifyEqualType(Section section, Product product) {
+        if (section.getSectionType().equals(product.getProductType())) {
+            return true;
+        } else {
+            throw new RuntimeException("O produto não corresponde a esse setor");
+        }
+    }
 }
