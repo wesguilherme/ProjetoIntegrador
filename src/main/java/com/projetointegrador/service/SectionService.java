@@ -1,6 +1,7 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.dto.SectionDto;
+import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.entity.Representative;
 import com.projetointegrador.entity.Section;
 import com.projetointegrador.entity.Warehouse;
@@ -93,5 +94,20 @@ public class SectionService {
         return section;
     }
 
-    // falta fazer o verificaEspacoDisponivel
+    public Section verifyAvailableSpace(Section section, ProductSeller productSeller) {
+        if (section.getUsedSpace() < section.getTotalCapacity()) {
+            Double availableSpace = section.getTotalCapacity() - section.getUsedSpace();
+            if (availableSpace >= productSeller.getVolume()) {
+                return sectionPersistence.save(section);
+            } else {
+                throw new RuntimeException("O volume não cabe nesse setor");
+            }
+        } else {
+            throw new RuntimeException("Setor sem espaço disponível");
+        }
+    }
+
+//    public
+
+    // falta fazer
 }
