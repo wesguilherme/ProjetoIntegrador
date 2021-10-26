@@ -9,21 +9,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/seller")
+@RequestMapping(value = "/api/v1/")
 public class SellerController {
 
     @Autowired
     private SellerService sellerService;
 
-    @PostMapping(value = "/cadastrar")
-    public ResponseEntity<Seller> cadastrar(@RequestBody Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
-        Seller sellerCadastrado = sellerService.cadastrar(seller);
+    @PostMapping(value = "/seller/insert")
+    public ResponseEntity<Seller> insert(@RequestBody Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
+        Seller sellerCadastrado = sellerService.insert(seller);
 
-        URI uri = uriBuilder.path("/seller/buscar/{id}").buildAndExpand(sellerCadastrado.getCpf()).toUri();
+        URI uri = uriBuilder.path("/seller/search/{id}").buildAndExpand(sellerCadastrado.getCpf()).toUri();
         return ResponseEntity.created(uri).body(sellerCadastrado);
     }
 }
