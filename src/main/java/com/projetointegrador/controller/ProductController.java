@@ -13,18 +13,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/product")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @PostMapping(value = "/product/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<Product> insert(@RequestBody Product product, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(product);
 
-        //ta certo warehouse?
-        URI uri = uriBuilder.path("/warehouse/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();
+        URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();
         return ResponseEntity.created(uri).body(productCadastrado);
     }
 }

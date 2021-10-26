@@ -28,8 +28,8 @@ public class SectionController {
     }
 
     @GetMapping("/buscar/{code}")
-    public Optional<Section> getSectionById(@PathVariable("id") String code) {
-        return sectionService.getSectionById(code);
+    public Section getSectionByCode(@PathVariable("id") String code) {
+        return sectionService.getSectionByCode(code);
     }
 
     @GetMapping("/verificar/{code}")

@@ -14,17 +14,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/product-seller")
 public class ProductSellerController {
 
     @Autowired
     private ProductSellerService productSellerService;
 
-    @PostMapping(value = "/productseller/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<ProductSeller> insert(@RequestBody ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
         ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto);
 
-        URI uri = uriBuilder.path("/productSeller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
+        URI uri = uriBuilder.path("/product-seller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
         return ResponseEntity.created(uri).body(productSellerCadastrado);
     }
 }

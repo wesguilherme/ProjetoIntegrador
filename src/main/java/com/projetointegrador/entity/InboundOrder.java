@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,9 +20,9 @@ public class InboundOrder {
     @JoinColumn(name = "sectionCode")
     private Section section;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "batchId")
-    private BatchStock batchStock;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "batchStockId")
+    private List<BatchStock> batchStock;
 
     public InboundOrder() {
 
@@ -32,7 +33,6 @@ public class InboundOrder {
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;
         this.section = section;
-        this.batchStock = batchStock;
     }
 
     @Override
@@ -42,7 +42,6 @@ public class InboundOrder {
                 ", \"orderNumber\":" + orderNumber +
                 ", \"orderDate\":" + orderDate +
                 ", \"section\":" + section +
-                ", \"batchStock\":" + batchStock +
                 "}";
     }
 }

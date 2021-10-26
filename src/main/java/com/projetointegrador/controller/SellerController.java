@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/seller")
 public class SellerController {
 
     @Autowired
     private SellerService sellerService;
 
-    @PostMapping(value = "/seller/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<Seller> insert(@RequestBody Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
         Seller sellerCadastrado = sellerService.insert(seller);
 

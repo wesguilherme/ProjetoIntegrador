@@ -1,6 +1,6 @@
 package com.projetointegrador.controller;
 
-import com.projetointegrador.dto.BatchStockDto;
+import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.service.InboundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ public class InboundOrderController {
     private InboundOrderService inboundOrderService;
 
     @PostMapping(value = "fresh-products/inboundorder/")
-    public ResponseEntity<BatchStockDto> insert(@RequestBody InboundOrder inboundOrder, UriComponentsBuilder uriBuilder) {
-        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrder);
+    public ResponseEntity<InboundOrder> insert(@RequestBody InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
+        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrderDto);
 
         URI uri = uriBuilder.path("/inboundorder/search/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
-        return ResponseEntity.created(uri).body(BatchStockDto.converter(inboundOrderCadastrado.getBatchStock()));
+        return ResponseEntity.created(uri).body(inboundOrderCadastrado);
     }
 }

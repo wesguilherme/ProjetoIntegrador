@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -23,14 +22,14 @@ public class BatchStock {
     private String currentTemperature;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
+    @JoinColumn(name = "productSellerId")
+    private ProductSeller productSeller;
 
     public BatchStock() {
 
     }
 
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, List<Product> products) {
+    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, ProductSeller productSeller) {
         this.batchStockId = batchStockId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -39,6 +38,7 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
+        this.productSeller = productSeller;
     }
 
     @Override

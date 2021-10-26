@@ -13,12 +13,6 @@ public class ProductService {
     @Autowired
     private ProductPersistence productPersistence;
 
-    @Autowired
-    private SellerService sellerService;
-
-    @Autowired
-    private ProductService productService;
-
     public ProductService() {
     }
 
@@ -29,14 +23,6 @@ public class ProductService {
     public ProductService(ProductPersistence productPersistence) {
         this.productPersistence = productPersistence;
     }
-//    private boolean codigoNaoUtilizado(String id) {
-//        Product productExistente = productPersistence.findByProductId(id);
-//        if(productExistente == null){
-//            return true;
-//        }
-//        return false;
-//    }
-//    alterei aqui
 
     /**
      * @param id - é esperado o parametro id do product

@@ -1,11 +1,16 @@
 package com.projetointegrador.dto;
 
 import com.projetointegrador.entity.BatchStock;
-import com.projetointegrador.entity.Product;
+import com.projetointegrador.entity.ProductSeller;
+import com.projetointegrador.service.ProductSellerService;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
 public class BatchStockDto {
 
     private LocalDate dueDate;
@@ -15,21 +20,19 @@ public class BatchStockDto {
     private Integer initialQuantity;
     private Float minimumTemperature;
     private String currentTemperature;
-    private Product product;
+    private Long productSellerId;
 
-    public BatchStockDto(BatchStock batchStock) {
-        this.dueDate = batchStock.getDueDate();
-        this.manufacturingTime = batchStock.getManufacturingTime();
-        this.manufacturingDate = batchStock.getManufacturingDate();
-        this.currentQuantity = batchStock.getCurrentQuantity();
-        this.initialQuantity = batchStock.getInitialQuantity();
-        this.currentTemperature = batchStock.getCurrentTemperature();
-        this.minimumTemperature = batchStock.getMinimumTemperature();
-        this.product = product;
+    public BatchStockDto() {
     }
 
-    public static BatchStockDto converter(BatchStock batchStock){
-        BatchStockDto batchStockDto = new BatchStockDto(batchStock);
-        return batchStockDto;
+    public BatchStockDto(LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long productSellerId) {
+        this.dueDate = dueDate;
+        this.manufacturingTime = manufacturingTime;
+        this.manufacturingDate = manufacturingDate;
+        this.currentQuantity = currentQuantity;
+        this.initialQuantity = initialQuantity;
+        this.minimumTemperature = minimumTemperature;
+        this.currentTemperature = currentTemperature;
+        this.productSellerId = productSellerId;
     }
 }

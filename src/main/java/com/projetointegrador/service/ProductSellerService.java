@@ -8,6 +8,8 @@ import com.projetointegrador.repository.ProductSellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductSellerService {
 
@@ -65,6 +67,18 @@ public class ProductSellerService {
         productSeller.setSeller(s);
 
         return productSeller;
+    }
+
+    public ProductSeller getProductSeller(Long id) {
+        Optional<ProductSeller> val;
+
+        val = productSellerPersistence.findById(id);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe resultado para essa busca!");
+        }
     }
 }
 

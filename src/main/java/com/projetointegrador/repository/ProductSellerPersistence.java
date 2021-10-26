@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductSellerPersistence extends JpaRepository<ProductSeller, Long> {
+
 }

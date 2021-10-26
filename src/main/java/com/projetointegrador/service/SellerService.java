@@ -24,15 +24,6 @@ public class SellerService {
         this.sellerPersistence = sellerPersistence;
     }
 
-//    private boolean nonUtilizedCode(String cpf) {
-//        Seller sellerExistente = sellerPersistence.findByCpf(cpf);
-//        if (sellerExistente == null) {
-//            return true;
-//        }
-//        return false;
-//    }
-//    alterei aqui
-
     /**
      * @param cpf - é esperado o parametro cpf do seller
      * @return - retorna a verificaçao de duplicidade do código
