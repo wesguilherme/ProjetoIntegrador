@@ -14,11 +14,20 @@ public class InboundOrderService {
     public InboundOrderService() {
     }
 
+    /**
+     * @param inboudOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
+     * @author - Grupo 5 - Tester Ana
+     */
     public InboundOrderService(InboudOrderPersistence inboudOrderPersistence) {
         this.inboudOrderPersistence = inboudOrderPersistence;
     }
 
-    public InboundOrder cadastrar(InboundOrder inboundOrder){
+    /**
+     * @param inboundOrder - é esperado um objeto do tipo inboundOrder
+     * @return - retorna inboundOrder cadastrado na lista
+     * @author - Grupo 5 - Tester Ana
+     */
+    public InboundOrder insert(InboundOrder inboundOrder) {
         return inboudOrderPersistence.save(inboundOrder);
     }
 

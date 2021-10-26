@@ -21,10 +21,10 @@ public class InboundOrderController {
     private InboundOrderService inboundOrderService;
 
     @PostMapping(value = "fresh-products/inboundorder/")
-    public ResponseEntity<BatchStockDto> cadastrar(@RequestBody InboundOrder inboundOrder, UriComponentsBuilder uriBuilder){
-        InboundOrder inboundOrderCadastrado = inboundOrderService.cadastrar(inboundOrder);
+    public ResponseEntity<BatchStockDto> insert(@RequestBody InboundOrder inboundOrder, UriComponentsBuilder uriBuilder) {
+        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrder);
 
-        URI uri = uriBuilder.path("/inboundorder/buscar/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
+        URI uri = uriBuilder.path("/inboundorder/search/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
         return ResponseEntity.created(uri).body(BatchStockDto.converter(inboundOrderCadastrado.getBatchStock()));
     }
 }
