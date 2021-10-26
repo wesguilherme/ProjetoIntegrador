@@ -65,6 +65,18 @@ public class SectionService {
         }
     }
 
+    public Section getRepresentative(Long id) {
+        Optional<Section> val;
+
+        val = sectionPersistence.findByRepresentativeRepresentativeId(id);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe resultado para essa busca!");
+        }
+    }
+
     /**
      * @param code - é esperado o parametro code da section
      * @return - retorna a verificação true ou false sobre a validade da section

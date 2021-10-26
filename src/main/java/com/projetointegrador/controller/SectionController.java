@@ -10,7 +10,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
@@ -28,8 +27,8 @@ public class SectionController {
     }
 
     @GetMapping("/buscar/{code}")
-    public Optional<Section> getSectionById(@PathVariable("id") String code) {
-        return sectionService.getSectionById(code);
+    public Section getSectionById(@PathVariable("id") String code) {
+        return sectionService.getSectionByCode(code);
     }
 
     @GetMapping("/verificar/{code}")
