@@ -1,11 +1,11 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.entity.Product;
+import com.projetointegrador.repository.ProductPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -13,22 +13,71 @@ public class ProductService {
     @Autowired
     private ProductPersistence productPersistence;
 
+    @Autowired
+    private SellerService sellerService;
+
+    @Autowired
+    private ProductService productService;
+
     public ProductService() {
     }
 
-    private boolean codigoNaoUtilizado(String id) {
+    /**
+     * @param productPersistence - é esperado um parâmetro do tipo productPersistence para injeção de dependência
+     * @author - Grupo 5 - Tester Ana
+     */
+    public ProductService(ProductPersistence productPersistence) {
+        this.productPersistence = productPersistence;
+    }
+//    private boolean codigoNaoUtilizado(String id) {
+//        Product productExistente = productPersistence.findByProductId(id);
+//        if(productExistente == null){
+//            return true;
+//        }
+//        return false;
+//    }
+//    alterei aqui
+
+    /**
+     * @param id - é esperado o parametro id do product
+     * @return - retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5 - Tester Ana
+     */
+    private boolean UtilizedCode(String id) {
         Product productExistente = productPersistence.findByProductId(id);
-        if(productExistente == null){
+        if (productExistente != null) {
             return true;
         }
         return false;
     }
 
-    public Product cadastrar(Product product) {
-        if(codigoNaoUtilizado(product.getProductId())) {
+    /**
+     * @param product - é esperado um objeto do tipo product
+     * @return - retorna product cadastrado na lista
+     * @author - Grupo 5 - Tester Ana
+     */
+    public Product insert(Product product) {
+        if (!UtilizedCode(product.getProductId())) {
             return productPersistence.save(product);
-        }else{
+        } else {
             throw new RuntimeException("Código já utilizado");
+        }
+    }
+
+    /**
+     * @param id - é esperado o parametro id do product
+     * @return - retorna se o product existe ou não através do id
+     * @author - Grupo 5 - Tester Ana
+     */
+    public Product getByIdProduct(String id) {
+        Optional<Product> val;
+
+        val = productPersistence.findById(id);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe resultado para essa busca!");
         }
     }
 }

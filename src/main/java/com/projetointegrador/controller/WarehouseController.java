@@ -10,17 +10,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value="/warehouse")
+@RequestMapping(value = "/api/v1/")
 public class WarehouseController {
 
     @Autowired
     private WarehouseService warehouseService;
 
-    @PostMapping(value = "/cadastrar")
+    @PostMapping(value = "/warehouse/insert")
     public ResponseEntity<Warehouse> insert(@RequestBody Warehouse warehouse, UriComponentsBuilder uriBuilder){
         Warehouse warehouseCadastrado = warehouseService.insert(warehouse);
 
-        URI uri = uriBuilder.path("/warehouse/buscar/{id}").buildAndExpand(warehouseCadastrado.getWarehouseCode()).toUri();
+        URI uri = uriBuilder.path("/warehouse/search/{id}").buildAndExpand(warehouseCadastrado.getWarehouseCode()).toUri();
         return ResponseEntity.created(uri).body(warehouseCadastrado);
     }
 

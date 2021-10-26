@@ -26,14 +26,23 @@ public class SectionService {
 
     }
 
+    /**
+     * @param sectionPersistence - é esperado um parâmetro do tipo sectionPersistence para injeção de dependência
+     * @author - Grupo 5 - Tester Wesley
+     */
     public SectionService(SectionPersistence sectionPersistence) {
         this.sectionPersistence = sectionPersistence;
     }
 
+    /**
+     * @param sectionDto - é esperado um objeto do tipo sectionDto
+     * @return - retorna section cadastrado na lista
+     * @author - Grupo 5 - Tester Wesley
+     */
     public Section insert(SectionDto sectionDto) {
-        Section section = converte(sectionDto);
+        Section section = convert(sectionDto);
 
-        if(section.getRepresentative() != null && section.getWarehouse() != null){
+        if (section.getRepresentative() != null && section.getWarehouse() != null) {
             return sectionPersistence.save(section);
         }
 
@@ -41,19 +50,34 @@ public class SectionService {
 
     }
 
-    public Optional<Section> buscaSetorPorId(String code) {
+    /**
+     * @param code - é esperado o parametro code da section
+     * @return - retorna a section através do Id
+     * @author - Grupo 5 - Tester Wesley
+     */
+    public Optional<Section> getSectionById(String code) {
         return sectionPersistence.findBySectionCode(code);
     }
 
-    public boolean verificaSetorValido(String code) {
-        Optional<Section> verificaSetorValido = sectionPersistence.findBySectionCode(code);
-        if (verificaSetorValido.isEmpty()) {
+    /**
+     * @param code - é esperado o parametro code da section
+     * @return - retorna a verificação tru ou false sobre a validade da section
+     * @author - Grupo 5 - Tester Wesley
+     */
+    public boolean verifyValidSection(String code) {
+        Optional<Section> verifyValidSection = sectionPersistence.findBySectionCode(code);
+        if (verifyValidSection.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    public Section converte(SectionDto sectionDto){
+    /**
+     * @param sectionDto - é esperado um objeto do tipo sectionDto
+     * @return - retorna a section com os dados de representative e warehouse
+     * @author - Grupo 5 - Tester Wesley
+     */
+    public Section convert(SectionDto sectionDto) {
         Section section = new Section();
         section.setSectionCode(sectionDto.getSectionCode());
         section.setSectionType(sectionDto.getSectionType());
@@ -68,4 +92,6 @@ public class SectionService {
 
         return section;
     }
+
+    // falta fazer o verificaEspacoDisponivel
 }

@@ -13,27 +13,27 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/section")
+@RequestMapping(value = "/api/v1/")
 public class SectionController {
 
     @Autowired
     private SectionService sectionService;
 
-    @PostMapping(value = "/cadastrar")
-    public ResponseEntity<Section> cadastrar(@RequestBody SectionDto sectionDto, UriComponentsBuilder uriBuilder) throws IOException {
+    @PostMapping(value = "/section/insert")
+    public ResponseEntity<Section> insert(@RequestBody SectionDto sectionDto, UriComponentsBuilder uriBuilder) throws IOException {
         Section sectionCadastrado = sectionService.insert(sectionDto);
 
-        URI uri = uriBuilder.path("/section/buscar/{id}").buildAndExpand(sectionCadastrado.getSectionCode()).toUri();
+        URI uri = uriBuilder.path("/section/search/{id}").buildAndExpand(sectionCadastrado.getSectionCode()).toUri();
         return ResponseEntity.created(uri).body(sectionCadastrado);
     }
 
     @GetMapping("/buscar/{code}")
-    public Optional<Section> buscaSetorPorId(@PathVariable("id") String code) {
-        return sectionService.buscaSetorPorId(code);
+    public Optional<Section> getSectionById(@PathVariable("id") String code) {
+        return sectionService.getSectionById(code);
     }
 
     @GetMapping("/verificar/{code}")
-    public boolean verificaSetorValido(@PathVariable("code") String code) {
-        return sectionService.verificaSetorValido(code);
+    public boolean verifyValidSection(@PathVariable("code") String code) {
+        return sectionService.verifyValidSection(code);
     }
 }
