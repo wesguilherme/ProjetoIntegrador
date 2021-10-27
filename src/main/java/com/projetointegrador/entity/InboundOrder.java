@@ -1,5 +1,6 @@
 package com.projetointegrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,8 +21,8 @@ public class InboundOrder {
     @JoinColumn(name = "sectionCode")
     private Section section;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "batchStockId")
     private List<BatchStock> batchStock;
 
     public InboundOrder() {

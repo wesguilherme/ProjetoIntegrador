@@ -1,5 +1,6 @@
 package com.projetointegrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +21,11 @@ public class BatchStock {
     private Integer initialQuantity;
     private Float minimumTemperature;
     private String currentTemperature;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "inbound_order_inbound_order_id")
+    private InboundOrder inboundOrder;
 
     @ManyToOne
     @JoinColumn(name = "productSellerId")

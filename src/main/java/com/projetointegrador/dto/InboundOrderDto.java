@@ -13,4 +13,5 @@ public class InboundOrderDto {
     private LocalDate orderDate;
     private String sectionCode;
     private List<BatchStockDto> batchStockDto;
+
 }

@@ -44,8 +44,7 @@ public class InboundOrderService {
         in.setOrderDate(inboundOrderDto.getOrderDate());
         in.setOrderNumber(inboundOrderDto.getOrderNumber());
 
-
-        in.setBatchStock(convertBatchStock(inboundOrderDto.getBatchStockDto()));
+        in.setBatchStock(convertBatchStock(inboundOrderDto.getBatchStockDto(), in));
 
         Section sectionByCode = sectionService.getSectionByCode(inboundOrderDto.getSectionCode());
         if (sectionByCode != null) {
@@ -55,7 +54,7 @@ public class InboundOrderService {
         return in;
     }
 
-    public List<BatchStock> convertBatchStock(List<BatchStockDto> batchStockDto){
+    public List<BatchStock> convertBatchStock(List<BatchStockDto> batchStockDto, InboundOrder inboundOrder){
         List<BatchStock> batchStock = new ArrayList<>();
 
         for (BatchStockDto item : batchStockDto) {
@@ -71,7 +70,7 @@ public class InboundOrderService {
             ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
 
             bat.setProductSeller(productSeller);
-
+            bat.setInboundOrder(inboundOrder);
             batchStock.add(bat);
         }
 
