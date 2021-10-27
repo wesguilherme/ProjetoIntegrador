@@ -3,7 +3,7 @@ package com.projetointegrador.service;
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.*;
-import com.projetointegrador.repository.InboudOrderPersistence;
+import com.projetointegrador.repository.InboundOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class InboundOrderService {
 
     @Autowired
-    private InboudOrderPersistence inboudOrderPersistence;
+    private InboundOrderPersistence inboundOrderPersistence;
 
     @Autowired
     private SectionService sectionService;
@@ -26,19 +26,19 @@ public class InboundOrderService {
     }
 
     /**
-     * @param inboudOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
+     * @param inboundOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
-    public InboundOrderService(InboudOrderPersistence inboudOrderPersistence) {
-        this.inboudOrderPersistence = inboudOrderPersistence;
+    public InboundOrderService(InboundOrderPersistence inboundOrderPersistence) {
+        this.inboundOrderPersistence = inboundOrderPersistence;
     }
 
     public InboundOrder insert(InboundOrderDto inboundOrderDto) {
         InboundOrder inboundOrder = convert(inboundOrderDto);
-        return inboudOrderPersistence.save(inboundOrder);
+        return inboundOrderPersistence.save(inboundOrder);
     }
 
-    public InboundOrder convert(InboundOrderDto inboundOrderDto) {
+    private InboundOrder convert(InboundOrderDto inboundOrderDto) {
 
         InboundOrder in = new InboundOrder();
         in.setOrderDate(inboundOrderDto.getOrderDate());
@@ -54,7 +54,7 @@ public class InboundOrderService {
         return in;
     }
 
-    public List<BatchStock> convertBatchStock(List<BatchStockDto> batchStockDto, InboundOrder inboundOrder){
+    private List<BatchStock> convertBatchStock(List<BatchStockDto> batchStockDto, InboundOrder inboundOrder){
         List<BatchStock> batchStock = new ArrayList<>();
 
         for (BatchStockDto item : batchStockDto) {

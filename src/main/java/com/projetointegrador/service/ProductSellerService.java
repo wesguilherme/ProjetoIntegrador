@@ -77,7 +77,7 @@ public class ProductSellerService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe resultado para essa busca!");
+            throw new RuntimeException("Não existe Seller para essa busca!");
         }
     }
 }

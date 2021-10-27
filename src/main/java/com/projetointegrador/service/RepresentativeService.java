@@ -72,7 +72,7 @@ public class RepresentativeService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe resultado para essa busca!");
+            throw new RuntimeException("Não existe Representative para essa busca!");
         }
     }
 
