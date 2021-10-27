@@ -61,13 +61,25 @@ public class SectionService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe um setor com esse código!");
+            throw new RuntimeException("Não existe resultado para essa busca!");
+        }
+    }
+
+    public Section getRepresentative(Long id) {
+        Optional<Section> val;
+
+        val = sectionPersistence.findByRepresentativeRepresentativeId(id);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe resultado para essa busca!");
         }
     }
 
     /**
      * @param code - é esperado o parametro code da section
-     * @return - retorna a verificação tru ou false sobre a validade da section
+     * @return - retorna a verificação true ou false sobre a validade da section
      * @author - Grupo 5 - Tester Wesley
      */
     public boolean verifyValidSection(String code) {
@@ -112,7 +124,11 @@ public class SectionService {
         }
     }
 
-//    public
-
-    // falta fazer
+    public boolean verifyEqualType(Section section, Product product) {
+        if (section.getSectionType().equals(product.getProductType())) {
+            return true;
+        } else {
+            throw new RuntimeException("O produto não corresponde a esse setor");
+        }
+    }
 }
