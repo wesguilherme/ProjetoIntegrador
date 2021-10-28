@@ -13,8 +13,9 @@ public class Section {
     private Double totalCapacity;
     private Double usedSpace;
 
-    @Enumerated(EnumType.STRING)
-    private SectionType sectionType;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "typeId")
+    private Type type;
 
     @ManyToOne
     @JoinColumn(name = "representativeId")
@@ -28,11 +29,10 @@ public class Section {
 
     }
 
-    public Section(String sectionCode, Double totalCapacity, Double usedSpace, SectionType sectionType, Representative representative, Warehouse warehouse) {
+    public Section(String sectionCode, Double totalCapacity, Double usedSpace, Representative representative, Warehouse warehouse) {
         this.sectionCode = sectionCode;
         this.totalCapacity = totalCapacity;
         this.usedSpace = usedSpace;
-        this.sectionType = sectionType;
         this.representative = representative;
         this.warehouse = warehouse;
     }

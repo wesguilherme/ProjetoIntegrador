@@ -1,6 +1,8 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.ProductDto;
 import com.projetointegrador.entity.Product;
+import com.projetointegrador.entity.Type;
 import com.projetointegrador.repository.ProductPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class ProductService {
 
     @Autowired
     private ProductPersistence productPersistence;
+
+    @Autowired
+    private TypeService typeService;
 
     public ProductService() {
     }
@@ -38,13 +43,13 @@ public class ProductService {
     }
 
     /**
-     * @param product - é esperado um objeto do tipo product
+     * @param productDto - é esperado um objeto do tipo product
      * @return - retorna product cadastrado na lista
      * @author - Grupo 5 - Tester Ana
      */
-    public Product insert(Product product) {
-        if (!UtilizedCode(product.getProductId())) {
-            return productPersistence.save(product);
+    public Product insert(ProductDto productDto) {
+        if (!UtilizedCode(productDto.getProductId())) {
+            return productPersistence.save(convert(productDto));
         } else {
             throw new RuntimeException("Código já utilizado");
         }
@@ -65,5 +70,18 @@ public class ProductService {
         } else {
             throw new RuntimeException("Não existe product com esse id!");
         }
+    }
+
+    public Product convert(ProductDto productDto) {
+
+        Product product = new Product();
+        product.setProductId(productDto.getProductId());
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+
+        Type type = typeService.getTypeByTypeId(productDto.getTypeId());
+        product.setType(type);
+
+        return product;
     }
 }
