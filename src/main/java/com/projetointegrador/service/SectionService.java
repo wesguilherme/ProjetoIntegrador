@@ -20,6 +20,9 @@ public class SectionService {
     @Autowired
     private WarehouseService warehouseService;
 
+    @Autowired
+    private TypeService typeService;
+
     public SectionService() {
 
     }
@@ -98,9 +101,11 @@ public class SectionService {
     public Section convert(SectionDto sectionDto) {
         Section section = new Section();
         section.setSectionCode(sectionDto.getSectionCode());
-        section.setSectionType(sectionDto.getSectionType());
         section.setTotalCapacity(sectionDto.getTotalCapacity());
-        section.setUsedSpace(sectionDto.getUsedSpace());
+        section.setUsedSpace(50d);
+
+        Type type = typeService.getTypeByTypeId(sectionDto.getTypeId());
+        section.setType(type);
 
         Representative r = representativeService.getByIdRepresentative(sectionDto.getRepresentativeId());
         Warehouse w = warehouseService.getByCode(sectionDto.getWarehouseCode());
@@ -124,11 +129,11 @@ public class SectionService {
         }
     }
 
-    public boolean verifyEqualType(Section section, Product product) {
-        if (section.getSectionType().equals(product.getProductType())) {
-            return true;
-        } else {
-            throw new RuntimeException("O produto não corresponde a esse setor");
-        }
-    }
+//    public boolean verifyEqualType(Section section, Product product) {
+//        if (section.getSectionType().equals(product.getProductType())) {
+//            return true;
+//        } else {
+//            throw new RuntimeException("O produto não corresponde a esse setor");
+//        }
+//    }
 }

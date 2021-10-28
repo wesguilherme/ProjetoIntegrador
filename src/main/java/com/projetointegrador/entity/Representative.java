@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.util.List;
 
 @Data
 @Entity
