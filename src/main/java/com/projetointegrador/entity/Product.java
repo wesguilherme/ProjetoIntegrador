@@ -1,9 +1,11 @@
 package com.projetointegrador.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -11,12 +13,12 @@ public class Product {
 
     @Id
     private String productId;
-    private String name;
-    private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "typeId")
-    private Type type;
+    @NotNull @NotBlank
+    private String name;
+
+    @NotNull @NotBlank
+    private String description;
 
     public Product() {
 
