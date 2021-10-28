@@ -3,8 +3,6 @@ package com.projetointegrador.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,9 +20,6 @@ public class Product {
     @NotNull @NotBlank
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private ProductType productType;
-
     public Product() {
 
     }
@@ -35,7 +30,6 @@ public class Product {
                 " \"productId\": \"" + productId + "\"" +
                 ", \"name\":\"" + name + "\"" +
                 ", \"description\":\"" + description + "\"" +
-                ", \"productType\":\"" + productType +
                 "}";
     }
 }
