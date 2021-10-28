@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,8 +16,10 @@ public class Product {
     @Id
     private String productId;
 
-    @NotNull @NotEmpty
+    @NotNull @NotBlank
     private String name;
+
+    @NotNull @NotBlank
     private String description;
 
     @Enumerated(EnumType.STRING)

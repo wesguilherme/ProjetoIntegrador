@@ -16,12 +16,11 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/api/v1/product")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Product> insert(@RequestBody @Valid Product product, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<?> insert(@RequestBody @Valid Product product, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(product);
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();

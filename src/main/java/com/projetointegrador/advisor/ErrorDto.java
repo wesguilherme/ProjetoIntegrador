@@ -12,5 +12,4 @@ public class ErrorDto {
         this.field = field;
         this.error = error;
     }
-
 }
