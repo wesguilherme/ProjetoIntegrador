@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Product> insert(@RequestBody Product product, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Product> insert(@RequestBody @Valid Product product, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(product);
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();

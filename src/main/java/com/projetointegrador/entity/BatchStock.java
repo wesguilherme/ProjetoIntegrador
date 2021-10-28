@@ -22,7 +22,7 @@ public class BatchStock {
     private Float minimumTemperature;
     private String currentTemperature;
 
-    @JsonBackReference
+    //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "inbound_order_inbound_order_id")
     private InboundOrder inboundOrder;

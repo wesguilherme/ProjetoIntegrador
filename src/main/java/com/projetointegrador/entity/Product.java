@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -13,6 +15,8 @@ public class Product {
 
     @Id
     private String productId;
+
+    @NotNull @NotEmpty
     private String name;
     private String description;
 
@@ -21,13 +25,6 @@ public class Product {
 
     public Product() {
 
-    }
-
-    public Product(String productId, String name, String description, ProductType productType) {
-        this.productId = productId;
-        this.name = name;
-        this.description = description;
-        this.productType = productType;
     }
 
     @Override

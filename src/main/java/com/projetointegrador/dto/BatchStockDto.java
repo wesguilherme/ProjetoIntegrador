@@ -1,9 +1,14 @@
 package com.projetointegrador.dto;
 
+import com.projetointegrador.entity.BatchStock;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class BatchStockDto {
@@ -21,14 +26,23 @@ public class BatchStockDto {
 
     }
 
-    public BatchStockDto(LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long productSellerId) {
-        this.dueDate = dueDate;
-        this.manufacturingTime = manufacturingTime;
-        this.manufacturingDate = manufacturingDate;
-        this.currentQuantity = currentQuantity;
-        this.initialQuantity = initialQuantity;
-        this.minimumTemperature = minimumTemperature;
-        this.currentTemperature = currentTemperature;
-        this.productSellerId = productSellerId;
+    public static List<BatchStockDto> convertBatchStock(List<BatchStock> batchStock){
+        List<BatchStockDto> batchStockDto = new ArrayList<>();
+
+        for (BatchStock item : batchStock) {
+            BatchStockDto bat = new BatchStockDto();
+            bat.setDueDate(item.getDueDate());
+            bat.setCurrentQuantity(item.getCurrentQuantity());
+            bat.setCurrentTemperature(item.getCurrentTemperature());
+            bat.setManufacturingDate(item.getManufacturingDate());
+            bat.setMinimumTemperature(item.getMinimumTemperature());
+            bat.setInitialQuantity(item.getInitialQuantity());
+            bat.setManufacturingTime(item.getManufacturingTime());
+
+            bat.setProductSellerId(item.getProductSeller().getProductSellerId());
+            batchStockDto.add(bat);
+        }
+
+        return batchStockDto;
     }
 }

@@ -63,7 +63,7 @@ public class SellerService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe Seller para essa busca!");
+            throw new RuntimeException("Não existe Seller com esse id!");
         }
     }
 }
