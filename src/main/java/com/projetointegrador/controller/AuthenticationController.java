@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1")
 public class AuthenticationController {
 
     @Autowired
@@ -22,12 +22,16 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping
+    @PostMapping(value = "/auth")
     public ResponseEntity<TokenDto> realizaAutenticacao(@RequestBody LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken dadosLogin = loginRequest.converter();
-        Authentication authentication = manager.authenticate(dadosLogin);
-        String token = tokenService.geraToken(authentication);
-        return ResponseEntity.ok(new TokenDto(token, "Bearer"));
-
+        try {
+            Authentication authentication = manager.authenticate(dadosLogin);
+            String token = tokenService.geraToken(authentication);
+            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }

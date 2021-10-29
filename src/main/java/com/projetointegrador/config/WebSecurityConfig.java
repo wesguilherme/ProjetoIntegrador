@@ -39,10 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/anuncios").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/vendas").hasAnyAuthority("ADMIN")
+//                .antMatchers("/anuncios").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/warehouse/lista").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
+                //.anyRequest().permitAll()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new TokenFilterAuthentication(tokenService, persistence), UsernamePasswordAuthenticationFilter.class);

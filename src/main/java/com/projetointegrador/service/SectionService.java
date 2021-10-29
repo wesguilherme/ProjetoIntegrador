@@ -1,7 +1,10 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.dto.SectionDto;
-import com.projetointegrador.entity.*;
+import com.projetointegrador.entity.ProductSeller;
+import com.projetointegrador.entity.Representative;
+import com.projetointegrador.entity.Section;
+import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.repository.SectionPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,11 +127,11 @@ public class SectionService {
         }
     }
 
-    public boolean verifyEqualType(Section section, Product product) {
-        if (section.getSectionType().equals(product.getProductType())) {
-            return true;
-        } else {
-            throw new RuntimeException("O produto não corresponde a esse setor");
-        }
-    }
+//    public boolean verifyEqualType(Section section, Product product) {
+//        if (section.getSectionType().equals(product.getProductType())) {
+//            return true;
+//        } else {
+//            throw new RuntimeException("O produto não corresponde a esse setor");
+//        }
+//    }
 }

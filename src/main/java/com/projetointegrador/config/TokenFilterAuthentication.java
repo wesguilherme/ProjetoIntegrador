@@ -28,12 +28,14 @@ public class TokenFilterAuthentication extends OncePerRequestFilter {
 
         //obtem token do cabecalho da requisicao
         String token = extraiToken(request);
-        //validar token
-        boolean tokenValido = tokenService.tokenValido(token);
+        if (token != null) {
+            //validar token
+            boolean tokenValido = tokenService.tokenValido(token);
 
-        if (tokenValido) {
-            //autenticar o token
-            realizaAutenticacaoDoTokenNoSpring(token);
+            if (tokenValido) {
+                //autenticar o token
+                realizaAutenticacaoDoTokenNoSpring(token);
+            }
         }
         filterChain.doFilter(request, response);
     }

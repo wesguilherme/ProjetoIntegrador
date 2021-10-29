@@ -1,18 +1,18 @@
 package com.projetointegrador.entity;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @Entity
-@Table(name = "users")
 public class User implements UserDetails {
 
     /**
@@ -20,65 +20,76 @@ public class User implements UserDetails {
      */
     private static final long serialVersionUID = 1L;
 
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
     @Id
-    @Column(name = "username")
     private String user;
-    @Column(name = "password")
-    private String senha;
-    @Column(name = "enabled")
-    private boolean ativo;
+
+    private String password;
+
+    private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Profile> perfis;
+    private List<Profile> profiles;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        this.perfis.forEach(perfil -> authorities.add(new SimpleGrantedAuthority(perfil.getName())));
+        this.profiles.forEach(profile -> authorities.add(new SimpleGrantedAuthority(profile.getName())));
         return authorities;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<Profile> profiles) {
+        this.profiles = profiles;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String getPassword() {
-        // TODO Auto-generated method stub
-        return this.senha;
+
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
         return this.user;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
         return true;
     }
 
