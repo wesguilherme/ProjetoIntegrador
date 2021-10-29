@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
@@ -25,7 +27,13 @@ public class WarehouseController {
     }
 
     @GetMapping("/{code}")
-    public boolean getWarehouseById(@PathVariable("code") String code){
+    public boolean getWarehouseById(@PathVariable("code") String code) {
         return warehouseService.validWarehouse(code);
+    }
+
+    @GetMapping("/warehouse/lista")
+    public ResponseEntity<List<String>> getWarehouseById() {
+        List<String> nomes = Arrays.asList("Ana", "Wesley", "Rafael", "Alessandro");
+        return ResponseEntity.ok(nomes);
     }
 }
