@@ -1,5 +1,6 @@
 package com.projetointegrador.controller;
 
+import com.projetointegrador.dto.ProductDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<?> insert(@RequestBody @Valid Product product, UriComponentsBuilder uriBuilder) {
-        Product productCadastrado = productService.insert(product);
+    public ResponseEntity<?> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
+        Product productCadastrado = productService.insert(productDto);
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();
         return ResponseEntity.created(uri).body(productCadastrado);

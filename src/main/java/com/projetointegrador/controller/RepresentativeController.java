@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
@@ -18,7 +19,7 @@ public class RepresentativeController {
     private RepresentativeService representativeService;
 
     @PostMapping(value = "/representative/insert")
-    public ResponseEntity<Representative> insert(@RequestBody Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
+    public ResponseEntity<Representative> insert(@RequestBody @Valid Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
         Representative representativeCadastrado = representativeService.insert(representative);
 
         URI uri = uriBuilder.path("/representative/search/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();

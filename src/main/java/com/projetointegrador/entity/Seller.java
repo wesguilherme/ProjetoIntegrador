@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 
 @Entity
@@ -13,7 +15,11 @@ public class Seller{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sellerId;
+
+    @NotNull @NotBlank
     private String cpf;
+
+    @NotNull @NotBlank
     private String name;
 
     @Embedded
