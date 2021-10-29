@@ -1,6 +1,5 @@
 package com.projetointegrador.dto;
 
-import com.projetointegrador.entity.Type;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

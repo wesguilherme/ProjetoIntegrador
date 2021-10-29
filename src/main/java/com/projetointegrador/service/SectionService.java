@@ -1,11 +1,13 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.SectionDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.SectionPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,9 @@ public class SectionService {
 
     @Autowired
     private TypeService typeService;
+
+    @Autowired
+    private ProductSellerService productSellerService;
 
     public SectionService() {
 
@@ -116,24 +121,32 @@ public class SectionService {
         return section;
     }
 
-    public Section verifyAvailableSpace(Section section, ProductSeller productSeller) {
+    public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
+        Double totalVolumeProduct =  0d;
+        for (BatchStockDto item: batchStockDto) {
+            ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
+            totalVolumeProduct += productSeller.getVolume();
+        }
         if (section.getUsedSpace() < section.getTotalCapacity()) {
             Double availableSpace = section.getTotalCapacity() - section.getUsedSpace();
-            if (availableSpace >= productSeller.getVolume()) {
-                return sectionPersistence.save(section);
-            } else {
+            if (availableSpace < totalVolumeProduct) {
                 throw new RuntimeException("O volume não cabe nesse setor");
+            }else{
+                Double usedSpace = section.getUsedSpace() + totalVolumeProduct;
+                section.setUsedSpace(usedSpace);
+                return true;
             }
         } else {
             throw new RuntimeException("Setor sem espaço disponível");
         }
     }
 
-//    public boolean verifyEqualType(Section section, Product product) {
-//        if (section.getSectionType().equals(product.getProductType())) {
-//            return true;
-//        } else {
-//            throw new RuntimeException("O produto não corresponde a esse setor");
-//        }
-//    }
+    public boolean verifyEqualType(String environmentType, Long productSellerId) {
+        ProductSeller productSeller = productSellerService.getProductSeller(productSellerId);
+        if (environmentType.equals(productSeller.getProduct().getType().getEnvironmentType())) {
+            return true;
+        } else {
+            throw new RuntimeException("Verifique se os produtos pertencem ao mesmo tipo do setor ao qual deseja armazenar!");
+        }
+    }
 }
