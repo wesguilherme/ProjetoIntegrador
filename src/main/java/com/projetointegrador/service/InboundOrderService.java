@@ -47,6 +47,13 @@ public class InboundOrderService {
         in.setBatchStock(convertBatchStock(inboundOrderDto.getBatchStockDto(), in));
 
         Section sectionByCode = sectionService.getSectionByCode(inboundOrderDto.getSectionCode());
+
+        for (BatchStockDto item: inboundOrderDto.getBatchStockDto()) {
+            sectionService.verifyEqualType(sectionByCode.getType().getEnvironmentType(),item.getProductSellerId());
+        }
+
+        sectionService.verifyAvailableSpace(sectionByCode,inboundOrderDto.getBatchStockDto());
+
         if (sectionByCode != null) {
             in.setSection(sectionByCode);
         }
