@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -21,7 +22,7 @@ public class ProductSellerController {
     private ProductSellerService productSellerService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<ProductSeller> insert(@RequestBody ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProductSeller> insert(@RequestBody @Valid ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
         ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto);
 
         URI uri = uriBuilder.path("/product-seller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
