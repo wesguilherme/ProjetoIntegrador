@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "59556595-b191-494a-8a86-9a84c16954ec",
+		"name": "ProjetoIntegradorFrescos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Warehouse - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"warehouseCode\":\"MLB-407\",\n    \"description\":\"Teste de cadastro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/warehouse/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"warehouse",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Representative - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rafael\",\n    \"cpf\": \"150.252.332-10\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/representative/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"representative",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InboudOrder - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 45,\n    \"orderDate\":\"1998-07-23\",\n    \"sectionCode\": \"SEC-859\",\n    \"batchStockDto\":[\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"1998-07-23\"\n        },\n        {\n            \"productSellerId\": 2,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"1998-07-23\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/inboundorder/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProductSeller - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"volume\": 80,\n\t\"maximumTemperature\": 25,\n\t\"minimumTemperature\": 9.5,\n    \"sellerId\":1,\n    \"productId\": \"MLB-567\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/productseller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"productseller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seller - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ana\",\n    \"cpf\": \"150.555.333-17\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/seller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"seller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"MLB-789\",\n    \"name\": \"\",\n    \"description\":\"Caixa de Maça\",\n    \"productType\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Warehouse - by Code",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8090/warehouse/MLB-258",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"warehouse",
+						"MLB-258"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sectionCode\": \"SEC-859\",\n    \"totalCapacity\": 65.0,\n    \"usedSpace\": 50.0,\n    \"sectionType\": 1,\n    \"representativeId\": 1,\n    \"warehouseCode\": \"MLB-410\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/section/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"section",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section - By Code",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8090/section/verificar/111111111111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"section",
+						"verificar",
+						"111111111111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buyer - Cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alessandro\",\n    \"cpf\": \"150.222.333-44\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/buyer/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"buyer",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
