@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
@@ -21,7 +22,7 @@ public class SellerController {
     private SellerService sellerService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Seller> insert(@RequestBody Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
+    public ResponseEntity<Seller> insert(@RequestBody @Valid Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
         Seller sellerCadastrado = sellerService.insert(seller);
 
         URI uri = uriBuilder.path("/seller/search/{id}").buildAndExpand(sellerCadastrado.getCpf()).toUri();
