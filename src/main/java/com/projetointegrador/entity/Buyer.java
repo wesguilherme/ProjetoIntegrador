@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 
 @Data
@@ -13,13 +15,17 @@ public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long buyerId;
+
+    @NotNull @NotBlank
     private String cpf;
+
+    @NotNull @NotBlank
     private String name;
 
     @Embedded
     private Address address;
 
-    public Buyer ( ) {
+    public Buyer(){
     }
 
     public Buyer (Long buyerId, String cpf, String name, Address address) {
