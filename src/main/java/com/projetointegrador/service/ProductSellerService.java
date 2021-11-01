@@ -80,5 +80,17 @@ public class ProductSellerService {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
     }
+
+    public ProductSeller getProductSellerByProduto(Product product) {
+        Optional<ProductSeller> val;
+
+        val = productSellerPersistence.findProductSellerByProduct(product);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe Seller para essa busca!");
+        }
+    }
 }
 

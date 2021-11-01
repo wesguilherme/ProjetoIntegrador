@@ -8,8 +8,6 @@ import javax.validation.constraints.NotNull;
 public class ProductSellerDto {
 
     @NotNull
-    private Long productSellerId;
-    @NotNull
     private Double volume;
     @NotNull
     private Double maximumTemperature;
@@ -20,8 +18,8 @@ public class ProductSellerDto {
     @NotNull
     private String productId;
 
-    public ProductSellerDto(Long productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Long sellerId, String productId) {
-        this.productSellerId = productSellerId;
+    public ProductSellerDto(Double volume, Double maximumTemperature, Double minimumTemperature, Long sellerId, String productId) {
+
         this.volume = volume;
         this.maximumTemperature = maximumTemperature;
         this.minimumTemperature = minimumTemperature;

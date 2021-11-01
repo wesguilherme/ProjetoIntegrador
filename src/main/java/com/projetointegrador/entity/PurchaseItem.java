@@ -10,8 +10,11 @@ public class PurchaseItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long purchaseitemId;
+    private Long purchaseItemId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Product product;
+
+    private Integer quantity;
+
 }
