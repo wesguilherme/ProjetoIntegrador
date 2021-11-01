@@ -72,6 +72,20 @@ public class ProductService {
         }
     }
 
+//    public Product getByTypeId(String id) {
+//        Optional<Product> val;
+//
+//        val = productPersistence.findByProductId(id);
+//
+//        if (val.isPresent()) {
+//            return val.get();
+//        } else {
+//            throw new RuntimeException("Não existe product com esse id!");
+//        }
+//    }
+
+
+
     public Product convert(ProductDto productDto) {
 
         Product product = new Product();
