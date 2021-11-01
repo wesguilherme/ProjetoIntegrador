@@ -23,5 +23,4 @@ public class PurchaseOrder {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PurchaseItem> purchaseItems;
-
 }

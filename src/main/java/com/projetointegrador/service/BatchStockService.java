@@ -1,13 +1,18 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.ProductItemDto;
+import com.projetointegrador.dto.PurchaseOrderDto;
 import com.projetointegrador.entity.BatchStock;
+import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.repository.BatchStockPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +20,12 @@ public class BatchStockService {
 
     @Autowired
     private BatchStockPersistence batchStockPersistence;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private ProductSellerService productSellerService;
 
     public BatchStockService(BatchStockPersistence batchStockPersistence) {
         this.batchStockPersistence = batchStockPersistence;
@@ -32,23 +43,30 @@ public class BatchStockService {
         }
     }
 
-    public Boolean verifyProductInBatchStock(ProductSeller productSellerId, Integer quantity){
+    public void verifyProductInBatchStock(List<ProductItemDto> productItemDto){
 
-        BatchStock batchStock = getBatchStockByProductSeller(productSellerId);
+        for (ProductItemDto item : productItemDto) {
 
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = batchStock.getDueDate();
+            Product product = productService.getByIdProduct(item.getProductId());
+            ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-        int period = Period.between(startDate, endDate).getDays();
 
-        if(quantity <= batchStock.getCurrentQuantity()){
-            if (period >= 21){
-                return true;
+            BatchStock batchStock = getBatchStockByProductSeller(productSeller);
+
+            LocalDate startDate = LocalDate.now();
+            LocalDate endDate = batchStock.getDueDate();
+
+            int period = Period.between(startDate, endDate).getDays();
+
+            if(item.getQuantity() <= batchStock.getCurrentQuantity()){
+                if (period <= 21){
+                    String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
+                    throw new RuntimeException(resp);
+                }
             }else {
-                throw new RuntimeException("Validade do produto inferior a 3 semanas");
+                String resp = "Não existe estoque para este produto: " + item.getProductId();
+                throw new RuntimeException(resp);
             }
-        }else {
-            throw new RuntimeException("Não existe produto no estoque");
         }
     }
 }
