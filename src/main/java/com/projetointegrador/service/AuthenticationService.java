@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class AuthenticationService implements UserDetailsService {
 
@@ -20,6 +19,5 @@ public class AuthenticationService implements UserDetailsService {
         User user = persistence.findByUser(username);
         return user;
     }
-
-
 }
+

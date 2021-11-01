@@ -1,27 +1,30 @@
 package com.projetointegrador.dto;
 
-import com.projetointegrador.entity.SectionType;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class SectionDto {
 
+    @NotNull
+    @NotBlank
     private String sectionCode;
+    @NotNull
     private Double totalCapacity;
-    private Double usedSpace;
-    @Enumerated(EnumType.STRING)
-    private SectionType sectionType;
+    @NotNull
+    private Long typeId;
+    @NotNull
     private Long representativeId;
+    @NotNull
+    @NotBlank
     private String warehouseCode;
 
-    public SectionDto(String sectionCode, Double totalCapacity, Double usedSpace, SectionType sectionType, Long representativeId, String warehouseCode) {
+    public SectionDto(String sectionCode, Double totalCapacity, Long typeId, Long representativeId, String warehouseCode) {
         this.sectionCode = sectionCode;
         this.totalCapacity = totalCapacity;
-        this.usedSpace = usedSpace;
-        this.sectionType = sectionType;
+        this.typeId = typeId;
         this.representativeId = representativeId;
         this.warehouseCode = warehouseCode;
     }
