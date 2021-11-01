@@ -25,10 +25,7 @@ public class TypeService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe um tipo para o velor passado!");
+            throw new RuntimeException("Não existe um tipo para o valor passado!");
         }
     }
-
-
-
 }
