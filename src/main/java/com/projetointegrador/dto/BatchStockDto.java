@@ -3,8 +3,6 @@ package com.projetointegrador.dto;
 import com.projetointegrador.entity.BatchStock;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ public class BatchStockDto {
     private Float minimumTemperature;
     private String currentTemperature;
     private Long productSellerId;
+    private Long batchStockNumberDto;
 
     public BatchStockDto() {
 
@@ -38,6 +37,7 @@ public class BatchStockDto {
             bat.setMinimumTemperature(item.getMinimumTemperature());
             bat.setInitialQuantity(item.getInitialQuantity());
             bat.setManufacturingTime(item.getManufacturingTime());
+            bat.setBatchStockNumberDto(item.getBatchNumber());
 
             bat.setProductSellerId(item.getProductSeller().getProductSellerId());
             batchStockDto.add(bat);

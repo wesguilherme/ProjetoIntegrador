@@ -1,6 +1,5 @@
 package com.projetointegrador.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,6 +20,7 @@ public class BatchStock {
     private Integer initialQuantity;
     private Float minimumTemperature;
     private String currentTemperature;
+    private Long batchNumber;
 
     //@JsonBackReference
     @ManyToOne
@@ -35,7 +35,7 @@ public class BatchStock {
 
     }
 
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, ProductSeller productSeller) {
+    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchNumber, ProductSeller productSeller) {
         this.batchStockId = batchStockId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -44,6 +44,7 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
+        this.batchNumber = batchNumber;
         this.productSeller = productSeller;
     }
 
@@ -58,6 +59,7 @@ public class BatchStock {
                 ", \"initialquantity\":\"" + initialQuantity + "\"" +
                 ", \"minimumtemperature\":\"" + minimumTemperature + "\"" +
                 ", \"currenttemperature\":\"" + currentTemperature + "\"" +
+                ", \"batchStockId\":" + batchStockId +
                 '}';
     }
 }
