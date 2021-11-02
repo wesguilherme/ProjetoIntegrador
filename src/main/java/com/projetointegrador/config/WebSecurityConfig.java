@@ -5,7 +5,6 @@ import com.projetointegrador.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,10 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 //                .antMatchers("/anuncios").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/warehouse/lista").hasAnyAuthority("ADMIN")
-                .anyRequest().authenticated()
-                //.anyRequest().permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/v1/warehouse/lista").hasAnyAuthority("ADMIN")
+//                .antMatchers(HttpMethod.GET, "/api/v1/fresh-products/list").permitAll()
+                //.anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new TokenFilterAuthentication(tokenService, persistence), UsernamePasswordAuthenticationFilter.class);
