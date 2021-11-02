@@ -2,6 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.ProductItemDto;
 import com.projetointegrador.dto.PurchaseOrderDto;
+import com.projetointegrador.dto.PurchaseOrderResponseDto;
 import com.projetointegrador.dto.TotalPrice;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PurchaseOrderService {
@@ -73,8 +76,6 @@ public class PurchaseOrderService {
     }
 
     public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){
-
-
         BigDecimal valorTotal = new BigDecimal(0);
 
         for (ProductItemDto item : productItemDto) {
@@ -94,5 +95,33 @@ public class PurchaseOrderService {
         totalPrice.setTotalprice(valorTotal);
 
         return totalPrice;
+    }
+
+    public PurchaseOrderResponseDto listOrdersByOrderId(Long id) {
+
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findById(id);
+        PurchaseOrderResponseDto purchaseOrderResponseDto = new PurchaseOrderResponseDto();
+
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setOrderStatusId(purchaseOrder.get().getOrderStatus().getOrderStatusId());
+        orderStatus.setStatusCode(purchaseOrder.get().getOrderStatus().getStatusCode());
+
+        purchaseOrderResponseDto.setOrderStatus(orderStatus);
+
+        purchaseOrderResponseDto.setBuyerId(purchaseOrder.get().getPurchaseOrderId());
+        purchaseOrderResponseDto.setDate(purchaseOrder.get().getDate());
+
+        List<ProductItemDto> productItemDtoList = new ArrayList<>();
+
+        for (PurchaseItem item: purchaseOrder.get().getPurchaseItems()) {
+            ProductItemDto productItemDto = new ProductItemDto();
+            productItemDto.setProductId(item.getProduct().getProductId());
+            productItemDto.setQuantity(item.getQuantity());
+            productItemDtoList.add(productItemDto);
+        }
+
+        purchaseOrderResponseDto.setProducts(productItemDtoList);
+
+        return purchaseOrderResponseDto;
     }
 }

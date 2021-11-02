@@ -55,10 +55,10 @@ public class ProductSellerService {
      */
     public ProductSeller convert(ProductSellerDto productSellerDto) {
         ProductSeller productSeller = new ProductSeller();
-        productSeller.setProductSellerId(productSellerDto.getSellerId());
         productSeller.setVolume(productSellerDto.getVolume());
         productSeller.setMaximumTemperature(productSellerDto.getMaximumTemperature());
         productSeller.setMinimumTemperature(productSellerDto.getMinimumTemperature());
+        productSeller.setPrice(productSellerDto.getPrice());
 
         Product p = productService.getByIdProduct(productSellerDto.getProductId());
         Seller s = sellerService.getByIdSeller(productSellerDto.getSellerId());

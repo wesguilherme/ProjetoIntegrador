@@ -1,7 +1,6 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.dto.ProductItemDto;
-import com.projetointegrador.dto.PurchaseOrderDto;
 import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
@@ -9,11 +8,9 @@ import com.projetointegrador.repository.BatchStockPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BatchStockService {
@@ -32,12 +29,10 @@ public class BatchStockService {
     }
 
     public BatchStock getBatchStockByProductSeller(ProductSeller productSeller) {
-        Optional<BatchStock> val;
+        BatchStock batchStock = batchStockPersistence.findByProductSeller(productSeller);
 
-        val = batchStockPersistence.findByProductSeller(productSeller);
-
-        if (val.isPresent()){
-            return val.get();
+        if (batchStock.getBatchStockId() != null){
+            return batchStock;
         }else {
             throw new RuntimeException("Não existe batchStock para esse produto.");
         }
@@ -50,7 +45,6 @@ public class BatchStockService {
             Product product = productService.getByIdProduct(item.getProductId());
             ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-
             BatchStock batchStock = getBatchStockByProductSeller(productSeller);
 
             LocalDate startDate = LocalDate.now();
@@ -59,7 +53,7 @@ public class BatchStockService {
             int period = Period.between(startDate, endDate).getDays();
 
             if(item.getQuantity() <= batchStock.getCurrentQuantity()){
-                if (period <= 21){
+                if (period >= 21){
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }

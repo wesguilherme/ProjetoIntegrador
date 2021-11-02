@@ -17,4 +17,8 @@ public class PurchaseItem {
 
     private Integer quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "purchaseOrderId")
+    private PurchaseOrder purchaseOrder;
+
 }
