@@ -1,5 +1,6 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.ProductResponseDto;
 import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
@@ -8,6 +9,8 @@ import com.projetointegrador.repository.ProductSellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,14 +25,14 @@ public class ProductSellerService {
     @Autowired
     private ProductService productService;
 
-    public ProductSellerService() {
+    public ProductSellerService () {
     }
 
     /**
      * @param productSellerPersistence - é esperado um parâmetro do tipo productSellerPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductSellerService(ProductSellerPersistence productSellerPersistence) {
+    public ProductSellerService (ProductSellerPersistence productSellerPersistence) {
         this.productSellerPersistence = productSellerPersistence;
     }
 
@@ -79,6 +82,26 @@ public class ProductSellerService {
         } else {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
+    }
+
+    public List<ProductResponseDto> listProduct() {
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        List<ProductSeller> productSeller = productSellerPersistence.findAll();
+
+        for (ProductSeller item : productSeller) {
+
+            ProductResponseDto productResponseDto = new ProductResponseDto();
+
+            productResponseDto.setMaximumTemperature(item.getMaximumTemperature());
+            productResponseDto.setMinimumTemperature(item.getMinimumTemperature());
+            productResponseDto.setVolume(item.getVolume());
+            productResponseDto.setProduct(item.getProduct());
+
+            productResponseDtoList.add(productResponseDto);
+
+        }
+
+        return productResponseDtoList;
     }
 }
 
