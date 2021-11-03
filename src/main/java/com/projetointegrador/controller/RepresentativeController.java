@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/representative")
 public class RepresentativeController {
 
     @Autowired
     private RepresentativeService representativeService;
 
-    @PostMapping(value = "/representative/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<Representative> insert(@RequestBody @Valid Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
         Representative representativeCadastrado = representativeService.insert(representative);
 
@@ -26,7 +26,7 @@ public class RepresentativeController {
         return ResponseEntity.created(uri).body(representativeCadastrado);
     }
 
-    @GetMapping("/representative/verificar/{id}")
+    @GetMapping("/verificar/{id}")
     public boolean verifyRepresentativeBelongsToWarehouse(@PathVariable("id") Long id) {
         return representativeService.verifyRepresentativeBelongsToWarehouse(id);
     }

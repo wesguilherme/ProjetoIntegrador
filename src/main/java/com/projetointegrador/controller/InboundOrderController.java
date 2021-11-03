@@ -16,13 +16,13 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/v1/")
+@RequestMapping(value="/api/v1/fresh-products")
 public class InboundOrderController {
 
     @Autowired
     private InboundOrderService inboundOrderService;
 
-    @PostMapping(value = "fresh-products/inboundorder/")
+    @PostMapping(value = "/inboundorder")
     public ResponseEntity<List<BatchStockDto>> insert(@RequestBody @Valid InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
         InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrderDto);
 
@@ -30,7 +30,7 @@ public class InboundOrderController {
         return ResponseEntity.created(uri).body(BatchStockDto.convertBatchStock(inboundOrderCadastrado.getBatchStock()));
     }
 
-    @GetMapping("fresh-products/list/{initials}")
+    @GetMapping("/list/{initials}")
     public ResponseEntity<?> productList(@PathVariable("initials") String initials) {
         List<Product> product = inboundOrderService.productList(initials);
 

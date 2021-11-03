@@ -1,11 +1,10 @@
 package com.projetointegrador.controller;
 
-import com.projetointegrador.dto.ProductDto;
-import com.projetointegrador.dto.PurchaseOrderDto;
-import com.projetointegrador.dto.TotalPrice;
+import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseOrder;
 import com.projetointegrador.service.BatchStockService;
+import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.ProductService;
 import com.projetointegrador.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -29,6 +27,9 @@ public class ProductController {
 
     @Autowired
     private BatchStockService batchStockService;
+
+    @Autowired
+    private ProductSellerService productSellerService;
 
     @PostMapping(value = "/insert")
     public ResponseEntity<?> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
@@ -46,5 +47,27 @@ public class ProductController {
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(purchaseOrder.getPurchaseOrderId()).toUri();
         return ResponseEntity.created(uri).body(totalPrice);
+    }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<?> getProductSellerId() {
+        List<ProductResponseDto> productResponseDto = productSellerService.listProduct();
+
+        if(productResponseDto.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(productResponseDto);
+    }
+
+    @GetMapping(value = "/orders/{id}")
+    public ResponseEntity<?> listOrdersByOrderId(@PathVariable("id") Long id){
+        PurchaseOrderResponseDto purchaseOrderResponseDto = purchaseOrderService.listOrdersByOrderId(id);
+
+        if (purchaseOrderResponseDto.getBuyerId() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(purchaseOrderResponseDto);
     }
 }
