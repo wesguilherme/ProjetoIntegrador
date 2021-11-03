@@ -16,8 +16,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
+=======
+import java.util.Arrays;
+import java.util.List;
+>>>>>>> 1134395b0cc95bf66218bbb9f7a5acae6dc2f2bd
 
 @RestController
 @RequestMapping(value = "/api/v1/product")
