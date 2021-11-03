@@ -25,14 +25,14 @@ public class ProductSellerService {
     @Autowired
     private ProductService productService;
 
-    public ProductSellerService () {
+    public ProductSellerService() {
     }
 
     /**
      * @param productSellerPersistence - é esperado um parâmetro do tipo productSellerPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductSellerService (ProductSellerPersistence productSellerPersistence) {
+    public ProductSellerService(ProductSellerPersistence productSellerPersistence) {
         this.productSellerPersistence = productSellerPersistence;
     }
 
@@ -93,26 +93,30 @@ public class ProductSellerService {
             return val.get();
         } else {
             throw new RuntimeException("Não existe Seller para essa busca!");
-     }
+        }
 
-//    public List<ProductResponseDto> listProduct() {
-//        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
-//        List<ProductSeller> productSeller = productSellerPersistence.findAll();
-//
-//        for (ProductSeller item : productSeller) {
-//
-//            ProductResponseDto productResponseDto = new ProductResponseDto();
-//
-//            productResponseDto.setMaximumTemperature(item.getMaximumTemperature());
-//            productResponseDto.setMinimumTemperature(item.getMinimumTemperature());
-//            productResponseDto.setVolume(item.getVolume());
-//            productResponseDto.setProduct(item.getProduct());
-//
-//            productResponseDtoList.add(productResponseDto);
-//
-//        }
-//
-//        return productResponseDtoList;
+
     }
+
+    public List<ProductResponseDto> listProduct(){
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        List<ProductSeller> productSeller = productSellerPersistence.findAll();
+
+        for (ProductSeller item : productSeller) {
+
+            ProductResponseDto productResponseDto = new ProductResponseDto();
+
+            productResponseDto.setMaximumTemperature(item.getMaximumTemperature());
+            productResponseDto.setMinimumTemperature(item.getMinimumTemperature());
+            productResponseDto.setVolume(item.getVolume());
+            productResponseDto.setProduct(item.getProduct());
+
+            productResponseDtoList.add(productResponseDto);
+
+        }
+
+        return productResponseDtoList;
+    }
+
 }
 
