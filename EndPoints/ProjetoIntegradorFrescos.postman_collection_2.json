@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "59556595-b191-494a-8a86-9a84c16954ec",
+		"name": "ProjetoIntegradorFrescos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Warehouse - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"warehouseCode\":\"MLB-410\",\n    \"description\":\"Teste de cadastro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/warehouse/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"warehouse",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Representative - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rafael\",\n    \"cpf\": \"150.222.333-55\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/representative/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"representative",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InboudOrder - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 45,\n    \"orderDate\":\"1998-07-23\",\n    \"sectionCode\": \"SEC-123\",\n    \"batchStockDto\":[\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-09-23\"\n        },\n        {\n            \"productSellerId\": 2,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-10-15\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/inboundorder/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProductSeller - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"volume\": 80,\n\t\"maximumTemperature\": 23,\n\t\"minimumTemperature\": 9.5,\n    \"sellerId\": 1,\n    \"productId\": \"MLB-123\",\n    \"price\":20\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product-seller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product-seller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seller - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ana\",\n    \"cpf\": \"150.555.333-159\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/seller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"seller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJ3ZXNsZXkiLCJpYXQiOjE2MzU2MjMyMzcsImV4cCI6MTYzNTcwOTYzN30.QoAK8A4ygDxqbeSXEe7TMZfM9EXqs-L0ksGhw0gqCy8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"MLB-123\",\n    \"name\": \"Banana\",\n    \"description\":\"Caixa de Banana\",\n    \"typeId\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Warehouse - by Code",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8090/warehouse/MLB-258",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"warehouse",
+						"MLB-258"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section - cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJ3ZXNsZXkiLCJpYXQiOjE2MzU2MjE5MjYsImV4cCI6MTYzNTcwODMyNn0.li7GVN1cc_HwdhdfYzmtllIVSOI73_IBF3-uu-OxYbg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sectionCode\": \"SEC-123\",\n    \"totalCapacity\": 200.0,\n    \"typeId\": 2,\n    \"representativeId\": 1,\n    \"warehouseCode\": \"MLB-410\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/section/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"section",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section - By Code",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/representative/verificar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"representative",
+						"verificar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buyer - Cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alessandro\",\n    \"cpf\": \"150.555.333-177\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/buyer/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"buyer",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autenticacao ADMIN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer $2a$10$1LsoisxT7tgcttRC2.XUheaDGX6/q9UZeO08IY38FGjh6O9f46zZ2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"wesley\",\n    \"senha\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autenticacao REP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer $2a$10$1LsoisxT7tgcttRC2.XUheaDGX6/q9UZeO08IY38FGjh6O9f46zZ2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"ana\",\n    \"senha\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requisicao com token Admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJ3ZXNsZXkiLCJpYXQiOjE2MzU1OTI5MDYsImV4cCI6MTYzNTY3OTMwNn0.H7rWX-47LR5L6QK-am7XBbPQais8vL77pTf00oFELfo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/warehouse/lista",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"warehouse",
+						"lista"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requisicao com token Rep",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJhbmEiLCJpYXQiOjE2MzU1NDAwNDgsImV4cCI6MTYzNTYyNjQ0OH0.FrTkQo5BGjDNOZ_eUxwdmH-EAre41Xzzr75mKyczYts",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/warehouse/lista",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"warehouse",
+						"lista"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PurchaseOrder - List by cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PurchaseOrder - Insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJ3ZXNsZXkiLCJpYXQiOjE2MzU2MzU3OTgsImV4cCI6MTYzNTcyMjE5OH0.Fdge8Ce30LiP-2tg92349CaSml6oOtcKEsUFrvjgQb4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\":\"2021-10-31\",\n    \"buyerId\": 1,\n    \"orderStatus\":{\n        \"statusCode\":\"1\"\n    },\n    \"products\":[\n        {\n            \"productId\": \"MLB-123\",\n            \"quantity\": 6            \n        },\n        {\n            \"productId\": \"MLB-129\",\n            \"quantity\": 1            \n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Order -  Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\":[\n        {\n            \"purchaseItemId\": 15,\n            \"productId\": \"MLB-123\",\n            \"quantity\": 1           \n        },\n        {\n            \"purchaseItemId\": 16,\n            \"productId\": \"MLB-129\",\n            \"quantity\": 2            \n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
