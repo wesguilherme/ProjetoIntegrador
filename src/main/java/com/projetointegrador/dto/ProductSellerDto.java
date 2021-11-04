@@ -3,12 +3,11 @@ package com.projetointegrador.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 public class ProductSellerDto {
 
-    @NotNull
-    private Long productSellerId;
     @NotNull
     private Double volume;
     @NotNull
@@ -19,9 +18,11 @@ public class ProductSellerDto {
     private Long sellerId;
     @NotNull
     private String productId;
+    @NotNull
+    private BigDecimal price;
 
-    public ProductSellerDto(Long productSellerId, Double volume, Double maximumTemperature, Double minimumTemperature, Long sellerId, String productId) {
-        this.productSellerId = productSellerId;
+    public ProductSellerDto(Double volume, Double maximumTemperature, Double minimumTemperature, Long sellerId, String productId) {
+
         this.volume = volume;
         this.maximumTemperature = maximumTemperature;
         this.minimumTemperature = minimumTemperature;

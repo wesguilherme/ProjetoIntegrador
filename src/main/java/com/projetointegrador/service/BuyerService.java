@@ -1,9 +1,12 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.entity.Buyer;
+import com.projetointegrador.entity.Product;
 import com.projetointegrador.repository.BuyerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class BuyerService {
@@ -31,6 +34,18 @@ public class BuyerService {
             return buyerPersistence.save(buyer);
         }else {
             throw new RuntimeException("Cpf já utilizado");
+        }
+    }
+
+    public Buyer getByIdBuyer(Long id) {
+        Optional<Buyer> val;
+
+        val = buyerPersistence.findById(id);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe comprador cadastrado!");
         }
     }
 }

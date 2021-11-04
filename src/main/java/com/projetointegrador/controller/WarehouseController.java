@@ -8,15 +8,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/warehouse/")
 public class WarehouseController {
 
     @Autowired
     private WarehouseService warehouseService;
 
-    @PostMapping(value = "/warehouse/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<Warehouse> insert(@RequestBody Warehouse warehouse, UriComponentsBuilder uriBuilder){
         Warehouse warehouseCadastrado = warehouseService.insert(warehouse);
 
@@ -25,7 +27,13 @@ public class WarehouseController {
     }
 
     @GetMapping("/{code}")
-    public boolean getWarehouseById(@PathVariable("code") String code){
+    public boolean getWarehouseById(@PathVariable("code") String code) {
         return warehouseService.validWarehouse(code);
+    }
+
+    @GetMapping("/lista")
+    public ResponseEntity<List<String>> getWarehouseById() {
+        List<String> nomes = Arrays.asList("Ana", "Wesley", "Rafael", "Alessandro");
+        return ResponseEntity.ok(nomes);
     }
 }

@@ -1,5 +1,6 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.ProductResponseDto;
 import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
@@ -8,6 +9,8 @@ import com.projetointegrador.repository.ProductSellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,10 +58,10 @@ public class ProductSellerService {
      */
     public ProductSeller convert(ProductSellerDto productSellerDto) {
         ProductSeller productSeller = new ProductSeller();
-        productSeller.setProductSellerId(productSellerDto.getSellerId());
         productSeller.setVolume(productSellerDto.getVolume());
         productSeller.setMaximumTemperature(productSellerDto.getMaximumTemperature());
         productSeller.setMinimumTemperature(productSellerDto.getMinimumTemperature());
+        productSeller.setPrice(productSellerDto.getPrice());
 
         Product p = productService.getByIdProduct(productSellerDto.getProductId());
         Seller s = sellerService.getByIdSeller(productSellerDto.getSellerId());
@@ -80,5 +83,40 @@ public class ProductSellerService {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
     }
+
+    public ProductSeller getProductSellerByProduto(Product product) {
+        Optional<ProductSeller> val;
+
+        val = productSellerPersistence.findProductSellerByProduct(product);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe Seller para essa busca!");
+        }
+
+
+    }
+
+    public List<ProductResponseDto> listProduct(){
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        List<ProductSeller> productSeller = productSellerPersistence.findAll();
+
+        for (ProductSeller item : productSeller) {
+
+            ProductResponseDto productResponseDto = new ProductResponseDto();
+
+            productResponseDto.setMaximumTemperature(item.getMaximumTemperature());
+            productResponseDto.setMinimumTemperature(item.getMinimumTemperature());
+            productResponseDto.setVolume(item.getVolume());
+            productResponseDto.setProduct(item.getProduct());
+
+            productResponseDtoList.add(productResponseDto);
+
+        }
+
+        return productResponseDtoList;
+    }
+
 }
 
