@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class SectionDto {
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String sectionCode;
     @NotNull
     private Double totalCapacity;
@@ -16,7 +17,8 @@ public class SectionDto {
     private Long typeId;
     @NotNull
     private Long representativeId;
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String warehouseCode;
 
     public SectionDto(String sectionCode, Double totalCapacity, Long typeId, Long representativeId, String warehouseCode) {

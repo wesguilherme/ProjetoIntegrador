@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/orders")
-    public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder) {
         batchStockService.verifyProductInBatchStock(purchaseOrderDto.getProducts());
         TotalPrice totalPrice = purchaseOrderService.getTotalprice(purchaseOrderDto.getProducts());
         PurchaseOrder purchaseOrder = purchaseOrderService.insert(purchaseOrderDto);
