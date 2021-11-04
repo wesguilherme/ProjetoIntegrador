@@ -8,11 +8,14 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ProductDto {
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String productId;
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String name;
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String description;
     @NotNull
     private Long typeId;

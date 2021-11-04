@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public interface BatchStockPersistence extends JpaRepository<BatchStock, Long> {
-
-    BatchStock findByProductSeller(ProductSeller productSeller);
+    List<BatchStock> findByProductSeller(ProductSeller productSeller);
 }

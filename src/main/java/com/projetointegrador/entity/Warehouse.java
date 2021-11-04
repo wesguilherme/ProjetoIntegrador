@@ -11,10 +11,12 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Warehouse {
 
-    @Id @NotNull
+    @Id
+    @NotNull
     private String warehouseCode;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String description;
 
     public Warehouse() {

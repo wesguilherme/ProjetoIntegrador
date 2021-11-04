@@ -20,7 +20,7 @@ public class OrderStatusService {
         this.orderStatusPersistence = orderStatusPersistence;
     }
 
-    public OrderStatus insert(OrderStatus orderStatus){
+    public OrderStatus insert(OrderStatus orderStatus) {
         return orderStatusPersistence.save(orderStatus);
     }
 

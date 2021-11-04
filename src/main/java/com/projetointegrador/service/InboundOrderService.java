@@ -2,7 +2,10 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
-import com.projetointegrador.entity.*;
+import com.projetointegrador.entity.BatchStock;
+import com.projetointegrador.entity.InboundOrder;
+import com.projetointegrador.entity.ProductSeller;
+import com.projetointegrador.entity.Section;
 import com.projetointegrador.repository.InboundOrderPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.TypePersistence;
@@ -56,11 +59,11 @@ public class InboundOrderService {
 
         Section sectionByCode = sectionService.getSectionByCode(inboundOrderDto.getSectionCode());
 
-        for (BatchStockDto item: inboundOrderDto.getBatchStockDto()) {
-            sectionService.verifyEqualType(sectionByCode.getType().getEnvironmentType(),item.getProductSellerId());
+        for (BatchStockDto item : inboundOrderDto.getBatchStockDto()) {
+            sectionService.verifyEqualType(sectionByCode.getType().getEnvironmentType(), item.getProductSellerId());
         }
 
-        sectionService.verifyAvailableSpace(sectionByCode,inboundOrderDto.getBatchStockDto());
+        sectionService.verifyAvailableSpace(sectionByCode, inboundOrderDto.getBatchStockDto());
 
         if (sectionByCode != null) {
             in.setSection(sectionByCode);

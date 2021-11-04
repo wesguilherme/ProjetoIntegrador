@@ -16,19 +16,21 @@ public class Buyer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long buyerId;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String cpf;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String name;
 
     @Embedded
     private Address address;
 
-    public Buyer(){
+    public Buyer() {
     }
 
-    public Buyer (Long buyerId, String cpf, String name, Address address) {
+    public Buyer(Long buyerId, String cpf, String name, Address address) {
         this.buyerId = buyerId;
         this.cpf = cpf;
         this.name = name;
