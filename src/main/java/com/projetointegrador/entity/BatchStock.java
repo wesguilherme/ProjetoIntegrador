@@ -20,6 +20,7 @@ public class BatchStock {
     private Integer initialQuantity;
     private Float minimumTemperature;
     private String currentTemperature;
+    private Long batchStockNumber;
 
     @ManyToOne
     @JoinColumn(name = "inbound_order_inbound_order_id")
@@ -33,7 +34,7 @@ public class BatchStock {
 
     }
 
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, ProductSeller productSeller) {
+    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, ProductSeller productSeller) {
         this.batchStockId = batchStockId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -42,6 +43,7 @@ public class BatchStock {
         this.initialQuantity = initialQuantity;
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
+        this.batchStockNumber = batchStockNumber;
         this.productSeller = productSeller;
     }
 
@@ -56,6 +58,7 @@ public class BatchStock {
                 ", \"initialquantity\":\"" + initialQuantity + "\"" +
                 ", \"minimumtemperature\":\"" + minimumTemperature + "\"" +
                 ", \"currenttemperature\":\"" + currentTemperature + "\"" +
+                ", \"batchStockId\":" + batchStockId +
                 '}';
     }
 }

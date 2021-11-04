@@ -14,7 +14,8 @@ public class InboundOrderDto {
     private Integer orderNumber;
     @NotNull
     private LocalDate orderDate;
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String sectionCode;
     private List<BatchStockDto> batchStockDto;
 

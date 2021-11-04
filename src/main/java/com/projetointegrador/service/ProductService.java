@@ -21,6 +21,11 @@ public class ProductService {
     public ProductService() {
     }
 
+    public ProductService(ProductPersistence productPersistence, TypeService typeService) {
+        this.productPersistence = productPersistence;
+        this.typeService = typeService;
+    }
+
     /**
      * @param productPersistence - é esperado um parâmetro do tipo productPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
@@ -71,20 +76,6 @@ public class ProductService {
             throw new RuntimeException("Não existe product com esse id!");
         }
     }
-
-//    public Product getByTypeId(String id) {
-//        Optional<Product> val;
-//
-//        val = productPersistence.findByProductId(id);
-//
-//        if (val.isPresent()) {
-//            return val.get();
-//        } else {
-//            throw new RuntimeException("Não existe product com esse id!");
-//        }
-//    }
-
-
 
     public Product convert(ProductDto productDto) {
 

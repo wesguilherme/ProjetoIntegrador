@@ -1,8 +1,6 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.entity.Buyer;
 import com.projetointegrador.entity.OrderStatus;
-import com.projetointegrador.repository.BuyerPersistence;
 import com.projetointegrador.repository.OrderStatusPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,19 @@ public class OrderStatusService {
         this.orderStatusPersistence = orderStatusPersistence;
     }
 
-    public OrderStatus insert(OrderStatus orderStatus){
+    public OrderStatus insert(OrderStatus orderStatus) {
         return orderStatusPersistence.save(orderStatus);
+    }
+
+    public OrderStatus getByOrderStatus(String statusCode) {
+        Optional<OrderStatus> val;
+
+        val = orderStatusPersistence.findByStatusCode(statusCode);
+
+        if (val.isPresent()) {
+            return val.get();
+        } else {
+            throw new RuntimeException("Não existe order status!");
+        }
     }
 }

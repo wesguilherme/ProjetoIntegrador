@@ -123,8 +123,8 @@ public class SectionService {
     }
 
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
-        Double totalVolumeProduct =  0d;
-        for (BatchStockDto item: batchStockDto) {
+        Double totalVolumeProduct = 0d;
+        for (BatchStockDto item : batchStockDto) {
             ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
             totalVolumeProduct += productSeller.getVolume();
         }
@@ -132,7 +132,7 @@ public class SectionService {
             Double availableSpace = section.getTotalCapacity() - section.getUsedSpace();
             if (availableSpace < totalVolumeProduct) {
                 throw new RuntimeException("O volume não cabe nesse setor");
-            }else{
+            } else {
                 Double usedSpace = section.getUsedSpace() + totalVolumeProduct;
                 section.setUsedSpace(usedSpace);
                 return true;

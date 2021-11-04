@@ -1,12 +1,10 @@
 package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.*;
+import com.projetointegrador.entity.OrderStatus;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseOrder;
-import com.projetointegrador.service.BatchStockService;
-import com.projetointegrador.service.ProductSellerService;
-import com.projetointegrador.service.ProductService;
-import com.projetointegrador.service.PurchaseOrderService;
+import com.projetointegrador.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,9 @@ public class ProductController {
     @Autowired
     private ProductSellerService productSellerService;
 
+    @Autowired
+    private PurchaseItemService purchaseItemService;
+
     @PostMapping(value = "/insert")
     public ResponseEntity<?> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(productDto);
@@ -40,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/orders")
-    public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder) {
         batchStockService.verifyProductInBatchStock(purchaseOrderDto.getProducts());
         TotalPrice totalPrice = purchaseOrderService.getTotalprice(purchaseOrderDto.getProducts());
         PurchaseOrder purchaseOrder = purchaseOrderService.insert(purchaseOrderDto);
@@ -69,5 +70,15 @@ public class ProductController {
         }
 
         return ResponseEntity.ok().body(purchaseOrderResponseDto);
+    }
+
+    @PutMapping(value = "/orders/update")
+    public ResponseEntity<TotalPrice> update(@RequestBody @Valid PurchaseOrderListDto purchaseOrderListDto){
+        batchStockService.verifyProductInBatchStock(PurchaseOrderListDto.convert(purchaseOrderListDto.getProducts()));
+        TotalPrice totalPrice = purchaseOrderService.getTotalprice(PurchaseOrderListDto.convert(purchaseOrderListDto.getProducts()));
+
+        purchaseItemService.update(purchaseOrderListDto.getProducts());
+
+        return ResponseEntity.ok().body(totalPrice);
     }
 }

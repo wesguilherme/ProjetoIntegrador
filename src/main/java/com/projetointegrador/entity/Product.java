@@ -20,4 +20,11 @@ public class Product {
     public Product() {
 
     }
+
+    public Product(String productId, String name, String description, Type type) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
 }

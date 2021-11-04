@@ -21,12 +21,12 @@ public class ProductSellerDto {
     @NotNull
     private BigDecimal price;
 
-    public ProductSellerDto(Double volume, Double maximumTemperature, Double minimumTemperature, Long sellerId, String productId) {
-
+    public ProductSellerDto(@NotNull Double volume, @NotNull Double maximumTemperature, @NotNull Double minimumTemperature, @NotNull Long sellerId, @NotNull String productId, @NotNull BigDecimal price) {
         this.volume = volume;
         this.maximumTemperature = maximumTemperature;
         this.minimumTemperature = minimumTemperature;
         this.sellerId = sellerId;
         this.productId = productId;
+        this.price = price;
     }
 }

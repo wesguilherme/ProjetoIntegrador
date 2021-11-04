@@ -10,16 +10,18 @@ import java.text.ParseException;
 
 @Data
 @Entity
-public class Representative{
+public class Representative {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long representativeId;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String cpf;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String name;
 
     @Embedded

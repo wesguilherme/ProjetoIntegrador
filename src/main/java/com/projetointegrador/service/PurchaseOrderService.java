@@ -1,9 +1,6 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.ProductItemDto;
-import com.projetointegrador.dto.PurchaseOrderDto;
-import com.projetointegrador.dto.PurchaseOrderResponseDto;
-import com.projetointegrador.dto.TotalPrice;
+import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,16 +47,18 @@ public class PurchaseOrderService {
         purchaseOrder.setDate(purchaseOrderDto.getDate());
         Buyer buyer = buyerService.getByIdBuyer(purchaseOrderDto.getBuyerId());
         purchaseOrder.setBayer(buyer);
-        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts());
-        purchaseOrder.setPurchaseItems(purchaseItem);
 
-        OrderStatus orderStatus = orderStatusService.insert(purchaseOrderDto.getOrderStatus());
+        OrderStatus orderStatus = orderStatusService.getByOrderStatus(purchaseOrderDto.getOrderStatus().getStatusCode());
+
         purchaseOrder.setOrderStatus(orderStatus);
+
+        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts(), purchaseOrder);
+        purchaseOrder.setPurchaseItems(purchaseItem);
 
         return purchaseOrder;
     }
 
-    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto){
+    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto, PurchaseOrder purchaseOrder){
         List<PurchaseItem> purchaseItem = new ArrayList<>();
 
         for (ProductItemDto item : productItemDto) {
@@ -68,8 +66,8 @@ public class PurchaseOrderService {
 
             Product product = productService.getByIdProduct(item.getProductId());
             pur.setProduct(product);
-
             pur.setQuantity(item.getQuantity());
+            pur.setPurchaseOrder(purchaseOrder);
             purchaseItem.add(pur);
         }
         return purchaseItem;

@@ -10,22 +10,24 @@ import java.text.ParseException;
 
 @Entity
 @Data
-public class Seller{
+public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sellerId;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String cpf;
 
-    @NotNull @NotBlank
+    @NotNull
+    @NotBlank
     private String name;
 
     @Embedded
     private Address address;
 
-    public Seller(){
+    public Seller() {
 
     }
 
