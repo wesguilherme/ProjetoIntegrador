@@ -12,7 +12,8 @@ public class PurchaseItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long purchaseItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "productId")
     private Product product;
 
     private Integer quantity;
@@ -20,5 +21,4 @@ public class PurchaseItem {
     @ManyToOne
     @JoinColumn(name = "purchaseOrderId")
     private PurchaseOrder purchaseOrder;
-
 }
