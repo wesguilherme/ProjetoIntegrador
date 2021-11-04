@@ -31,7 +31,7 @@ public class Warehouse {
     @Override
     public String toString() {
         return "{" +
-                ", \"warehouseCode\":\"" + warehouseCode + "\"" +
+                " \"warehouseCode\":\"" + warehouseCode + "\"" +
                 ", \"description\":\"" + description + "\"" +
                 "}";
     }
