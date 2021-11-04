@@ -29,8 +29,24 @@ public class SectionService {
     @Autowired
     private ProductSellerService productSellerService;
 
+    public SectionService() {
+    }
+
     public SectionService (WarehousePersistence mock) {
 
+    }
+
+    public SectionService(RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService) {
+        this.representativeService = representativeService;
+        this.warehouseService = warehouseService;
+        this.typeService = typeService;
+    }
+
+    public SectionService(RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService, SectionPersistence sectionPersistence){
+        this.representativeService = representativeService;
+        this.warehouseService = warehouseService;
+        this.typeService = typeService;
+        this.sectionPersistence = sectionPersistence;
     }
 
     /**
@@ -47,14 +63,13 @@ public class SectionService {
      * @author - Grupo 5 - Tester Wesley
      */
     public Section insert(SectionDto sectionDto) {
+
         Section section = convert(sectionDto);
 
-        if (section.getRepresentative() != null && section.getWarehouse() != null) {
+        if (section.getRepresentative().getRepresentativeId() != null && section.getWarehouse().getWarehouseCode() != null) {
             return sectionPersistence.save(section);
         }
-
         throw new RuntimeException("Representante ou armazém não existe!");
-
     }
 
     /**
@@ -116,10 +131,12 @@ public class SectionService {
         Representative r = representativeService.getByIdRepresentative(sectionDto.getRepresentativeId());
         Warehouse w = warehouseService.getByCode(sectionDto.getWarehouseCode());
 
+
         section.setRepresentative(r);
         section.setWarehouse(w);
 
         return section;
+
     }
 
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {

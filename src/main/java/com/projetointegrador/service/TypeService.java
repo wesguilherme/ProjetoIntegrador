@@ -13,6 +13,9 @@ public class TypeService {
     @Autowired
     TypePersistence typePersistence;
 
+    public TypeService() {
+    }
+
     public TypeService(TypePersistence typePersistence) {
         this.typePersistence = typePersistence;
     }
