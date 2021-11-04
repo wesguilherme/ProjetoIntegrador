@@ -15,12 +15,14 @@ public class PurchaseOrder {
     private Long purchaseOrderId;
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "buyerId")
     private Buyer bayer;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "orderStatusId")
     private OrderStatus orderStatus;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PurchaseItem> purchaseItems;
 }

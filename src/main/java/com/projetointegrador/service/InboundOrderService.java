@@ -7,6 +7,8 @@ import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.entity.Section;
 import com.projetointegrador.repository.InboundOrderPersistence;
+import com.projetointegrador.repository.ProductPersistence;
+import com.projetointegrador.repository.TypePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,12 @@ public class InboundOrderService {
 
     @Autowired
     private ProductSellerService productSellerService;
+
+    @Autowired
+    private TypePersistence typePersistence;
+
+    @Autowired
+    private ProductPersistence productPersistence;
 
     public InboundOrderService() {
     }
@@ -87,4 +95,11 @@ public class InboundOrderService {
         return batchStock;
     }
 
+
+    public List<Product> productList(String initials) {
+        Type type = typePersistence.findByInitials(initials);
+
+        return productPersistence.findByType(type);
+
+    }
 }

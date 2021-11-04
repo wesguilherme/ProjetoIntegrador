@@ -4,15 +4,17 @@ package com.projetointegrador.dto;
 import lombok.Data;
 
 @Data
-public class ProductItemDto {
+public class ProductItemListDto {
 
+    private Long purchaseItemId;
     private String productId;
     private Integer quantity;
 
-    public ProductItemDto() {
+    public ProductItemListDto() {
+
     }
 
-    public ProductItemDto(String productId, Integer quantity) {
+    public ProductItemListDto(String productId, Integer quantity) {
         this.productId = productId;
         this.quantity = quantity;
     }

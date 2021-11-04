@@ -136,7 +136,6 @@ public class BatchStockService {
             Product product = productService.getByIdProduct(item.getProductId());
             ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-
             BatchStock batchStock = getBatchStockByProductSeller(productSeller);
 
             LocalDate startDate = LocalDate.now();
@@ -144,8 +143,8 @@ public class BatchStockService {
 
             int period = Period.between(startDate, endDate).getDays();
 
-            if (item.getQuantity() <= batchStock.getCurrentQuantity()) {
-                if (period <= 21) {
+            if(item.getQuantity() <= batchStock.getCurrentQuantity()){
+                if (period <= 21){
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }

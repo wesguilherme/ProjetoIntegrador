@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/section")
 public class SectionController {
 
     @Autowired
     private SectionService sectionService;
 
-    @PostMapping(value = "/section/insert")
+    @PostMapping(value = "/insert")
     public ResponseEntity<Section> insert(@RequestBody @Valid SectionDto sectionDto, UriComponentsBuilder uriBuilder) throws IOException {
         Section sectionCadastrado = sectionService.insert(sectionDto);
 

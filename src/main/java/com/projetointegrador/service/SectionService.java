@@ -107,7 +107,7 @@ public class SectionService {
         Section section = new Section();
         section.setSectionCode(sectionDto.getSectionCode());
         section.setTotalCapacity(sectionDto.getTotalCapacity());
-        section.setUsedSpace(50d);
+        section.setUsedSpace(0d);
 
         Type type = typeService.getTypeByTypeId(sectionDto.getTypeId());
         section.setType(type);
