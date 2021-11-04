@@ -36,4 +36,7 @@ public class Section {
         this.representative = representative;
         this.warehouse = warehouse;
     }
+
+    public Section (String s, double v, double v1, Type type, Representative representative, Warehouse warehouse) {
+    }
 }

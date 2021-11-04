@@ -18,4 +18,6 @@ public class Type {
 
     }
 
+    public Type (long l, String rf, String refrigerados) {
+    }
 }
