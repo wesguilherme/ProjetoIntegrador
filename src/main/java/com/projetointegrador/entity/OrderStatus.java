@@ -16,4 +16,8 @@ public class OrderStatus {
     private Long orderStatusId;
     private String statusCode;
 
+    public OrderStatus(Long orderStatusId, String statusCode) {
+        this.orderStatusId = orderStatusId;
+        this.statusCode = statusCode;
+    }
 }

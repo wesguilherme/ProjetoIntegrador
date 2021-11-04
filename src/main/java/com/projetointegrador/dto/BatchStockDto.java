@@ -37,7 +37,7 @@ public class BatchStockDto {
             bat.setMinimumTemperature(item.getMinimumTemperature());
             bat.setInitialQuantity(item.getInitialQuantity());
             bat.setManufacturingTime(item.getManufacturingTime());
-            bat.setBatchStockNumberDto(item.getBatchNumber());
+            bat.setBatchStockNumberDto(item.getBatchStockNumber());
 
             bat.setProductSellerId(item.getProductSeller().getProductSellerId());
             batchStockDto.add(bat);

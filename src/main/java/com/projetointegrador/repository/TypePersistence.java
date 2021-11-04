@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TypePersistence extends JpaRepository<Type, Long> {
 
+    Type findByInitials(String initials);
+
 }

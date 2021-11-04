@@ -2,7 +2,6 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.entity.Representative;
 import com.projetointegrador.entity.Section;
-import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.repository.RepresentativePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,5 +90,3 @@ public class RepresentativeService {
         }
     }
 }
-
-
