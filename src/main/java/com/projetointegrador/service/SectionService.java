@@ -32,10 +32,6 @@ public class SectionService {
     public SectionService() {
     }
 
-    public SectionService (WarehousePersistence mock) {
-
-    }
-
     public SectionService(RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService) {
         this.representativeService = representativeService;
         this.warehouseService = warehouseService;
@@ -46,6 +42,11 @@ public class SectionService {
         this.representativeService = representativeService;
         this.warehouseService = warehouseService;
         this.typeService = typeService;
+        this.sectionPersistence = sectionPersistence;
+    }
+
+    public SectionService(ProductSellerService productSellerService, SectionPersistence sectionPersistence) {
+        this.productSellerService = productSellerService;
         this.sectionPersistence = sectionPersistence;
     }
 

@@ -5,7 +5,9 @@ import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.entity.Seller;
+import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
+import com.projetointegrador.repository.SellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,12 @@ public class ProductSellerService {
      */
     public ProductSellerService(ProductSellerPersistence productSellerPersistence) {
         this.productSellerPersistence = productSellerPersistence;
+    }
+
+    public ProductSellerService(ProductSellerPersistence productSellerPersistence, SellerService sellerService, ProductService productService) {
+        this.productSellerPersistence = productSellerPersistence;
+        this.sellerService = sellerService;
+        this.productService = productService;
     }
 
     /**

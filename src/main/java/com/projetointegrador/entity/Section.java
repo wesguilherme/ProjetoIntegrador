@@ -40,7 +40,4 @@ public class Section {
         this.warehouse = warehouse;
     }
 
-    public Section (String s, double v, double v1, Type type, Representative representative, Warehouse warehouse) {
-    }
-
 }

@@ -18,6 +18,9 @@ public class Type {
 
     }
 
-    public Type (long l, String rf, String refrigerados) {
+    public Type(Long typeId, String initials, String environmentType) {
+        this.typeId = typeId;
+        this.initials = initials;
+        this.environmentType = environmentType;
     }
 }

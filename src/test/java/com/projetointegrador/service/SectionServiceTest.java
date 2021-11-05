@@ -142,56 +142,79 @@ public class SectionServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-//    @Test
-//    void shouldVerifyValidSection() throws NullPointerException {
-//        SectionPersistence mock = mock(SectionPersistence.class);
-//        SectionService sectionService = new SectionService(mock);
-//
-//        assertEquals(false,sectionService.verifyValidSection(String.valueOf(false)));
-//
-//    }
-//
-//    @Test
-//    void mustverifyEqualType() throws NullPointerException{
-//        ProductSellerService mock = mock(ProductSellerService.class);
-//        ProductSellerPersistence mock1 =mock(ProductSellerPersistence.class);
-//
-//        Type type = new Type(1L, "RF", "REFRIGERADOS");
-//        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-//        Seller seller = new Seller(1L,"111.222.333-44","Rafael",address);
-//        Product product = new Product("MLB-123", "Uva", "Caixa de Uva",type);
-//        ProductSeller productSeller = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
-//
-////        when(mock.getProductSeller(1L).getProduct().getType().getEnvironmentType()).thenReturn(String.valueOf(productSeller));
-//        when(productSeller.getProduct().getType().getEnvironmentType()).thenReturn(String.valueOf(productSeller));
-//
-//        ProductSeller productSeller1 = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
-//        assertEquals(productSeller.getProduct().getType().getEnvironmentType(), productSeller1.getProduct().getType().getEnvironmentType());
-//    }
+    @Test
+    void shouldVerifyValidSection() throws NullPointerException {
+        SectionPersistence mock = mock(SectionPersistence.class);
 
-//    @Test
-//    void mustnotverifyEqualType() throws NullPointerException{
-//        ProductSellerPersistence mock1 = mock(ProductSellerPersistence.class);
-//        ProductSellerService mock = mock(ProductSellerService.class);
-//
-//        Type type = new Type(1L, "RF", "REFRIGERADOS");
-//        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-//        Seller seller = new Seller(1L,"111.222.333-44","Rafael",address);
-//        Product product = new Product("MLB-123", "Uva", "Caixa de Uva",type);
-//
-//        ProductSeller productSeller = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
-//
-//        when(mock1.getById(1L)).thenReturn(productSeller);
-//        when(productSeller.getProduct().getType().getEnvironmentType().equals(productSeller.getProduct().getType().getEnvironmentType())).thenReturn(false);
-//
-//        ProductSellerService productSellerService = new ProductSellerService(mock1);
-//        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
-//            productSellerService.getProductSeller(1L);
-//        });
-//
-//        String expectedMessage = "Verifique se os produtos pertencem ao mesmo tipo do setor ao qual deseja armazenar!";
-//        String actualMessage = exception.getMessage();
-//        assertTrue(actualMessage.contains(expectedMessage));
-//    }
+        Type type = new Type(1L, "RF", "REFRIGERADOS");
+        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+
+        Optional<Section> section = Optional.of(new Section("SEC-123", 200.0, 30.0, type, representative, warehouse));
+
+        when(mock.findBySectionCode("SEC-123")).thenReturn(section);
+        SectionService sectionService = new SectionService(mock);
+        Boolean verify = sectionService.verifyValidSection("SEC-123");
+        assertTrue(verify);
+
+    }
+
+    @Test
+    void shouldNotVerifyValidSection() throws NullPointerException {
+        SectionPersistence mock = mock(SectionPersistence.class);
+
+        when(mock.findBySectionCode("SEC-123")).thenReturn(Optional.empty());
+        SectionService sectionService = new SectionService(mock);
+        Boolean verify = sectionService.verifyValidSection("SEC-123");
+        assertFalse(verify);
+
+    }
+
+
+    @Test
+    void shouldVerifyEqualType() throws NullPointerException{
+        SectionPersistence sectionPersistenceMock = mock(SectionPersistence.class);
+        ProductSellerPersistence mock1 =mock(ProductSellerPersistence.class);
+
+        Type type = new Type(1L, "RF", "REFRIGERADOS");
+        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Seller seller = new Seller(1L,"111.222.333-44","Rafael",address);
+        Product product = new Product("MLB-123", "Uva", "Caixa de Uva",type);
+
+        ProductSeller productSeller = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
+
+        when(mock1.findById(1L)).thenReturn(Optional.of(productSeller));
+
+        ProductSellerService productSellerService = new ProductSellerService(mock1);
+        SectionService sectionService = new SectionService(productSellerService, sectionPersistenceMock);
+        Boolean verify = sectionService.verifyEqualType("REFRIGERADOS", 1L);
+        assertTrue(verify);
+    }
+
+    @Test
+    void shouldNotverifyEqualType() throws NullPointerException{
+        SectionPersistence sectionPersistenceMock = mock(SectionPersistence.class);
+        ProductSellerPersistence mock1 =mock(ProductSellerPersistence.class);
+
+        Type type = new Type(1L, "RF", "REFRIGERADOS");
+        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Seller seller = new Seller(1L,"111.222.333-44","Rafael",address);
+        Product product = new Product("MLB-123", "Uva", "Caixa de Uva",type);
+
+        ProductSeller productSeller = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
+
+        when(mock1.findById(1L)).thenReturn(Optional.of(productSeller));
+
+        ProductSellerService productSellerService = new ProductSellerService(mock1);
+        SectionService sectionService = new SectionService(productSellerService, sectionPersistenceMock);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            sectionService.verifyEqualType("CONGELADOS", 1L);
+        });
+
+        String expectedMessage = "Verifique se os produtos pertencem ao mesmo tipo do setor ao qual deseja armazenar!";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }
 
