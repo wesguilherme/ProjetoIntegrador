@@ -2,10 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
-import com.projetointegrador.entity.BatchStock;
-import com.projetointegrador.entity.InboundOrder;
-import com.projetointegrador.entity.ProductSeller;
-import com.projetointegrador.entity.Section;
+import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.InboundOrderPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.TypePersistence;
