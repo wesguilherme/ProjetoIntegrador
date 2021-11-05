@@ -4,7 +4,6 @@ import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.SectionDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.SectionPersistence;
-import com.projetointegrador.repository.WarehousePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +28,23 @@ public class SectionService {
     @Autowired
     private ProductSellerService productSellerService;
 
-    public SectionService() {
+    public SectionService ( ) {
     }
 
-    public SectionService(RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService) {
+    public SectionService (RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService) {
         this.representativeService = representativeService;
         this.warehouseService = warehouseService;
         this.typeService = typeService;
     }
 
-    public SectionService(RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService, SectionPersistence sectionPersistence){
+    public SectionService (RepresentativeService representativeService, WarehouseService warehouseService, TypeService typeService, SectionPersistence sectionPersistence) {
         this.representativeService = representativeService;
         this.warehouseService = warehouseService;
         this.typeService = typeService;
         this.sectionPersistence = sectionPersistence;
     }
 
-    public SectionService(ProductSellerService productSellerService, SectionPersistence sectionPersistence) {
+    public SectionService (ProductSellerService productSellerService, SectionPersistence sectionPersistence) {
         this.productSellerService = productSellerService;
         this.sectionPersistence = sectionPersistence;
     }
@@ -54,7 +53,7 @@ public class SectionService {
      * @param sectionPersistence - é esperado um parâmetro do tipo sectionPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Wesley
      */
-    public SectionService(SectionPersistence sectionPersistence) {
+    public SectionService (SectionPersistence sectionPersistence) {
         this.sectionPersistence = sectionPersistence;
     }
 
@@ -63,7 +62,7 @@ public class SectionService {
      * @return - retorna section cadastrado na lista
      * @author - Grupo 5 - Tester Wesley
      */
-    public Section insert(SectionDto sectionDto) {
+    public Section insert (SectionDto sectionDto) {
 
         Section section = convert(sectionDto);
 
@@ -78,7 +77,7 @@ public class SectionService {
      * @return - retorna a section através do Id
      * @author - Grupo 5 - Tester Wesley
      */
-    public Section getSectionByCode(String code) {
+    public Section getSectionByCode (String code) {
         Optional<Section> val;
 
         val = sectionPersistence.findBySectionCode(code);
@@ -90,7 +89,12 @@ public class SectionService {
         }
     }
 
-    public Section getRepresentative(Long id) {
+    /**
+     * @param id
+     * @return retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
+    public Section getRepresentative (Long id) {
         Optional<Section> val;
 
         val = sectionPersistence.findByRepresentativeRepresentativeId(id);
@@ -107,7 +111,7 @@ public class SectionService {
      * @return - retorna a verificação true ou false sobre a validade da section
      * @author - Grupo 5 - Tester Wesley
      */
-    public boolean verifyValidSection(String code) {
+    public boolean verifyValidSection (String code) {
         Optional<Section> verifyValidSection = sectionPersistence.findBySectionCode(code);
         if (verifyValidSection.isEmpty()) {
             return false;
@@ -120,7 +124,7 @@ public class SectionService {
      * @return - retorna a section com os dados de representative e warehouse
      * @author - Grupo 5 - Tester Wesley
      */
-    public Section convert(SectionDto sectionDto) {
+    public Section convert (SectionDto sectionDto) {
         Section section = new Section();
         section.setSectionCode(sectionDto.getSectionCode());
         section.setTotalCapacity(sectionDto.getTotalCapacity());
@@ -140,7 +144,13 @@ public class SectionService {
 
     }
 
-    public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
+    /**
+     * @param section
+     * @param batchStockDto
+     * @return retorna a verificaçao do espaço disponivel no armazem
+     * @author - Grupo 5
+     */
+    public Boolean verifyAvailableSpace (Section section, List<BatchStockDto> batchStockDto) {
         Double totalVolumeProduct = 0d;
         for (BatchStockDto item : batchStockDto) {
             ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
@@ -160,7 +170,13 @@ public class SectionService {
         }
     }
 
-    public boolean verifyEqualType(String environmentType, Long productSellerId) {
+    /**
+     * @param environmentType
+     * @param productSellerId
+     * @return retorna a verificaçao dos itens no setor do armazem
+     * @author - Grupo 5
+     */
+    public boolean verifyEqualType (String environmentType, Long productSellerId) {
         ProductSeller productSeller = productSellerService.getProductSeller(productSellerId);
         if (environmentType.equals(productSeller.getProduct().getType().getEnvironmentType())) {
             return true;
