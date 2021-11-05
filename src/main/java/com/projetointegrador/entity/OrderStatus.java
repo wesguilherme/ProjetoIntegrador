@@ -20,4 +20,8 @@ public class OrderStatus {
         this.orderStatusId = orderStatusId;
         this.statusCode = statusCode;
     }
+
+    public OrderStatus ( ) {
+
+    }
 }
