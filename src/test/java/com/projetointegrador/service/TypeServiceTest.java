@@ -34,7 +34,7 @@ public class TypeServiceTest {
             typeService.getTypeByTypeId(3L);
         });
 
-        String expectedMessage = "Não existe um tipo para o velor passado!";
+        String expectedMessage = "Não existe um tipo para o valor passado!";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
