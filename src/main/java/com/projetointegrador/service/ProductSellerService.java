@@ -5,9 +5,7 @@ import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.entity.Seller;
-import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
-import com.projetointegrador.repository.SellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +25,18 @@ public class ProductSellerService {
     @Autowired
     private ProductService productService;
 
-    public ProductSellerService() {
+    public ProductSellerService ( ) {
     }
 
     /**
      * @param productSellerPersistence - é esperado um parâmetro do tipo productSellerPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductSellerService(ProductSellerPersistence productSellerPersistence) {
+    public ProductSellerService (ProductSellerPersistence productSellerPersistence) {
         this.productSellerPersistence = productSellerPersistence;
     }
 
-    public ProductSellerService(ProductSellerPersistence productSellerPersistence, SellerService sellerService, ProductService productService) {
+    public ProductSellerService (ProductSellerPersistence productSellerPersistence, SellerService sellerService, ProductService productService) {
         this.productSellerPersistence = productSellerPersistence;
         this.sellerService = sellerService;
         this.productService = productService;
@@ -49,7 +47,7 @@ public class ProductSellerService {
      * @return - retorna productSellerDto cadastrado na lista
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductSeller insert(ProductSellerDto productSellerDto) {
+    public ProductSeller insert (ProductSellerDto productSellerDto) {
         ProductSeller productSeller = convert(productSellerDto);
 
         if (productSeller.getProduct() != null && productSeller.getSeller() != null) {
@@ -64,7 +62,7 @@ public class ProductSellerService {
      * @return - retorna o productSeller com os dados de product e seller
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductSeller convert(ProductSellerDto productSellerDto) {
+    public ProductSeller convert (ProductSellerDto productSellerDto) {
         ProductSeller productSeller = new ProductSeller();
         productSeller.setVolume(productSellerDto.getVolume());
         productSeller.setMaximumTemperature(productSellerDto.getMaximumTemperature());
@@ -80,7 +78,12 @@ public class ProductSellerService {
         return productSeller;
     }
 
-    public ProductSeller getProductSeller(Long id) {
+    /**
+     * @param id
+     * @return retorna a verificaçao da existencia do código
+     * @author - Grupo 5
+     */
+    public ProductSeller getProductSeller (Long id) {
         Optional<ProductSeller> val;
 
         val = productSellerPersistence.findById(id);
@@ -90,9 +93,15 @@ public class ProductSellerService {
         } else {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
+
     }
 
-    public ProductSeller getProductSellerByProduto(Product product) {
+    /**
+     * @param product faz a validacao do productSeller
+     * @return retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
+    public ProductSeller getProductSellerByProduto (Product product) {
         Optional<ProductSeller> val;
 
         val = productSellerPersistence.findProductSellerByProduct(product);
@@ -103,10 +112,13 @@ public class ProductSellerService {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
 
-
     }
 
-    public List<ProductResponseDto> listProduct(){
+    /**
+     * @return retorna a lista de productResponseDto
+     * @author - Grupo 5
+     */
+    public List<ProductResponseDto> listProduct ( ) {
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
         List<ProductSeller> productSeller = productSellerPersistence.findAll();
 
