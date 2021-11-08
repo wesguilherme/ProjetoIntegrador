@@ -13,19 +13,14 @@ public class TypeService {
     @Autowired
     TypePersistence typePersistence;
 
-    public TypeService ( ) {
+    public TypeService() {
     }
 
-    public TypeService (TypePersistence typePersistence) {
+    public TypeService(TypePersistence typePersistence) {
         this.typePersistence = typePersistence;
     }
 
-    /**
-     * @param id é esperado o parametro id do type
-     * @return retorna a verificaçao de duplicidade do código
-     * @author - Grupo 5
-     */
-    public Type getTypeByTypeId (Long id) {
+    public Type getTypeByTypeId(Long id) {
         Optional<Type> val;
 
         val = typePersistence.findById(id);
