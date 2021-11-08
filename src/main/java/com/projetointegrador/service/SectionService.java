@@ -3,6 +3,7 @@ package com.projetointegrador.service;
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.SectionDto;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.ProductSellerPersistence;
 import com.projetointegrador.repository.SectionPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,10 @@ public class SectionService {
      */
     public SectionService (SectionPersistence sectionPersistence) {
         this.sectionPersistence = sectionPersistence;
+    }
+
+    public SectionService(ProductSellerService productSellerService) {
+        this.productSellerService = productSellerService;
     }
 
     /**
@@ -135,7 +140,6 @@ public class SectionService {
 
         Representative r = representativeService.getByIdRepresentative(sectionDto.getRepresentativeId());
         Warehouse w = warehouseService.getByCode(sectionDto.getWarehouseCode());
-
 
         section.setRepresentative(r);
         section.setWarehouse(w);

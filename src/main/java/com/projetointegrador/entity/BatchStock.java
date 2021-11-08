@@ -34,7 +34,9 @@ public class BatchStock {
 
     }
 
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, ProductSeller productSeller) {
+
+
+    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, InboundOrder inboundOrder, ProductSeller productSeller) {
         this.batchStockId = batchStockId;
         this.dueDate = dueDate;
         this.manufacturingTime = manufacturingTime;
@@ -44,6 +46,7 @@ public class BatchStock {
         this.minimumTemperature = minimumTemperature;
         this.currentTemperature = currentTemperature;
         this.batchStockNumber = batchStockNumber;
+        this.inboundOrder = inboundOrder;
         this.productSeller = productSeller;
     }
 
