@@ -82,6 +82,11 @@ public class ProductSellerService {
         return productSeller;
     }
 
+    /**
+     * @param id
+     * @return retorna a verificaçao da existencia do código
+     * @author - Grupo 5
+     */
     public ProductSeller getProductSeller(Long id) {
         Optional<ProductSeller> val;
 
@@ -92,8 +97,14 @@ public class ProductSellerService {
         } else {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
+
     }
 
+    /**
+     * @param product faz a validacao do productSeller
+     * @return retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
     public ProductSeller getProductSellerByProduto(Product product) {
         Optional<ProductSeller> val;
 
@@ -105,10 +116,13 @@ public class ProductSellerService {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
 
-
     }
 
-    public List<ProductResponseDto> listProduct(){
+    /**
+     * @return retorna a lista de productResponseDto
+     * @author - Grupo 5
+     */
+    public List<ProductResponseDto> listProduct() {
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
         List<ProductSeller> productSeller = productSellerPersistence.findAll();
 

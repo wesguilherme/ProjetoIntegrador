@@ -77,6 +77,13 @@ public class ProductService {
         }
     }
 
+    /**
+     * @param productDto convert product em productDto
+     * @return retorna o product
+     * retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
+
     public Product convert(ProductDto productDto) {
 
         Product product = new Product();
