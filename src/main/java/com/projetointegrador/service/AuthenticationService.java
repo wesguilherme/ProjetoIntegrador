@@ -14,6 +14,10 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private UserPersistence persistence;
 
+    public AuthenticationService(UserPersistence persistence) {
+        this.persistence = persistence;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = persistence.findByUser(username);

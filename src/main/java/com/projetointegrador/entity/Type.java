@@ -2,7 +2,10 @@ package com.projetointegrador.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Entity
@@ -23,4 +26,7 @@ public class Type {
         this.initials = initials;
         this.environmentType = environmentType;
     }
+
+//    public Type (long l, String rf, String refrigerados) {
+//    }
 }

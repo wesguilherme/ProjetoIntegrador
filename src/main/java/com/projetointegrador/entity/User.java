@@ -27,6 +27,12 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
+    public User(String user, String password, boolean enabled) {
+        this.user = user;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Profile> profiles;
 

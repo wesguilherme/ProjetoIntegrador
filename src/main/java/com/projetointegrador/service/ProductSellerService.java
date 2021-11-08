@@ -42,6 +42,11 @@ public class ProductSellerService {
         this.productService = productService;
     }
 
+    public ProductSellerService(SellerService sellerService, ProductService productService) {
+        this.sellerService = sellerService;
+        this.productService = productService;
+    }
+
     /**
      * @param productSellerDto - é esperado um objeto do tipo productSellerDto
      * @return - retorna productSellerDto cadastrado na lista
@@ -49,7 +54,6 @@ public class ProductSellerService {
      */
     public ProductSeller insert (ProductSellerDto productSellerDto) {
         ProductSeller productSeller = convert(productSellerDto);
-
         if (productSeller.getProduct() != null && productSeller.getSeller() != null) {
             return productSellerPersistence.save(productSeller);
         }
