@@ -1,8 +1,12 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.entity.Address;
+import com.projetointegrador.entity.Buyer;
 import com.projetointegrador.entity.Representative;
+import com.projetointegrador.entity.Seller;
+import com.projetointegrador.repository.BuyerPersistence;
 import com.projetointegrador.repository.RepresentativePersistence;
+import com.projetointegrador.repository.SellerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +21,10 @@ import static org.mockito.Mockito.when;
 public class RepresentativeServiceTest {
 
     @Test
-    void mustInsertRepresentative ( ) {
+    void mustInsertSeller() {
         RepresentativePersistence mock1 = mock(RepresentativePersistence.class);
         RepresentativeService mock = mock(RepresentativeService.class);
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "33377799955", "Wes", address);
 
         when(mock.insert(any(Representative.class))).thenReturn(representative);
@@ -31,10 +35,10 @@ public class RepresentativeServiceTest {
     }
 
     @Test
-    void mustNotInsertRepresentative ( ) {
+    void mustNotInsertSeller() {
         RepresentativePersistence mock1 = mock(RepresentativePersistence.class);
         String cpf = "33399977788";
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "33399977788", "Wes", address);
         when(mock1.findByCpf(cpf)).thenReturn(Optional.of(representative));
 
@@ -49,33 +53,16 @@ public class RepresentativeServiceTest {
     }
 
 
+
     @Test
-    void mustgetByIdRepresentative ( ) {
+    void mustgetByIdSeller(){
         RepresentativePersistence mock1 = mock(RepresentativePersistence.class);
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
         Optional<Representative> representative = Optional.of(new Representative(1L, "33399977788", "Wes", address));
         when(mock1.findById(1L)).thenReturn(representative);
 
         RepresentativeService representativeService = new RepresentativeService(mock1);
         Representative representative1 = representativeService.getByIdRepresentative(1L);
         assertNotNull(representative1.getRepresentativeId());
-    }
-
-    @Test
-    void shouldNotgetByIdRepresentative ( ) {
-        RepresentativePersistence mock1 = mock(RepresentativePersistence.class);
-        Long representativeId = 1L;
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-        Optional<Representative> representative = Optional.of(new Representative(1L, "33399977788", "Wes", address));
-
-        RepresentativeService representativeService = new RepresentativeService(mock1);
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
-            representativeService.getByIdRepresentative(representativeId);
-        });
-
-        String expectedMessage = "Não existe representante com esse id!";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-
     }
 }

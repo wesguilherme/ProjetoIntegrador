@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,10 +19,10 @@ import static org.mockito.Mockito.when;
 public class BuyerServiceTest {
 
     @Test
-    void shouldInsertBuyer ( ) {
+    void mustInsertSeller() {
         BuyerPersistence mock1 = mock(BuyerPersistence.class);
         BuyerService mock = mock(BuyerService.class);
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
         Buyer buyer = new Buyer(1L, "33377799955", "Wes", address);
 
         when(mock.insert(any(Buyer.class))).thenReturn(buyer);
@@ -32,10 +33,10 @@ public class BuyerServiceTest {
     }
 
     @Test
-    void shouldNotInsertBuyer ( ) {
+    void mustNotInsertSeller() {
         BuyerPersistence mock1 = mock(BuyerPersistence.class);
         String cpf = "33399977788";
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
         Buyer buyer = new Buyer(1L, "33399977788", "Wes", address);
         when(mock1.findByCpf(cpf)).thenReturn(buyer);
 
@@ -50,32 +51,14 @@ public class BuyerServiceTest {
     }
 
     @Test
-    void shouldgetByIdBuyer ( ) {
+    void mustgetByIdSeller(){
         BuyerPersistence mock1 = mock(BuyerPersistence.class);
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-        Optional<Buyer> buyer = Optional.of(new Buyer(1L, "33399977788", "Wes", address));
+        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
+        Optional<Buyer> buyer= Optional.of(new Buyer(1L, "33399977788", "Wes", address));
         when(mock1.findById(1L)).thenReturn(buyer);
 
         BuyerService buyerService = new BuyerService(mock1);
         Buyer buyer1 = buyerService.getByIdBuyer(1L);
         assertNotNull(buyer1.getBuyerId());
-    }
-
-    @Test
-    void shouldNotgetByIdBuyer ( ) {
-        BuyerPersistence mock1 = mock(BuyerPersistence.class);
-        Long buyerId = 1L;
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-        Optional<Buyer> buyer = Optional.of(new Buyer(1L, "33399977788", "Wes", address));
-
-        BuyerService buyerService = new BuyerService(mock1);
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
-            buyerService.getByIdBuyer(buyerId);
-        });
-
-        String expectedMessage = "Não existe comprador cadastrado!";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-
     }
 }

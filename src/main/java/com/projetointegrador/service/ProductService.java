@@ -18,10 +18,10 @@ public class ProductService {
     @Autowired
     private TypeService typeService;
 
-    public ProductService ( ) {
+    public ProductService() {
     }
 
-    public ProductService (ProductPersistence productPersistence, TypeService typeService) {
+    public ProductService(ProductPersistence productPersistence, TypeService typeService) {
         this.productPersistence = productPersistence;
         this.typeService = typeService;
     }
@@ -30,7 +30,7 @@ public class ProductService {
      * @param productPersistence - é esperado um parâmetro do tipo productPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
-    public ProductService (ProductPersistence productPersistence) {
+    public ProductService(ProductPersistence productPersistence) {
         this.productPersistence = productPersistence;
     }
 
@@ -39,7 +39,7 @@ public class ProductService {
      * @return - retorna a verificaçao de duplicidade do código
      * @author - Grupo 5 - Tester Ana
      */
-    private boolean UtilizedCode (String id) {
+    private boolean UtilizedCode(String id) {
         Product productExistente = productPersistence.findByProductId(id);
         if (productExistente != null) {
             return true;
@@ -52,7 +52,7 @@ public class ProductService {
      * @return - retorna product cadastrado na lista
      * @author - Grupo 5 - Tester Ana
      */
-    public Product insert (ProductDto productDto) {
+    public Product insert(ProductDto productDto) {
         if (!UtilizedCode(productDto.getProductId())) {
             return productPersistence.save(convert(productDto));
         } else {
@@ -65,7 +65,7 @@ public class ProductService {
      * @return - retorna se o product existe ou não através do id
      * @author - Grupo 5 - Tester Ana
      */
-    public Product getByIdProduct (String id) {
+    public Product getByIdProduct(String id) {
         Optional<Product> val;
 
         val = productPersistence.findById(id);
@@ -84,7 +84,7 @@ public class ProductService {
      * @author - Grupo 5
      */
 
-    public Product convert (ProductDto productDto) {
+    public Product convert(ProductDto productDto) {
 
         Product product = new Product();
         product.setProductId(productDto.getProductId());
