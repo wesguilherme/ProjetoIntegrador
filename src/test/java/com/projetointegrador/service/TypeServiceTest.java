@@ -16,10 +16,10 @@ public class TypeServiceTest {
     void shouldGetTypeByTypeId() {
         TypePersistence mock1 = mock(TypePersistence.class);
         Type type = new Type(3L, "FF", "Congelados");
-        when(mock1.findByInitials("FF")).thenReturn(type);
+        when(mock1.findById(3L)).thenReturn(java.util.Optional.of(type));
 
         TypeService typeService = new TypeService(mock1);
-        Type type1 = typeService.typePersistence.findByInitials("FF");
+        Type type1 = typeService.getTypeByTypeId(3L);
         assertNotNull(type1.getTypeId());
     }
 
@@ -34,7 +34,7 @@ public class TypeServiceTest {
             typeService.getTypeByTypeId(3L);
         });
 
-        String expectedMessage = "Não existe um tipo para o velor passado!";
+        String expectedMessage = "Não existe um tipo para o valor passado!";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
