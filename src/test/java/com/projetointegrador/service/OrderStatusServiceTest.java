@@ -6,6 +6,8 @@ import com.projetointegrador.repository.ProductSellerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -15,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class OrderStatusServiceTest {
 
     @Test
-    void mustInsertOrderStatus() {
+    void mustInsertOrderStatus ( ) {
         OrderStatusPersistence mock1 = mock(OrderStatusPersistence.class);
         OrderStatusService mock = mock(OrderStatusService.class);
         OrderStatus orderStatus = new OrderStatus(1L, "ok");
@@ -28,28 +30,25 @@ public class OrderStatusServiceTest {
     }
 
     @Test
-    void shouldGetByOrderStatus() {
+    void shouldGetByOrderStatus ( ) {
         OrderStatusPersistence mock1 = mock(OrderStatusPersistence.class);
-        OrderStatusService mock = mock(OrderStatusService.class);
 
         OrderStatus orderStatus = new OrderStatus(1L, "cart");
 
-//        when(mock1.findByStatusCode("cart")).thenReturn(Optional.of(orderStatus));
+        when(mock1.findByStatusCode("cart")).thenReturn(Optional.of(orderStatus));
 
         OrderStatusService orderStatusService = new OrderStatusService(mock1);
-        when(mock.getByOrderStatus("cart")).thenReturn(orderStatus);
-
 
         OrderStatus orderStatus1 = orderStatusService.getByOrderStatus("cart");
         assertNotNull(orderStatus1.getOrderStatusId());
     }
 
     @Test
-    void shouldNotGetByOrderStatus() {
+    void shouldNotGetByOrderStatus ( ) {
         ProductSellerPersistence mock = mock(ProductSellerPersistence.class);
 
         ProductSellerService productSellerService = new ProductSellerService(mock);
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
             productSellerService.getProductSeller(1L);
         });
         assertEquals("Não existe Seller para essa busca!", exception.getMessage());
