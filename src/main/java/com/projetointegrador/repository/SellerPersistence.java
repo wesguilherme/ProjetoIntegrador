@@ -9,6 +9,6 @@ public interface SellerPersistence extends JpaRepository<Seller, Long> {
 
     Seller findByCpf(String cpf);
 
-    Seller findBySellerId(Long sellerId);
+//    Seller findBySellerId(Long sellerId);
 
 }

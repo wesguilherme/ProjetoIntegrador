@@ -14,21 +14,18 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
-    @RestController
-    @RequestMapping(value = "/api/v1/product-seller")
-    public class ProductSellerController {
+@RestController
+@RequestMapping(value = "/api/v1/product-seller")
+public class ProductSellerController {
 
-        @Autowired
-        private ProductSellerService productSellerService;
+    @Autowired
+    private ProductSellerService productSellerService;
 
-        @PostMapping(value = "/insert")
-        public ResponseEntity<ProductSeller> insert (@RequestBody @Valid ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
-            ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto);
+    @PostMapping(value = "/insert")
+    public ResponseEntity<ProductSeller> insert(@RequestBody @Valid ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
+        ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto);
 
-            URI uri = uriBuilder.path("/product-seller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
-            return ResponseEntity.created(uri).body(productSellerCadastrado);
-        }
+        URI uri = uriBuilder.path("/product-seller/search/{id}").buildAndExpand(productSellerCadastrado.getProductSellerId()).toUri();
+        return ResponseEntity.created(uri).body(productSellerCadastrado);
     }
-
-
-
+}

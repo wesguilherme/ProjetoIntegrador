@@ -34,8 +34,6 @@ public class PurchaseOrderService {
     public PurchaseOrderService() {
     }
 
-
-
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
     }

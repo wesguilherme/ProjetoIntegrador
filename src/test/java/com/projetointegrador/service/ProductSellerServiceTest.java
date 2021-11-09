@@ -30,7 +30,7 @@ public class ProductSellerServiceTest {
         Product product = new Product("MLB-123", "Uva", "Caixa de Uva", type);
 
         ProductSeller productSeller = new ProductSeller(1L, 10.0, 5.0, 1.0, seller, product, new BigDecimal("20"));
-        ProductSellerDto productSellerDto = new ProductSellerDto(10.0, 5.0, 1.0, 1L, "MLB-123", new BigDecimal("20"));
+        ProductSellerDto productSellerDto = new ProductSellerDto(10.0, 5.0, 1.0, 1L, "MLB-124", new BigDecimal("20"));
 
 
         when(sellerServicemock.getByIdSeller(1L)).thenReturn(seller);

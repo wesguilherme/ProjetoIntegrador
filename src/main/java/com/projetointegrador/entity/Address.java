@@ -1,11 +1,17 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Embeddable
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
     private String street;
@@ -14,19 +20,6 @@ public class Address {
     private String city;
     private String state;
     private String complement;
-
-    public Address() {
-
-    }
-
-    public Address (String street, String number, String postalCode, String city, String state, String complement) {
-        this.street = street;
-        this.number = number;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.state = state;
-        this.complement = complement;
-    }
 
     @Override
     public String toString ( ) {

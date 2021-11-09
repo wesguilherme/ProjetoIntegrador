@@ -19,12 +19,6 @@ public class InboundOrderService {
     private InboundOrderPersistence inboundOrderPersistence;
 
     @Autowired
-    private SectionService sectionService;
-
-    @Autowired
-    private ProductSellerService productSellerService;
-
-    @Autowired
     private TypePersistence typePersistence;
 
     @Autowired
@@ -32,6 +26,7 @@ public class InboundOrderService {
 
     public InboundOrderService() {
     }
+
 
     /**
      * @param inboundOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
@@ -41,57 +36,14 @@ public class InboundOrderService {
         this.inboundOrderPersistence = inboundOrderPersistence;
     }
 
-    public InboundOrder insert(InboundOrderDto inboundOrderDto) {
-        InboundOrder inboundOrder = convert(inboundOrderDto);
+    public InboundOrderService(TypePersistence typePersistence, ProductPersistence productPersistence) {
+        this.typePersistence = typePersistence;
+        this.productPersistence = productPersistence;
+    }
+
+    public InboundOrder insert(InboundOrder inboundOrder) {
         return inboundOrderPersistence.save(inboundOrder);
     }
-
-    private InboundOrder convert(InboundOrderDto inboundOrderDto) {
-
-        InboundOrder in = new InboundOrder();
-        in.setOrderDate(inboundOrderDto.getOrderDate());
-        in.setOrderNumber(inboundOrderDto.getOrderNumber());
-
-        in.setBatchStock(convertBatchStock(inboundOrderDto.getBatchStockDto(), in));
-
-        Section sectionByCode = sectionService.getSectionByCode(inboundOrderDto.getSectionCode());
-
-        for (BatchStockDto item : inboundOrderDto.getBatchStockDto()) {
-            sectionService.verifyEqualType(sectionByCode.getType().getEnvironmentType(), item.getProductSellerId());
-        }
-
-        sectionService.verifyAvailableSpace(sectionByCode, inboundOrderDto.getBatchStockDto());
-
-        if (sectionByCode != null) {
-            in.setSection(sectionByCode);
-        }
-
-        return in;
-    }
-
-    private List<BatchStock> convertBatchStock(List<BatchStockDto> batchStockDto, InboundOrder inboundOrder){
-        List<BatchStock> batchStock = new ArrayList<>();
-
-        for (BatchStockDto item : batchStockDto) {
-            BatchStock bat = new BatchStock();
-            bat.setDueDate(item.getDueDate());
-            bat.setCurrentQuantity(item.getCurrentQuantity());
-            bat.setCurrentTemperature(item.getCurrentTemperature());
-            bat.setManufacturingDate(item.getManufacturingDate());
-            bat.setMinimumTemperature(item.getMinimumTemperature());
-            bat.setInitialQuantity(item.getInitialQuantity());
-            bat.setManufacturingTime(item.getManufacturingTime());
-
-            ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
-
-            bat.setProductSeller(productSeller);
-            bat.setInboundOrder(inboundOrder);
-            batchStock.add(bat);
-        }
-
-        return batchStock;
-    }
-
 
     public List<Product> productList(String initials) {
         Type type = typePersistence.findByInitials(initials);

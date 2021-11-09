@@ -9,8 +9,8 @@ public class ProjetointegradorApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProjetointegradorApplication.class, args);
     }
-
-    //    @Override
+//
+//        @Override
 //    public void run(String... args) throws Exception {
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //        System.out.println(encoder.encode("321"));

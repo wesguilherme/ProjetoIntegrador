@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
@@ -10,6 +13,9 @@ import java.text.ParseException;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Representative {
 
     @Id
@@ -25,30 +31,4 @@ public class Representative {
     @Embedded
     private Address address;
 
-    public Representative() {
-
-    }
-
-    public Representative(Long representativeId, String cpf, String name, Address address) {
-        this.representativeId = representativeId;
-        this.cpf = cpf;
-        this.name = name;
-        this.address = address;
-    }
-
-    public String validaCpf(String cpf) throws ParseException {
-        MaskFormatter mf = new MaskFormatter("###.###.###-##");
-        mf.setValueContainsLiteralCharacters(false);
-        return mf.valueToString(cpf);
-    }
-
-    //    @Override
-//    public String toString() {
-//        return "Seller{" +
-//                " \"nome\":" + super.getName() + "\"" +
-//                ", \"cpf\":\"" + super.getCpf() + "\"" +
-//                ", \"endereço\":\"" + super.getAddressId() + "\"" +
-//                "representativeId='" + representativeId + "\"" +
-//                '}';
-//    }
 }
