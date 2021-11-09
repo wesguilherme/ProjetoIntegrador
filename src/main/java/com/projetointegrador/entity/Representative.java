@@ -10,7 +10,7 @@ import java.text.ParseException;
 
 @Data
 @Entity
-public class Representative extends Section {
+public class Representative {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

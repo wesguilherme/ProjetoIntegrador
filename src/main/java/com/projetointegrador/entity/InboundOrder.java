@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class InboundOrder {
 
     @Id
@@ -16,11 +16,11 @@ public class InboundOrder {
     private Integer orderNumber;
     private LocalDate orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sectionCode")
     private Section section;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inboundOrder" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BatchStock> batchStock;
 
     public InboundOrder() {

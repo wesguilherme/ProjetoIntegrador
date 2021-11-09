@@ -29,6 +29,8 @@ public class PurchaseOrderService {
     @Autowired
     private ProductSellerService productSellerService;
 
+    private PurchaseOrder purchaseOrder;
+
     public PurchaseOrderService() {
     }
 
@@ -36,6 +38,15 @@ public class PurchaseOrderService {
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
+    }
+
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BuyerService buyerService, OrderStatusService orderStatusService, ProductService productService, ProductSellerService productSellerService, PurchaseOrder purchaseOrder) {
+        this.purchaseOrderPersistence = purchaseOrderPersistence;
+        this.buyerService = buyerService;
+        this.orderStatusService = orderStatusService;
+        this.productService = productService;
+        this.productSellerService = productSellerService;
+        this.purchaseOrder = purchaseOrder;
     }
 
     public PurchaseOrder insert(PurchaseOrderDto purchaseOrderDto) {
@@ -48,19 +59,21 @@ public class PurchaseOrderService {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setDate(purchaseOrderDto.getDate());
         Buyer buyer = buyerService.getByIdBuyer(purchaseOrderDto.getBuyerId());
-        purchaseOrder.setBayer(buyer);
+        purchaseOrder.setBuyer(buyer);
 
         OrderStatus orderStatus = orderStatusService.getByOrderStatus(purchaseOrderDto.getOrderStatus().getStatusCode());
 
         purchaseOrder.setOrderStatus(orderStatus);
 
-        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts(), purchaseOrder);
+        this.purchaseOrder = purchaseOrder;
+
+        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts());
         purchaseOrder.setPurchaseItems(purchaseItem);
 
         return purchaseOrder;
     }
 
-    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto, PurchaseOrder purchaseOrder){
+    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto){
         List<PurchaseItem> purchaseItem = new ArrayList<>();
 
         for (ProductItemDto item : productItemDto) {
@@ -69,7 +82,7 @@ public class PurchaseOrderService {
             Product product = productService.getByIdProduct(item.getProductId());
             pur.setProduct(product);
             pur.setQuantity(item.getQuantity());
-            pur.setPurchaseOrder(purchaseOrder);
+            pur.setPurchaseOrder(this.purchaseOrder);
             purchaseItem.add(pur);
         }
         return purchaseItem;

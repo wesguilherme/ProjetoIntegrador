@@ -43,7 +43,6 @@ public class SectionServiceTest {
         SectionService sectionService = new SectionService(representativeServiceMock, warehouseServiceMock, typeServiceMock, sectionPersistenceMock);
         sectionService.insert(sectionDto);
         assertNotNull(section.getSectionCode());
-
     }
 
     @Test
@@ -82,7 +81,6 @@ public class SectionServiceTest {
         SectionService sectionService = new SectionService(mock);
         Section section1 = sectionService.getSectionByCode("SEC-123");
         assertNotNull(section1.getSectionCode());
-
     }
 
 

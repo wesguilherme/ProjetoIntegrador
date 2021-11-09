@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,6 +11,9 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PurchaseOrder {
 
     @Id
@@ -17,7 +23,7 @@ public class PurchaseOrder {
 
     @ManyToOne
     @JoinColumn(name = "buyerId")
-    private Buyer bayer;
+    private Buyer buyer;
 
     @ManyToOne
     @JoinColumn(name = "orderStatusId")
