@@ -2,6 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,10 @@ public class PurchaseOrderService {
     private PurchaseOrderPersistence purchaseOrderPersistence;
 
     @Autowired
-    private BuyerService buyerService;
-
-    @Autowired
     private ProductService productService;
 
     @Autowired
-    private OrderStatusService orderStatusService;
-
-    @Autowired
     private ProductSellerService productSellerService;
-
-    private PurchaseOrder purchaseOrder;
 
     public PurchaseOrderService() {
     }
@@ -38,13 +31,17 @@ public class PurchaseOrderService {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
     }
 
-    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BuyerService buyerService, OrderStatusService orderStatusService, ProductService productService, ProductSellerService productSellerService, PurchaseOrder purchaseOrder) {
+//    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService, PurchaseOrder purchaseOrder) {
+//        this.purchaseOrderPersistence = purchaseOrderPersistence;
+//        this.productService = productService;
+//        this.productSellerService = productSellerService;
+//        this.purchaseOrder = purchaseOrder;
+//    }
+
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
-        this.buyerService = buyerService;
-        this.orderStatusService = orderStatusService;
         this.productService = productService;
         this.productSellerService = productSellerService;
-        this.purchaseOrder = purchaseOrder;
     }
 
     public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
