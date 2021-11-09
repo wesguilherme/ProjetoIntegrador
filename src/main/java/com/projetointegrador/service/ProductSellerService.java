@@ -5,9 +5,7 @@ import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.entity.Seller;
-import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
-import com.projetointegrador.repository.SellerPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +42,11 @@ public class ProductSellerService {
         this.productService = productService;
     }
 
+    public ProductSellerService(SellerService sellerService, ProductService productService) {
+        this.sellerService = sellerService;
+        this.productService = productService;
+    }
+
     /**
      * @param productSellerDto - é esperado um objeto do tipo productSellerDto
      * @return - retorna productSellerDto cadastrado na lista
@@ -51,7 +54,6 @@ public class ProductSellerService {
      */
     public ProductSeller insert(ProductSellerDto productSellerDto) {
         ProductSeller productSeller = convert(productSellerDto);
-
         if (productSeller.getProduct() != null && productSeller.getSeller() != null) {
             return productSellerPersistence.save(productSeller);
         }
@@ -80,6 +82,11 @@ public class ProductSellerService {
         return productSeller;
     }
 
+    /**
+     * @param id
+     * @return retorna a verificaçao da existencia do código
+     * @author - Grupo 5
+     */
     public ProductSeller getProductSeller(Long id) {
         Optional<ProductSeller> val;
 
@@ -90,8 +97,14 @@ public class ProductSellerService {
         } else {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
+
     }
 
+    /**
+     * @param product faz a validacao do productSeller
+     * @return retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
     public ProductSeller getProductSellerByProduto(Product product) {
         Optional<ProductSeller> val;
 
@@ -103,10 +116,13 @@ public class ProductSellerService {
             throw new RuntimeException("Não existe Seller para essa busca!");
         }
 
-
     }
 
-    public List<ProductResponseDto> listProduct(){
+    /**
+     * @return retorna a lista de productResponseDto
+     * @author - Grupo 5
+     */
+    public List<ProductResponseDto> listProduct() {
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
         List<ProductSeller> productSeller = productSellerPersistence.findAll();
 
