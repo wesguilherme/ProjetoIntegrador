@@ -19,8 +19,7 @@ public class PurchaseItemService {
     @Autowired
     private ProductService productService;
 
-    public PurchaseItemService() {
-    }
+    public PurchaseItemService() {}
 
     public PurchaseItemService(PurchaseItemPersistence purchaseItemPersistence) {
         this.purchaseItemPersistence = purchaseItemPersistence;
@@ -48,5 +47,4 @@ public class PurchaseItemService {
             throw new RuntimeException("A lista de produtos não pode ser vazia!");
         }
     }
-
 }
