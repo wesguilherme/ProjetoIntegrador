@@ -9,10 +9,12 @@ import org.springframework.security.access.method.P;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +25,6 @@ public class BatchStockServiceTest {
     @Test
     void shouldgetBatchStockByProductSeller() {
         BatchStockPersistence mock1 = mock(BatchStockPersistence.class);
-        BatchStockService mock = mock(BatchStockService.class);
 
         Type type = new Type(1L, "RF", "REFRIGERADOS");
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
@@ -32,12 +33,13 @@ public class BatchStockServiceTest {
 
         ProductSeller productSeller = new ProductSeller(1L, 10.0, 5.0, 1.0, seller, product, new BigDecimal("20"));
 
+        List<BatchStock> batchStockList = new ArrayList<>();
         BatchStock batchStock = new BatchStock(1L, LocalDate.now(),LocalDateTime.now(), LocalDate.now(), 50, 100, 34F, "16", 5L, productSeller);
-
-        when(mock1.findByProductSeller(productSeller)).thenReturn((List<BatchStock>) batchStock);
+        batchStockList.add(batchStock);
+        when(mock1.findByProductSeller(any(ProductSeller.class))).thenReturn(batchStockList);
 
         BatchStockService batchStockService = new BatchStockService(mock1);
-        BatchStock batchStock1 = batchStockService.getBatchStockByProductSeller(productSeller);
-        assertNotNull(batchStock1.getBatchStockId());
+        List<BatchStock> batchStock1 = batchStockService.getBatchStockByProductSeller(productSeller);
+        assertNotNull(batchStock1.get(0).getBatchStockId());
     }
 }
