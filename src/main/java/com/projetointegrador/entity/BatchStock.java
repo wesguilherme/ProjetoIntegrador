@@ -23,7 +23,7 @@ public class BatchStock {
     private Long batchStockNumber;
 
     @ManyToOne
-    @JoinColumn(name = "inboundOrderId")
+    @JoinColumn(name = "inbound_order_inbound_order_id")
     private InboundOrder inboundOrder;
 
     @ManyToOne

@@ -47,43 +47,8 @@ public class PurchaseOrderService {
         this.purchaseOrder = purchaseOrder;
     }
 
-    public PurchaseOrder insert(PurchaseOrderDto purchaseOrderDto) {
-        PurchaseOrder purchaseOrder = convert(purchaseOrderDto);
+    public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
         return purchaseOrderPersistence.save(purchaseOrder);
-    }
-
-    private PurchaseOrder convert(PurchaseOrderDto purchaseOrderDto) {
-
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setDate(purchaseOrderDto.getDate());
-        Buyer buyer = buyerService.getByIdBuyer(purchaseOrderDto.getBuyerId());
-        purchaseOrder.setBuyer(buyer);
-
-        OrderStatus orderStatus = orderStatusService.getByOrderStatus(purchaseOrderDto.getOrderStatus().getStatusCode());
-
-        purchaseOrder.setOrderStatus(orderStatus);
-
-        this.purchaseOrder = purchaseOrder;
-
-        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts());
-        purchaseOrder.setPurchaseItems(purchaseItem);
-
-        return purchaseOrder;
-    }
-
-    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto){
-        List<PurchaseItem> purchaseItem = new ArrayList<>();
-
-        for (ProductItemDto item : productItemDto) {
-            PurchaseItem pur = new PurchaseItem();
-
-            Product product = productService.getByIdProduct(item.getProductId());
-            pur.setProduct(product);
-            pur.setQuantity(item.getQuantity());
-            pur.setPurchaseOrder(this.purchaseOrder);
-            purchaseItem.add(pur);
-        }
-        return purchaseItem;
     }
 
     public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){

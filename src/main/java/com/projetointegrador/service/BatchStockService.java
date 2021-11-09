@@ -118,6 +118,7 @@ public class BatchStockService {
     }
 
     public List<BatchStock> getBatchStockByProductSeller(ProductSeller productSeller) {
+
         List<BatchStock> val = batchStockPersistence.findByProductSeller(productSeller);
 
         if (!val.isEmpty()) {
@@ -142,7 +143,7 @@ public class BatchStockService {
             int period = Period.between(startDate, endDate).getDays();
 
             if(item.getQuantity() <= batchStock.get(0).getCurrentQuantity()){
-                if (period <= 21){
+                if (period >= 21){
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }
