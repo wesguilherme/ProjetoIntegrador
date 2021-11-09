@@ -13,5 +13,5 @@ public interface SectionPersistence extends JpaRepository<Section, String> {
 
     Optional<Section> findByRepresentativeRepresentativeId(Long id);
 
-    Section get(String section);
+//    Section get(String section);
 }

@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,6 +11,9 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class InboundOrder {
 
     @Id
@@ -23,16 +29,6 @@ public class InboundOrder {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BatchStock> batchStock;
 
-    public InboundOrder() {
-
-    }
-
-    public InboundOrder(Long inboundOrderId, Integer orderNumber, LocalDate orderDate, Section section, BatchStock batchStock) {
-        this.inboundOrderId = inboundOrderId;
-        this.orderNumber = orderNumber;
-        this.orderDate = orderDate;
-        this.section = section;
-    }
 
     @Override
     public String toString() {

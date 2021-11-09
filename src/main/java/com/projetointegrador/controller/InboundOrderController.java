@@ -6,6 +6,8 @@ import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
 import com.projetointegrador.service.InboundOrderService;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +24,15 @@ public class InboundOrderController {
     @Autowired
     private InboundOrderService inboundOrderService;
 
+    @Autowired
+    private SectionService sectionService;
+
+    @Autowired
+    private ProductSellerService productSellerService;
+
     @PostMapping(value = "/inboundorder")
     public ResponseEntity<List<BatchStockDto>> insert(@RequestBody @Valid InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
-        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrderDto);
+        InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrderDto.convert(inboundOrderDto, sectionService, productSellerService));
 
         URI uri = uriBuilder.path("/inboundorder/search/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
         return ResponseEntity.created(uri).body(BatchStockDto.convertBatchStock(inboundOrderCadastrado.getBatchStock()));
@@ -39,4 +47,14 @@ public class InboundOrderController {
         }
         return ResponseEntity.ok().body(product);
     }
+
+//    @GetMapping("/warehouse/{id}")
+//    public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
+//        List<Product> product = inboundOrderService.productList(id);
+//
+//        if (product.size()==0){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok().body(product);
+//    }
 }
