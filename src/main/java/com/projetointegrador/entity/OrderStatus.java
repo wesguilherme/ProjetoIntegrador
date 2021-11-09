@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,19 +12,13 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderStatusId;
     private String statusCode;
-
-    public OrderStatus(Long orderStatusId, String statusCode) {
-        this.orderStatusId = orderStatusId;
-        this.statusCode = statusCode;
-    }
-
-    public OrderStatus ( ) {
-
-    }
 }
