@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.swing.text.MaskFormatter;
@@ -8,8 +11,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 
-@Entity
 @Data
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Seller {
 
     @Id
@@ -26,17 +32,6 @@ public class Seller {
 
     @Embedded
     private Address address;
-
-    public Seller() {
-
-    }
-
-    public Seller(Long sellerId, String cpf, String name, Address address) {
-        this.sellerId = sellerId;
-        this.cpf = cpf;
-        this.name = name;
-        this.address = address;
-    }
 
     public String validaCpf(String cpf) throws ParseException {
         MaskFormatter mf = new MaskFormatter("###.###.###-##");
