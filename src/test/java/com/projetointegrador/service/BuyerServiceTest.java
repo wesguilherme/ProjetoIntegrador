@@ -7,6 +7,7 @@ import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
 import com.projetointegrador.repository.BuyerPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
+import com.projetointegrador.repository.SellerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -76,6 +77,18 @@ public class BuyerServiceTest {
         BuyerService buyerService = new BuyerService(mock);
         RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
             buyerService.getByIdBuyer(1l);
+        });
+        assertEquals("Não existe comprador cadastrado!", exception.getMessage());
+    }
+
+
+    @Test
+    void GetRunTimeException ( ) {
+        BuyerPersistence mock1 = mock(BuyerPersistence.class);
+
+        BuyerService buyerService = new BuyerService(mock1);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
+            buyerService.getByIdBuyer(1L);
         });
         assertEquals("Não existe comprador cadastrado!", exception.getMessage());
     }
