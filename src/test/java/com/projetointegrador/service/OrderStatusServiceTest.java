@@ -2,7 +2,6 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.entity.OrderStatus;
 import com.projetointegrador.repository.OrderStatusPersistence;
-import com.projetointegrador.repository.ProductSellerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,12 +44,12 @@ public class OrderStatusServiceTest {
 
     @Test
     void shouldNotGetByOrderStatus ( ) {
-        ProductSellerPersistence mock = mock(ProductSellerPersistence.class);
+        OrderStatusPersistence mock = mock(OrderStatusPersistence.class);
 
-        ProductSellerService productSellerService = new ProductSellerService(mock);
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
-            productSellerService.getProductSeller(1L);
+        OrderStatusService orderStatusService = new OrderStatusService(mock);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            orderStatusService.getByOrderStatus("cart");
         });
-        assertEquals("Não existe Seller para essa busca!", exception.getMessage());
+        assertEquals("Não existe order status!", exception.getMessage());
     }
 }

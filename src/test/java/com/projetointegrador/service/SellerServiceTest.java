@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -49,15 +48,27 @@ public class SellerServiceTest {
     }
 
     @Test
-    void mustgetByIdSeller(){
+    void mustgetByIdSeller() {
         SellerPersistence mock1 = mock(SellerPersistence.class);
-        Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
+        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Optional<Seller> seller = Optional.of(new Seller(1L, "33399977788", "Wes", address));
         when(mock1.findById(1L)).thenReturn(seller);
 
         SellerService sellerService = new SellerService(mock1);
         Seller seller1 = sellerService.getByIdSeller(1L);
         assertNotNull(seller1.getSellerId());
+    }
+
+    @Test
+    void mustNotGetByIdSeller() {
+
+        SellerPersistence mock1 = mock(SellerPersistence.class);
+
+        SellerService sellerService = new SellerService(mock1);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            sellerService.getByIdSeller(1L);
+        });
+        assertEquals("Não existe Seller com esse id!", exception.getMessage());
     }
 }
 

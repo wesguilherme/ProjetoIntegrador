@@ -1,6 +1,5 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.ProductSellerDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import org.junit.jupiter.api.Assertions;
@@ -19,49 +18,37 @@ public class ProductSellerServiceTest {
 
     @Test
     void shouldInsertProductSeller() {
-        ProductSellerPersistence productSellerPersistencemock = mock(ProductSellerPersistence.class);
-        ProductSellerService productSellerServicemock = mock(ProductSellerService.class);
+        ProductSellerPersistence productSellerPersistenceMock = mock(ProductSellerPersistence.class);
         ProductService productServicemock = mock(ProductService.class);
         SellerService sellerServicemock = mock(SellerService.class);
 
-        Type type = new Type(1L, "RF", "REFRIGERADOS");
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-        Seller seller = new Seller(1L, "111.222.333-44", "Rafael", address);
-        Product product = new Product("MLB-123", "Uva", "Caixa de Uva", type);
+        Type type = Type.builder().typeId(1L).initials("RF").environmentType("REFRIGERADOS").build();
+        Address address = Address.builder().street("rua goias").number("44").postalCode("99999-000").city("SP").state("SP").complement("casa").build();
+        Seller seller = Seller.builder().sellerId(1L).cpf("111.222.333-44").name("Rafael").address(address).build();
+        Product product = Product.builder().productId("MLB-123").name("Uva").description("Caixa de Uva").type(type).build();
 
-        ProductSeller productSeller = new ProductSeller(1L, 10.0, 5.0, 1.0, seller, product, new BigDecimal("20"));
-        ProductSellerDto productSellerDto = new ProductSellerDto(10.0, 5.0, 1.0, 1L, "MLB-124", new BigDecimal("20"));
+        ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(seller).product(product).price(new BigDecimal("20")).build();
 
+        when(productSellerPersistenceMock.save(any(ProductSeller.class))).thenReturn(productSeller);
 
-        when(sellerServicemock.getByIdSeller(1L)).thenReturn(seller);
-        when(productServicemock.getByIdProduct("MLB-123")).thenReturn(product);
-        when(productSellerServicemock.insert(any(ProductSellerDto.class))).thenReturn(productSeller);
-
-        ProductSellerService productSellerService = new ProductSellerService(productSellerPersistencemock, sellerServicemock, productServicemock);
-        productSellerService.insert(productSellerDto);
-        assertNotNull(product.getProductId());
+        ProductSellerService productSellerService = new ProductSellerService(productSellerPersistenceMock, sellerServicemock, productServicemock);
+        ProductSeller productSeller1 = productSellerService.insert(productSeller);
+        assertNotNull(productSeller1.getProductSellerId());
     }
 
     @Test
     void shouldNotInsertProductSeller() {
         ProductSellerPersistence productSellerPersistencemock = mock(ProductSellerPersistence.class);
-        ProductSellerService productSellerServicemock = mock(ProductSellerService.class);
         ProductService productServicemock = mock(ProductService.class);
         SellerService sellerServicemock = mock(SellerService.class);
 
-        Type type = new Type(1L, "RF", "REFRIGERADOS");
-        Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
-        Seller seller = new Seller(1L, "111.222.333-44", "Rafael", address);
-        Product product = new Product("MLB-123", "Uva", "Caixa de Uva", type);
+        ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).price(new BigDecimal("20")).build();
 
-        ProductSeller productSeller = new ProductSeller(1L, 10.0, 5.0, 1.0, seller, product, new BigDecimal("20"));
-        ProductSellerDto productSellerDto = new ProductSellerDto(10.0, 5.0, 1.0, 1L, "MLB-123", new BigDecimal("20"));
-
-        when(productSellerServicemock.insert(any(ProductSellerDto.class))).thenReturn(productSeller);
+        when(productSellerPersistencemock.save(any(ProductSeller.class))).thenReturn(productSeller);
 
         ProductSellerService productSellerService = new ProductSellerService(productSellerPersistencemock, sellerServicemock, productServicemock);
         RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
-            productSellerService.insert(productSellerDto);
+            productSellerService.insert(productSeller);
         });
         assertEquals("Vendedor ou produto não existe!", exception.getMessage());
     }
