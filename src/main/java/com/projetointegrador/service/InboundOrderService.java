@@ -1,15 +1,16 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.BatchStockDto;
-import com.projetointegrador.dto.InboundOrderDto;
-import com.projetointegrador.entity.*;
+import com.projetointegrador.entity.InboundOrder;
+import com.projetointegrador.entity.Product;
+import com.projetointegrador.entity.Type;
+import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.repository.InboundOrderPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.TypePersistence;
+import com.projetointegrador.repository.WarehousePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,10 +25,10 @@ public class InboundOrderService {
     @Autowired
     private ProductPersistence productPersistence;
 
-    public InboundOrderService() {
-    }
+    @Autowired
+    private WarehousePersistence warehousePersistence;
 
-
+    public InboundOrderService() {}
     /**
      * @param inboundOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
@@ -49,6 +50,11 @@ public class InboundOrderService {
         Type type = typePersistence.findByInitials(initials);
 
         return productPersistence.findByType(type);
+    }
 
+    public Product WarehouseProductList(String id) {
+        Product product = productPersistence.findByProductId(id);
+
+        return productPersistence.findByProductId(String.valueOf(product));
     }
 }

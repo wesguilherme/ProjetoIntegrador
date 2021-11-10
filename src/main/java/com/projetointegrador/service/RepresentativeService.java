@@ -17,8 +17,7 @@ public class RepresentativeService {
     @Autowired
     private SectionService sectionService;
 
-    public RepresentativeService() {
-    }
+    public RepresentativeService() {}
 
     /**
      * @param representativePersistence - é esperado um parâmetro do tipo representativePersistence para injeção de dependência
