@@ -32,7 +32,6 @@ public class ProductSellerService {
     public ProductSellerService(ProductSellerPersistence productSellerPersistence) {
         this.productSellerPersistence = productSellerPersistence;
     }
-
     public ProductSellerService(ProductSellerPersistence productSellerPersistence, SellerService sellerService, ProductService productService) {
         this.productSellerPersistence = productSellerPersistence;
         this.sellerService = sellerService;
@@ -43,7 +42,6 @@ public class ProductSellerService {
         this.sellerService = sellerService;
         this.productService = productService;
     }
-
     /**
      * @param productSeller - é esperado um objeto do tipo productSellerDto
      * @return - retorna productSellerDto cadastrado na lista
@@ -53,7 +51,6 @@ public class ProductSellerService {
         if (productSeller.getProduct() != null && productSeller.getSeller() != null) {
             return productSellerPersistence.save(productSeller);
         }
-
         throw new RuntimeException("Vendedor ou produto não existe!");
     }
 
@@ -95,22 +92,15 @@ public class ProductSellerService {
     public List<ProductResponseDto> listProduct() {
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
         List<ProductSeller> productSeller = productSellerPersistence.findAll();
-
         for (ProductSeller item : productSeller) {
-
             ProductResponseDto productResponseDto = new ProductResponseDto();
-
             productResponseDto.setMaximumTemperature(item.getMaximumTemperature());
             productResponseDto.setMinimumTemperature(item.getMinimumTemperature());
             productResponseDto.setVolume(item.getVolume());
             productResponseDto.setProduct(item.getProduct());
-
             productResponseDtoList.add(productResponseDto);
-
         }
-
         return productResponseDtoList;
     }
-
 }
 

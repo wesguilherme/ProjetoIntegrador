@@ -28,7 +28,6 @@ public class OrderStatusService {
         Optional<OrderStatus> val;
 
         val = orderStatusPersistence.findByStatusCode(statusCode);
-
         if (val.isPresent()) {
             return val.get();
         } else {

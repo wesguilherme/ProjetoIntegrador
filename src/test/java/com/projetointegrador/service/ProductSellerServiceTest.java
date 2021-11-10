@@ -1,11 +1,14 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.ProductResponseDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -97,7 +100,7 @@ public class ProductSellerServiceTest {
 
         ProductSellerService productSellerService = new ProductSellerService(mock);
         ProductSeller productSeller1 = productSellerService.getProductSellerByProduto(product);
-        assertNotNull(productSeller1.getProduct());
+        assertNotNull(productSeller1.getProduct().getProductId());
     }
 
     @Test
@@ -117,6 +120,30 @@ public class ProductSellerServiceTest {
 
     @Test
     void shouldListProductSeller() {
+        ProductSellerPersistence productSellerPersistenceMock = mock(ProductSellerPersistence.class);
+        ProductSellerService productSellerServiceMock = mock(ProductSellerService.class);
 
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        ProductResponseDto productResponseDto = ProductResponseDto.builder().volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).build();
+        productResponseDtoList.add(productResponseDto);
+
+
+        Type type = Type.builder().typeId(1L).initials("RF").environmentType("REFRIGERADOS").build();
+        Address address = Address.builder().street("rua goias").number("44").postalCode("99999-000").city("SP").state("SP").complement("casa").build();
+        Seller seller = Seller.builder().sellerId(1L).cpf("111.222.333-44").name("Rafael").address(address).build();
+        Product product = Product.builder().productId("MLB-123").name("Uva").description("Caixa de Uva").type(type).build();
+
+        ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(seller).product(product).price(new BigDecimal("20")).build();
+
+        List<ProductSeller> productSellers = new ArrayList<>();
+        productSellers.add(productSeller);
+
+        when(productSellerPersistenceMock.findAll()).thenReturn(productSellers);
+        when(productSellerServiceMock.listProduct()).thenReturn(productResponseDtoList);
+
+        ProductSellerService productSellerService = new ProductSellerService(productSellerPersistenceMock);
+
+        List<ProductResponseDto> productSeller1 = productSellerService.listProduct();
+        assertEquals(1, productSeller1.size());
     }
 }
