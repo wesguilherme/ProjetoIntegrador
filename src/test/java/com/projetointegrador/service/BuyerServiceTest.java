@@ -69,10 +69,6 @@ public class BuyerServiceTest {
     void shouldNotGetProductSellerByProduto ( ) {
         BuyerPersistence mock = mock(BuyerPersistence.class);
 
-        Type type = new Type(1L, "RF", "REFRIGERADOS");
-        Product product = new Product("MLB-123", "Uva", "Caixa de Uva", type);
-
-
         BuyerService buyerService = new BuyerService(mock);
         RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
             buyerService.getByIdBuyer(1l);
