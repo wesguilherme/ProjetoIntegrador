@@ -4,7 +4,6 @@ import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
-import com.projetointegrador.entity.Type;
 import com.projetointegrador.service.InboundOrderService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.SectionService;
@@ -48,13 +47,13 @@ public class InboundOrderController {
         return ResponseEntity.ok().body(product);
     }
 
-//    @GetMapping("/warehouse/{id}")
-//    public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
-//        List<Product> product = inboundOrderService.productList(id);
-//
+    @GetMapping("/warehouse/{id}")
+    public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
+        Product product = inboundOrderService.WarehouseProductList(id);
+
 //        if (product.size()==0){
 //            return ResponseEntity.notFound().build();
 //        }
-//        return ResponseEntity.ok().body(product);
-//    }
+        return ResponseEntity.ok().body(product);
+    }
 }
