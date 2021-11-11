@@ -8,6 +8,7 @@ import com.projetointegrador.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,9 +60,9 @@ public class InboundOrderService {
         return productPersistence.findByProductId(String.valueOf(product));
     }
 
-    public List<BatchStock> batchStockInSection(String sectionCode, Integer quantityOfDays) {
-        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
-        return batchStocks;
+    public List<BatchStockPersistence.BatchStockListByDays> batchStockInSection(String sectionCode, Integer quantityOfDays) {
+        List<BatchStockPersistence.BatchStockListByDays> batchStockListByDays = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
+        return batchStockListByDays;
     }
 
     public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {

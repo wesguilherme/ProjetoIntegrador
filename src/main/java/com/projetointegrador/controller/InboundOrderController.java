@@ -5,6 +5,7 @@ import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
+import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.service.InboundOrderService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.SectionService;
@@ -55,8 +56,8 @@ public class InboundOrderController {
     }
 
     @GetMapping("/due-date/{sectionCode}/{quantityOfDays}")
-    public ResponseEntity<?> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
-        List<BatchStock> batchStock = inboundOrderService.batchStockInSection(sectionCode, quantityOfDays);
+    public ResponseEntity<List<BatchStockPersistence.BatchStockListByDays>> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
+        List<BatchStockPersistence.BatchStockListByDays>  batchStock = inboundOrderService.batchStockInSection(sectionCode, quantityOfDays);
         return ResponseEntity.ok().body(batchStock);
     }
 
