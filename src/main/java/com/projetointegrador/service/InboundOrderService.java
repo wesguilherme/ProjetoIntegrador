@@ -59,18 +59,10 @@ public class InboundOrderService {
         return productPersistence.findByProductId(String.valueOf(product));
     }
 
-    public List<BatchStock> batchStockInSection(Integer quantityOfDays) {
-        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(quantityOfDays);
+    public List<BatchStock> batchStockInSection(String sectionCode, Integer quantityOfDays) {
+        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
         return batchStocks;
     }
-//        List<BatchStock> batchStockListDueDate = new ArrayList<>();
-////        for (BatchStock item: batchStocks) {
-////
-////        }
-////
-////        batchStockListDueDate = batchStocks.stream()
-////                .filter(item -> item.getDueDate().datesUntil(LocalDate.now().plusDays(quantityOfDays)) >= item.getDueDate());
-//        return batchStockListDueDate;
 
     public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
         return null;

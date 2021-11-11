@@ -54,9 +54,9 @@ public class InboundOrderController {
         return ResponseEntity.ok().body(product);
     }
 
-    @GetMapping("/due-date/{quantityOfDays}")
-    public ResponseEntity<?> batchStockInSection(@PathVariable("quantityOfDays") Integer quantityOfDays) {
-        List<BatchStock> batchStock = inboundOrderService.batchStockInSection(quantityOfDays);
+    @GetMapping("/due-date/{sectionCode}/{quantityOfDays}")
+    public ResponseEntity<?> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
+        List<BatchStock> batchStock = inboundOrderService.batchStockInSection(sectionCode, quantityOfDays);
         return ResponseEntity.ok().body(batchStock);
     }
 
