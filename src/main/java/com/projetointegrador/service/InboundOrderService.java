@@ -1,13 +1,10 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
-import com.projetointegrador.entity.Warehouse;
-import com.projetointegrador.repository.InboundOrderPersistence;
-import com.projetointegrador.repository.ProductPersistence;
-import com.projetointegrador.repository.TypePersistence;
-import com.projetointegrador.repository.WarehousePersistence;
+import com.projetointegrador.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +25,12 @@ public class InboundOrderService {
     @Autowired
     private WarehousePersistence warehousePersistence;
 
-    public InboundOrderService() {}
+    @Autowired
+    private BatchStockPersistence batchStockPersistence;
+
+    public InboundOrderService() {
+    }
+
     /**
      * @param inboundOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
@@ -54,7 +56,23 @@ public class InboundOrderService {
 
     public Product WarehouseProductList(String id) {
         Product product = productPersistence.findByProductId(id);
-
         return productPersistence.findByProductId(String.valueOf(product));
+    }
+
+    public List<BatchStock> batchStockInSection(Integer quantityOfDays) {
+        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(quantityOfDays);
+        return batchStocks;
+    }
+//        List<BatchStock> batchStockListDueDate = new ArrayList<>();
+////        for (BatchStock item: batchStocks) {
+////
+////        }
+////
+////        batchStockListDueDate = batchStocks.stream()
+////                .filter(item -> item.getDueDate().datesUntil(LocalDate.now().plusDays(quantityOfDays)) >= item.getDueDate());
+//        return batchStockListDueDate;
+
+    public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
+        return null;
     }
 }

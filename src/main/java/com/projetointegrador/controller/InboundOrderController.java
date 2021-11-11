@@ -2,6 +2,7 @@ package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
+import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.service.InboundOrderService;
@@ -50,10 +51,18 @@ public class InboundOrderController {
     @GetMapping("/warehouse/{id}")
     public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
         Product product = inboundOrderService.WarehouseProductList(id);
-
-//        if (product.size()==0){
-//            return ResponseEntity.notFound().build();
-//        }
         return ResponseEntity.ok().body(product);
+    }
+
+    @GetMapping("/due-date/{quantityOfDays}")
+    public ResponseEntity<?> batchStockInSection(@PathVariable("quantityOfDays") Integer quantityOfDays) {
+        List<BatchStock> batchStock = inboundOrderService.batchStockInSection(quantityOfDays);
+        return ResponseEntity.ok().body(batchStock);
+    }
+
+    @GetMapping(value = "/due-date/list?/{quantityOfDays}/{initials}/{classification}")
+    public ResponseEntity<?> batchStockListWithFilter(@PathVariable Integer quantityOfDays, @PathVariable String initials, @PathVariable String classification) {
+        List<BatchStock> batchStockList = inboundOrderService.batchStockListWithFilter(quantityOfDays, initials, classification);
+        return ResponseEntity.ok().body(batchStockList);
     }
 }

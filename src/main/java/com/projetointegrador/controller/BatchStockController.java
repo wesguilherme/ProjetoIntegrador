@@ -16,11 +16,6 @@ public class BatchStockController {
     @Autowired
     private BatchStockService batchStockService;
 
-//    @GetMapping("completeListByBatchStock/")
-//    public List<BatchStockDto> completeListByBatchStock() {
-//        return batchStockService.completeListByBatchStock;
-//    }
-
     @GetMapping(value = "listById/{id}")
     public ResponseEntity<?> listBatchStockByProductId(@PathVariable String id) {
         BatchStockResponseDto batchStockResponseDto = batchStockService.listBatchStockByProductId(id);
