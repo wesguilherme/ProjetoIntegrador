@@ -1,10 +1,14 @@
 package com.projetointegrador.service;
 
+import com.projetointegrador.dto.WarehouseResponseDto;
+import com.projetointegrador.dto.WarehousesDto;
 import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.repository.WarehousePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,8 +17,7 @@ public class WarehouseService {
     @Autowired
     private WarehousePersistence warehousePersistence;
 
-    public WarehouseService() {
-    }
+    public WarehouseService() {}
 
     /**
      * @param warehousePersistence - é esperado um parâmetro do tipo warehousePersistence para injeção de dependência
@@ -78,5 +81,9 @@ public class WarehouseService {
         } else {
             throw new RuntimeException("Não existe Warehouse com esse código!");
         }
+    }
+
+    public WarehouseResponseDto warehouseListByProduct(String productId){
+        return WarehouseResponseDto.convert(warehousePersistence.listWarehouseByProduct(productId));
     }
 }

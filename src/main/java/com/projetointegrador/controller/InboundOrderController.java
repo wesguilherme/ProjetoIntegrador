@@ -46,14 +46,4 @@ public class InboundOrderController {
         }
         return ResponseEntity.ok().body(product);
     }
-
-    @GetMapping("/warehouse/{id}")
-    public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
-        Product product = inboundOrderService.WarehouseProductList(id);
-
-//        if (product.size()==0){
-//            return ResponseEntity.notFound().build();
-//        }
-        return ResponseEntity.ok().body(product);
-    }
 }

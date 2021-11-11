@@ -31,13 +31,6 @@ public class PurchaseOrderService {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
     }
 
-//    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService, PurchaseOrder purchaseOrder) {
-//        this.purchaseOrderPersistence = purchaseOrderPersistence;
-//        this.productService = productService;
-//        this.productSellerService = productSellerService;
-//        this.purchaseOrder = purchaseOrder;
-//    }
-
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
         this.productService = productService;

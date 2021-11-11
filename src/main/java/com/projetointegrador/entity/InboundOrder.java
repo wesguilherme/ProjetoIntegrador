@@ -22,11 +22,11 @@ public class InboundOrder {
     private Integer orderNumber;
     private LocalDate orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sectionCode")
+    @ManyToOne
+    @JoinColumn(name = "section_code")
     private Section section;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inboundOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BatchStock> batchStock;
 
 

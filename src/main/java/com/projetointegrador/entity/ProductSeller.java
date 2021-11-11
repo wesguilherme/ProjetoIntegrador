@@ -18,11 +18,11 @@ public class ProductSeller {
     private Double maximumTemperature;
     private Double minimumTemperature;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "sellerId")
     private Seller seller;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
 
