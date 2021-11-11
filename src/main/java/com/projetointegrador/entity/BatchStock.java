@@ -1,13 +1,19 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BatchStock {
 
     @Id
@@ -23,17 +29,17 @@ public class BatchStock {
     private Long batchStockNumber;
 
     @ManyToOne
-    @JoinColumn(name = "inbound_order_inbound_order_id")
+    @JoinColumn(name = "inboundOrderId")
     private InboundOrder inboundOrder;
 
     @ManyToOne
     @JoinColumn(name = "productSellerId")
     private ProductSeller productSeller;
 
-    public BatchStock() {
-
-    }
-
+//    public BatchStock() {
+//
+//    }
+//
     public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, ProductSeller productSeller) {
         this.batchStockId = batchStockId;
         this.dueDate = dueDate;

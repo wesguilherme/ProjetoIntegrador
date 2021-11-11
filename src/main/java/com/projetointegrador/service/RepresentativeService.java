@@ -2,7 +2,6 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.entity.Representative;
 import com.projetointegrador.entity.Section;
-import com.projetointegrador.entity.Warehouse;
 import com.projetointegrador.repository.RepresentativePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,7 @@ public class RepresentativeService {
     @Autowired
     private SectionService sectionService;
 
-    public RepresentativeService() {
-    }
+    public RepresentativeService() {}
 
     /**
      * @param representativePersistence - é esperado um parâmetro do tipo representativePersistence para injeção de dependência
@@ -91,5 +89,3 @@ public class RepresentativeService {
         }
     }
 }
-
-

@@ -1,7 +1,10 @@
 package com.projetointegrador.dto;
 
 import com.projetointegrador.entity.BatchStock;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BatchStockDto {
 
     private LocalDate dueDate;
@@ -21,9 +27,6 @@ public class BatchStockDto {
     private Long productSellerId;
     private Long batchStockNumberDto;
 
-    public BatchStockDto() {
-
-    }
 
     public static List<BatchStockDto> convertBatchStock(List<BatchStock> batchStock){
         List<BatchStockDto> batchStockDto = new ArrayList<>();
@@ -37,7 +40,7 @@ public class BatchStockDto {
             bat.setMinimumTemperature(item.getMinimumTemperature());
             bat.setInitialQuantity(item.getInitialQuantity());
             bat.setManufacturingTime(item.getManufacturingTime());
-            bat.setBatchStockNumberDto(item.getBatchNumber());
+            bat.setBatchStockNumberDto(item.getBatchStockNumber());
 
             bat.setProductSellerId(item.getProductSeller().getProductSellerId());
             batchStockDto.add(bat);

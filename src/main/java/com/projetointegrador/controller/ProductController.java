@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/product")
 public class ProductController {
+
     @Autowired
     private ProductService productService;
 
@@ -32,6 +33,12 @@ public class ProductController {
     @Autowired
     private PurchaseItemService purchaseItemService;
 
+    @Autowired
+    private BuyerService buyerService;
+
+    @Autowired
+    private OrderStatusService orderStatusService;
+
     @PostMapping(value = "/insert")
     public ResponseEntity<?> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(productDto);
@@ -44,7 +51,9 @@ public class ProductController {
     public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder) {
         batchStockService.verifyProductInBatchStock(purchaseOrderDto.getProducts());
         TotalPrice totalPrice = purchaseOrderService.getTotalprice(purchaseOrderDto.getProducts());
-        PurchaseOrder purchaseOrder = purchaseOrderService.insert(purchaseOrderDto);
+
+
+        PurchaseOrder purchaseOrder = purchaseOrderService.insert(purchaseOrderDto.convert(purchaseOrderDto, purchaseItemService, buyerService, productService, orderStatusService));
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(purchaseOrder.getPurchaseOrderId()).toUri();
         return ResponseEntity.created(uri).body(totalPrice);

@@ -1,6 +1,8 @@
 package com.projetointegrador.controller;
 
+import com.projetointegrador.dto.WarehouseResponseDto;
 import com.projetointegrador.entity.Warehouse;
+import com.projetointegrador.repository.WarehousePersistence;
 import com.projetointegrador.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,16 @@ public class WarehouseController {
     public ResponseEntity<List<String>> getWarehouseById() {
         List<String> nomes = Arrays.asList("Ana", "Wesley", "Rafael", "Alessandro");
         return ResponseEntity.ok(nomes);
+    }
+
+    @GetMapping("/listWarehouseByProductId/{id}")
+    public ResponseEntity<WarehouseResponseDto> getWarehouseByProductId(@PathVariable("id") String productId) {
+        WarehouseResponseDto warehouses = warehouseService.warehouseListByProduct(productId);
+
+        if (warehouses.getProductId() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(warehouses);
     }
 }

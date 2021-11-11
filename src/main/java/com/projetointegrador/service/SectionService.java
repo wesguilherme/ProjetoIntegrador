@@ -17,19 +17,13 @@ public class SectionService {
     private SectionPersistence sectionPersistence;
 
     @Autowired
-    private RepresentativeService representativeService;
-
-    @Autowired
-    private WarehouseService warehouseService;
-
-    @Autowired
-    private TypeService typeService;
-
-    @Autowired
     private ProductSellerService productSellerService;
 
-    public SectionService() {
+    public SectionService() {}
 
+    public SectionService(ProductSellerService productSellerService, SectionPersistence sectionPersistence) {
+        this.productSellerService = productSellerService;
+        this.sectionPersistence = sectionPersistence;
     }
 
     /**
@@ -40,20 +34,20 @@ public class SectionService {
         this.sectionPersistence = sectionPersistence;
     }
 
+    public SectionService(ProductSellerService productSellerService) {
+        this.productSellerService = productSellerService;
+    }
+
     /**
-     * @param sectionDto - é esperado um objeto do tipo sectionDto
+     * @param section - é esperado um objeto do tipo sectionDto
      * @return - retorna section cadastrado na lista
      * @author - Grupo 5 - Tester Wesley
      */
-    public Section insert(SectionDto sectionDto) {
-        Section section = convert(sectionDto);
-
-        if (section.getRepresentative() != null && section.getWarehouse() != null) {
+    public Section insert(Section section) {
+        if (section.getRepresentative().getRepresentativeId() != null && section.getWarehouse().getWarehouseCode() != null) {
             return sectionPersistence.save(section);
         }
-
         throw new RuntimeException("Representante ou armazém não existe!");
-
     }
 
     /**
@@ -98,28 +92,7 @@ public class SectionService {
         return true;
     }
 
-    /**
-     * @param sectionDto - é esperado um objeto do tipo sectionDto
-     * @return - retorna a section com os dados de representative e warehouse
-     * @author - Grupo 5 - Tester Wesley
-     */
-    public Section convert(SectionDto sectionDto) {
-        Section section = new Section();
-        section.setSectionCode(sectionDto.getSectionCode());
-        section.setTotalCapacity(sectionDto.getTotalCapacity());
-        section.setUsedSpace(0d);
 
-        Type type = typeService.getTypeByTypeId(sectionDto.getTypeId());
-        section.setType(type);
-
-        Representative r = representativeService.getByIdRepresentative(sectionDto.getRepresentativeId());
-        Warehouse w = warehouseService.getByCode(sectionDto.getWarehouseCode());
-
-        section.setRepresentative(r);
-        section.setWarehouse(w);
-
-        return section;
-    }
 
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
         Double totalVolumeProduct = 0d;

@@ -8,7 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Profile implements GrantedAuthority {
+public class
+Profile implements GrantedAuthority {
 
     private static final long serialVersionUID = 7497401423570420955L;
 

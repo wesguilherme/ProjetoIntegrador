@@ -117,13 +117,12 @@ public class BatchStockService {
         return batchStockResponseDto;
     }
 
-    public BatchStock getBatchStockByProductSeller(ProductSeller productSeller) {
-        List<BatchStock> val;
+    public List<BatchStock> getBatchStockByProductSeller(ProductSeller productSeller) {
 
-        val = batchStockPersistence.findByProductSeller(productSeller);
+        List<BatchStock> val = batchStockPersistence.findByProductSeller(productSeller);
 
-        if (val.isEmpty()) {
-            return (BatchStock) val;
+        if (!val.isEmpty()) {
+            return val;
         } else {
             throw new RuntimeException("Não existe batchStock para esse produto.");
         }
@@ -136,15 +135,15 @@ public class BatchStockService {
             Product product = productService.getByIdProduct(item.getProductId());
             ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-            BatchStock batchStock = getBatchStockByProductSeller(productSeller);
+            List<BatchStock> batchStock = getBatchStockByProductSeller(productSeller);
 
             LocalDate startDate = LocalDate.now();
-            LocalDate endDate = batchStock.getDueDate();
+            LocalDate endDate = batchStock.get(0).getDueDate();
 
             int period = Period.between(startDate, endDate).getDays();
 
-            if(item.getQuantity() <= batchStock.getCurrentQuantity()){
-                if (period <= 21){
+            if(item.getQuantity() <= batchStock.get(0).getCurrentQuantity()){
+                if (period >= 21){
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }

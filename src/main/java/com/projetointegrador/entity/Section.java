@@ -1,11 +1,17 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Section {
 
     @Id
@@ -24,16 +30,4 @@ public class Section {
     @ManyToOne
     @JoinColumn(name = "warehouseCode")
     private Warehouse warehouse;
-
-    public Section() {
-
-    }
-
-    public Section(String sectionCode, Double totalCapacity, Double usedSpace, Representative representative, Warehouse warehouse) {
-        this.sectionCode = sectionCode;
-        this.totalCapacity = totalCapacity;
-        this.usedSpace = usedSpace;
-        this.representative = representative;
-        this.warehouse = warehouse;
-    }
 }

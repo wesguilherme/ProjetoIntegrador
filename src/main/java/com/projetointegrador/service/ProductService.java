@@ -18,7 +18,11 @@ public class ProductService {
     @Autowired
     private TypeService typeService;
 
-    public ProductService() {
+    public ProductService() {}
+
+    public ProductService(ProductPersistence productPersistence, TypeService typeService) {
+        this.productPersistence = productPersistence;
+        this.typeService = typeService;
     }
 
     /**
@@ -71,6 +75,13 @@ public class ProductService {
             throw new RuntimeException("Não existe product com esse id!");
         }
     }
+
+    /**
+     * @param productDto convert product em productDto
+     * @return retorna o product
+     * retorna a verificaçao de duplicidade do código
+     * @author - Grupo 5
+     */
 
     public Product convert(ProductDto productDto) {
 

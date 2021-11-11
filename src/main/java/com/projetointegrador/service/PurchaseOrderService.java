@@ -2,6 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,7 @@ public class PurchaseOrderService {
     private PurchaseOrderPersistence purchaseOrderPersistence;
 
     @Autowired
-    private BuyerService buyerService;
-
-    @Autowired
     private ProductService productService;
-
-    @Autowired
-    private OrderStatusService orderStatusService;
 
     @Autowired
     private ProductSellerService productSellerService;
@@ -36,41 +31,14 @@ public class PurchaseOrderService {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
     }
 
-    public PurchaseOrder insert(PurchaseOrderDto purchaseOrderDto) {
-        PurchaseOrder purchaseOrder = convert(purchaseOrderDto);
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService) {
+        this.purchaseOrderPersistence = purchaseOrderPersistence;
+        this.productService = productService;
+        this.productSellerService = productSellerService;
+    }
+
+    public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
         return purchaseOrderPersistence.save(purchaseOrder);
-    }
-
-    private PurchaseOrder convert(PurchaseOrderDto purchaseOrderDto) {
-
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setDate(purchaseOrderDto.getDate());
-        Buyer buyer = buyerService.getByIdBuyer(purchaseOrderDto.getBuyerId());
-        purchaseOrder.setBayer(buyer);
-
-        OrderStatus orderStatus = orderStatusService.getByOrderStatus(purchaseOrderDto.getOrderStatus().getStatusCode());
-
-        purchaseOrder.setOrderStatus(orderStatus);
-
-        List<PurchaseItem> purchaseItem = convertPurchaseItem(purchaseOrderDto.getProducts(), purchaseOrder);
-        purchaseOrder.setPurchaseItems(purchaseItem);
-
-        return purchaseOrder;
-    }
-
-    private List<PurchaseItem> convertPurchaseItem(List<ProductItemDto> productItemDto, PurchaseOrder purchaseOrder){
-        List<PurchaseItem> purchaseItem = new ArrayList<>();
-
-        for (ProductItemDto item : productItemDto) {
-            PurchaseItem pur = new PurchaseItem();
-
-            Product product = productService.getByIdProduct(item.getProductId());
-            pur.setProduct(product);
-            pur.setQuantity(item.getQuantity());
-            pur.setPurchaseOrder(purchaseOrder);
-            purchaseItem.add(pur);
-        }
-        return purchaseItem;
     }
 
     public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){
