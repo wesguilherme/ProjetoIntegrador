@@ -13,8 +13,7 @@ public class WarehouseService {
     @Autowired
     private WarehousePersistence warehousePersistence;
 
-    public WarehouseService() {
-    }
+    public WarehouseService() {}
 
     /**
      * @param warehousePersistence - é esperado um parâmetro do tipo warehousePersistence para injeção de dependência

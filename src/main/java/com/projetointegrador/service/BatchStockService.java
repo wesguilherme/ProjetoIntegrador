@@ -8,6 +8,8 @@ import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.repository.BatchStockPersistence;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,16 @@ public class BatchStockService {
     @Autowired
     private ProductSellerService productSellerService;
 
-    public BatchStockService() {
-    }
+    public BatchStockService() {}
 
     public BatchStockService(BatchStockPersistence batchStockPersistence) {
         this.batchStockPersistence = batchStockPersistence;
+    }
+
+    public BatchStockService(BatchStockPersistence batchStockPersistence, ProductService productService, ProductSellerService productSellerService) {
+        this.batchStockPersistence = batchStockPersistence;
+        this.productService = productService;
+        this.productSellerService = productSellerService;
     }
 
     public BatchStockResponseDto listBatchStockByProductId(String id) {
@@ -47,8 +54,7 @@ public class BatchStockService {
         List<BatchStock> batchStock = batchStockPersistence.findByProductSeller(productSeller);
 
         for (BatchStock item : batchStock) {
-            BatchStockResponseDto bat = new BatchStockResponseDto();
-
+//            BatchStockResponseDto bat = new BatchStockResponseDto();
             SectionResponseDto sectionResponseDto = new SectionResponseDto();
             sectionResponseDto.setSectionCode(item.getInboundOrder().getSection().getSectionCode());
             sectionResponseDto.setWarehouseCode(item.getInboundOrder().getSection().getWarehouse().getWarehouseCode());

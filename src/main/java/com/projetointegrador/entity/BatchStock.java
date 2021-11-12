@@ -1,6 +1,9 @@
 package com.projetointegrador.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,6 +11,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BatchStock {
 
     @Id
@@ -29,23 +35,6 @@ public class BatchStock {
     @ManyToOne
     @JoinColumn(name = "productSellerId")
     private ProductSeller productSeller;
-
-    public BatchStock() {
-
-    }
-
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, ProductSeller productSeller) {
-        this.batchStockId = batchStockId;
-        this.dueDate = dueDate;
-        this.manufacturingTime = manufacturingTime;
-        this.manufacturingDate = manufacturingDate;
-        this.currentQuantity = currentQuantity;
-        this.initialQuantity = initialQuantity;
-        this.minimumTemperature = minimumTemperature;
-        this.currentTemperature = currentTemperature;
-        this.batchStockNumber = batchStockNumber;
-        this.productSeller = productSeller;
-    }
 
     @Override
     public String toString() {
