@@ -29,29 +29,12 @@ public class BatchStock {
     private Long batchStockNumber;
 
     @ManyToOne
-    @JoinColumn(name = "inbound_order_inbound_order_id")
+    @JoinColumn(name = "inboundOrderId")
     private InboundOrder inboundOrder;
 
     @ManyToOne
     @JoinColumn(name = "productSellerId")
     private ProductSeller productSeller;
-
-//    public BatchStock() {
-//
-//    }
-//
-    public BatchStock(Long batchStockId, LocalDate dueDate, LocalDateTime manufacturingTime, LocalDate manufacturingDate, Integer currentQuantity, Integer initialQuantity, Float minimumTemperature, String currentTemperature, Long batchStockNumber, ProductSeller productSeller) {
-        this.batchStockId = batchStockId;
-        this.dueDate = dueDate;
-        this.manufacturingTime = manufacturingTime;
-        this.manufacturingDate = manufacturingDate;
-        this.currentQuantity = currentQuantity;
-        this.initialQuantity = initialQuantity;
-        this.minimumTemperature = minimumTemperature;
-        this.currentTemperature = currentTemperature;
-        this.batchStockNumber = batchStockNumber;
-        this.productSeller = productSeller;
-    }
 
     @Override
     public String toString() {

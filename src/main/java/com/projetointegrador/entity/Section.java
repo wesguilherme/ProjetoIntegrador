@@ -30,5 +30,4 @@ public class Section {
     @ManyToOne
     @JoinColumn(name = "warehouseCode")
     private Warehouse warehouse;
-
 }

@@ -13,8 +13,7 @@ public class SellerService {
     @Autowired
     private SellerPersistence sellerPersistence;
 
-    public SellerService() {
-    }
+    public SellerService() {}
 
     /**
      * @param sellerPersistence - é esperado um parâmetro do tipo sellerPersistence para injeção de dependência

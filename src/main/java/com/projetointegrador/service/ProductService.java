@@ -18,8 +18,7 @@ public class ProductService {
     @Autowired
     private TypeService typeService;
 
-    public ProductService() {
-    }
+    public ProductService() {}
 
     public ProductService(ProductPersistence productPersistence, TypeService typeService) {
         this.productPersistence = productPersistence;

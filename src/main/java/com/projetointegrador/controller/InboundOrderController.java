@@ -2,10 +2,10 @@ package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
-import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.repository.BatchStockPersistence;
+import com.projetointegrador.service.BatchStockService;
 import com.projetointegrador.service.InboundOrderService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.SectionService;
@@ -30,6 +30,9 @@ public class InboundOrderController {
 
     @Autowired
     private ProductSellerService productSellerService;
+
+    @Autowired
+    private BatchStockService batchStockService;
 
     @PostMapping(value = "/inboundorder")
     public ResponseEntity<List<BatchStockDto>> insert(@RequestBody @Valid InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
@@ -56,14 +59,14 @@ public class InboundOrderController {
     }
 
     @GetMapping("/due-date/{sectionCode}/{quantityOfDays}")
-    public ResponseEntity<List<BatchStockPersistence.BatchStockListByDays>> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
-        List<BatchStockPersistence.BatchStockListByDays>  batchStock = inboundOrderService.batchStockInSection(sectionCode, quantityOfDays);
+    public ResponseEntity<?> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
+        List<BatchStockPersistence.BatchStockListByDays> batchStock = batchStockService.batchStockInSection(sectionCode, quantityOfDays);
         return ResponseEntity.ok().body(batchStock);
     }
 
-    @GetMapping(value = "/due-date/list?/{quantityOfDays}/{initials}/{classification}")
-    public ResponseEntity<?> batchStockListWithFilter(@PathVariable Integer quantityOfDays, @PathVariable String initials, @PathVariable String classification) {
-        List<BatchStock> batchStockList = inboundOrderService.batchStockListWithFilter(quantityOfDays, initials, classification);
+    @GetMapping(value = "/due-date/list/{quantityOfDays}/{typeId}/{classification}")
+    public ResponseEntity<?> batchStockListWithFilter(@PathVariable("quantityOfDays") Integer quantityOfDays, @PathVariable("typeId") Long typeId, @PathVariable("classification") String classification) {
+        List<BatchStockPersistence.BatchStockListByFilter> batchStockList = batchStockService.batchStockListWithFilter(quantityOfDays, typeId, classification);
         return ResponseEntity.ok().body(batchStockList);
     }
 }

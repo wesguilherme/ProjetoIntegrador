@@ -24,19 +24,11 @@ public class PurchaseOrderService {
     @Autowired
     private ProductSellerService productSellerService;
 
-    public PurchaseOrderService() {
-    }
+    public PurchaseOrderService() {}
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
     }
-
-//    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService, PurchaseOrder purchaseOrder) {
-//        this.purchaseOrderPersistence = purchaseOrderPersistence;
-//        this.productService = productService;
-//        this.productSellerService = productSellerService;
-//        this.purchaseOrder = purchaseOrder;
-//    }
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, ProductService productService, ProductSellerService productSellerService) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;

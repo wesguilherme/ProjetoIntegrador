@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Repository
 public interface BatchStockPersistence extends JpaRepository<BatchStock, Long> {
     List<BatchStock> findByProductSeller(ProductSeller productSeller);
@@ -22,14 +23,41 @@ public interface BatchStockPersistence extends JpaRepository<BatchStock, Long> {
             " JOIN type t on t.type_id = p.type_id" +
             " where i.section_code = :sectionCode" +
             " and due_date BETWEEN CURDATE() and DATE_ADD(CURDATE(), INTERVAL + :quantityOfDays DAY)", nativeQuery = true)
-
     List<BatchStockListByDays> listbatchByDays(@Param("sectionCode") String sectionCode, @Param("quantityOfDays") Integer quantityOfDays);
 
-    public interface BatchStockListByDays{
+    @Query(value = "SELECT bs.batch_stock_number, ps.product_id, t.environment_type, bs.due_date, bs.current_quantity" +
+            " FROM batch_stock bs" +
+            " JOIN inbound_order i on i.inbound_order_id = bs.inbound_order_id" +
+            " JOIN product_seller ps on ps.product_seller_id = bs.product_seller_id" +
+            " JOIN product p on p.product_id = ps.product_id" +
+            " JOIN type t on t.type_id = p.type_id" +
+            "    where due_date BETWEEN CURDATE() and DATE_ADD(CURDATE(), INTERVAL + :quantityOfDays DAY) and t.type_id = :typeId" +
+            "ORDER BY due_date :classification)", nativeQuery = true)
+    List<BatchStockListByFilter> listbatchByFilter(@Param("quantityOfDays") Integer quantityOfDays, @Param("typeId") Long typeId, @Param("classification") String classification);
+
+    public interface BatchStockListByDays {
         Long getBatch_stock_number();
+
         String getProduct_id();
+
         String getEnvironment_type();
+
         LocalDate getDue_date();
+
         Integer getCurrent_quantity();
     }
+
+    public interface BatchStockListByFilter {
+        Long getBatch_stock_number();
+
+        String getProduct_id();
+
+        String getEnvironment_type();
+
+        LocalDate getDue_date();
+
+        Integer getCurrent_quantity();
+    }
+
+
 }
