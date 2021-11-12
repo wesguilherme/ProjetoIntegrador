@@ -143,7 +143,7 @@ public class BatchStockService {
             int period = Period.between(startDate, endDate).getDays();
 
             if(item.getQuantity() <= batchStock.get(0).getCurrentQuantity()){
-                if (period >= 21){
+                if (period >= 21) {
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }
@@ -152,5 +152,14 @@ public class BatchStockService {
                 throw new RuntimeException(resp);
             }
         }
+    }
+
+    public List<BatchStock> batchStockInSection(String sectionCode, Integer quantityOfDays) {
+        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
+        return batchStocks;
+    }
+
+    public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
+        return null;
     }
 }

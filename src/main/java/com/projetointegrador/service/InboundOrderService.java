@@ -1,6 +1,5 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
@@ -57,14 +56,5 @@ public class InboundOrderService {
     public Product WarehouseProductList(String id) {
         Product product = productPersistence.findByProductId(id);
         return productPersistence.findByProductId(String.valueOf(product));
-    }
-
-    public List<BatchStock> batchStockInSection(String sectionCode, Integer quantityOfDays) {
-        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
-        return batchStocks;
-    }
-
-    public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
-        return null;
     }
 }
