@@ -154,8 +154,8 @@ public class BatchStockService {
         }
     }
 
-    public List<BatchStock> batchStockInSection(String sectionCode, Integer quantityOfDays) {
-        List<BatchStock> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
+    public List<BatchStockPersistence.BatchStockListByDays> batchStockInSection(String sectionCode, Integer quantityOfDays) {
+        List<BatchStockPersistence.BatchStockListByDays> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
         return batchStocks;
     }
 
