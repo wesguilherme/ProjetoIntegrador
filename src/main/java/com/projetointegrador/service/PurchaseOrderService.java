@@ -24,8 +24,7 @@ public class PurchaseOrderService {
     @Autowired
     private ProductSellerService productSellerService;
 
-    public PurchaseOrderService() {
-    }
+    public PurchaseOrderService() {}
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;

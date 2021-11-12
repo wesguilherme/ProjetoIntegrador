@@ -1,14 +1,14 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.SectionPersistence;
 import com.projetointegrador.repository.WarehousePersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -43,6 +43,28 @@ public class WarehouseServiceTest {
         String expectedMessage = "Código já utilizado";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void shouldValidWarehouse(){
+        WarehousePersistence mock = mock(WarehousePersistence.class);
+
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+
+        when(mock.findByWarehouseCode("MLB-410")).thenReturn(Optional.of(warehouse));
+        WarehouseService warehouseService = new WarehouseService(mock);
+        Boolean verify = warehouseService.validWarehouse("MLB-410");
+        assertTrue(verify);
+    }
+
+    @Test
+    void shouldNotValidWarehouse(){
+        WarehousePersistence mock = mock(WarehousePersistence.class);
+
+        when(mock.findByWarehouseCode("MLB-410")).thenReturn(Optional.empty());
+        WarehouseService warehouseService = new WarehouseService(mock);
+        Boolean verify = warehouseService.validWarehouse("MLB-410");
+        assertFalse(verify);
     }
 
     @Test

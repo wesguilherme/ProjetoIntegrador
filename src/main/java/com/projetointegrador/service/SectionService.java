@@ -38,6 +38,9 @@ public class SectionService {
         this.productSellerService = productSellerService;
     }
 
+    public SectionService(SectionService sectionServiceMock) {
+    }
+
     /**
      * @param section - é esperado um objeto do tipo sectionDto
      * @return - retorna section cadastrado na lista
