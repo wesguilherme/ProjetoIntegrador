@@ -2,7 +2,6 @@ package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.dto.InboundOrderDto;
-import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.repository.BatchStockPersistence;
@@ -65,9 +64,9 @@ public class InboundOrderController {
         return ResponseEntity.ok().body(batchStock);
     }
 
-    @GetMapping(value = "/due-date/list?/{quantityOfDays}/{initials}/{classification}")
-    public ResponseEntity<?> batchStockListWithFilter(@PathVariable Integer quantityOfDays, @PathVariable String initials, @PathVariable String classification) {
-        List<BatchStock> batchStockList = batchStockService.batchStockListWithFilter(quantityOfDays, initials, classification);
+    @GetMapping(value = "/due-date/list/{quantityOfDays}/{typeId}/{classification}")
+    public ResponseEntity<?> batchStockListWithFilter(@PathVariable("quantityOfDays") Integer quantityOfDays, @PathVariable("typeId") Long typeId, @PathVariable("classification") String classification) {
+        List<BatchStockPersistence.BatchStockListByFilter> batchStockList = batchStockService.batchStockListWithFilter(quantityOfDays, typeId, classification);
         return ResponseEntity.ok().body(batchStockList);
     }
 }

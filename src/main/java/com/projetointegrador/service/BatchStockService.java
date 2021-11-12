@@ -163,7 +163,8 @@ public class BatchStockService {
         return batchStocks;
     }
 
-    public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
-        return null;
+    public List<BatchStockPersistence.BatchStockListByFilter> batchStockListWithFilter(Integer quantityOfDays, Long typeId, String classification) {
+        List<BatchStockPersistence.BatchStockListByFilter> batchStocksFilter = batchStockPersistence.listbatchByFilter(quantityOfDays, typeId, classification);
+        return batchStocksFilter;
     }
 }
