@@ -1,6 +1,5 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
@@ -8,7 +7,6 @@ import com.projetointegrador.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,14 +56,5 @@ public class InboundOrderService {
     public Product WarehouseProductList(String id) {
         Product product = productPersistence.findByProductId(id);
         return productPersistence.findByProductId(String.valueOf(product));
-    }
-
-    public List<BatchStockPersistence.BatchStockListByDays> batchStockInSection(String sectionCode, Integer quantityOfDays) {
-        List<BatchStockPersistence.BatchStockListByDays> batchStockListByDays = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
-        return batchStockListByDays;
-    }
-
-    public List<BatchStock> batchStockListWithFilter(Integer quantityOfDays, String initials, String classification) {
-        return null;
     }
 }
