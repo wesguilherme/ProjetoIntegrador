@@ -1,18 +1,13 @@
 package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.BatchStockDto;
-import com.projetointegrador.dto.BatchStockResponseDtoDueDate;
 import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
-import com.projetointegrador.service.BatchStockService;
 import com.projetointegrador.service.InboundOrderService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/v1/fresh-products")
+@RequestMapping(value = "/api/v1/fresh-products/inboundorder")
 public class InboundOrderController {
 
     @Autowired
@@ -34,10 +29,7 @@ public class InboundOrderController {
     @Autowired
     private ProductSellerService productSellerService;
 
-    @Autowired
-    private BatchStockService batchStockService;
-
-    @PostMapping(value = "/inboundorder")
+    @PostMapping(value = "/insert")
     public ResponseEntity<List<BatchStockDto>> insert(@RequestBody @Valid InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
         InboundOrder inboundOrderCadastrado = inboundOrderService.insert(inboundOrderDto.convert(inboundOrderDto, sectionService, productSellerService));
 
@@ -46,31 +38,12 @@ public class InboundOrderController {
     }
 
     @GetMapping("/list/{initials}")
-    public ResponseEntity<?> productList(@PathVariable("initials") String initials) {
+    public ResponseEntity<List<Product>> productList(@PathVariable("initials") String initials) {
         List<Product> product = inboundOrderService.productList(initials);
 
-        if (product.size()==0){
+        if (product.size() == 0) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(product);
-    }
-
-    @GetMapping("/warehouse/{id}")
-    public ResponseEntity<?> warehouseListProduct(@PathVariable("id") String id) {
-        Product product = inboundOrderService.WarehouseProductList(id);
-        return ResponseEntity.ok().body(product);
-    }
-
-    @GetMapping("/due-date/{sectionCode}/{quantityOfDays}")
-    public ResponseEntity<BatchStockResponseDtoDueDate> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
-        BatchStockResponseDtoDueDate batchStock = BatchStockDto.convertByDueDate(batchStockService.batchStockInSection(sectionCode, quantityOfDays));
-        return ResponseEntity.ok().body(batchStock);
-    }
-
-    @GetMapping(value = "/due-date/list")
-    public ResponseEntity<BatchStockResponseDtoDueDate> batchStockListWithFilter(@RequestParam("quantityOfDays") Integer quantityOfDays, @RequestParam("typeId") Long typeId,
-                                                                                 @PageableDefault(sort = "dueDate", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-        BatchStockResponseDtoDueDate batchStockResponseDtoDueDate = BatchStockDto.convertByListWithFilter(batchStockService.batchStockListWithFilter(quantityOfDays, typeId, paginacao));
-        return ResponseEntity.ok().body(batchStockResponseDtoDueDate);
     }
 }

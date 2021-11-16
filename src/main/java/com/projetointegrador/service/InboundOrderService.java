@@ -53,8 +53,8 @@ public class InboundOrderService {
         return productPersistence.findByType(type);
     }
 
-    public Product WarehouseProductList(String id) {
-        Product product = productPersistence.findByProductId(id);
-        return productPersistence.findByProductId(String.valueOf(product));
-    }
+//    public Product WarehouseProductList(String id) {
+//        Product product = productPersistence.findByProductId(id);
+//        return productPersistence.findByProductId(String.valueOf(product));
+//    }
 }

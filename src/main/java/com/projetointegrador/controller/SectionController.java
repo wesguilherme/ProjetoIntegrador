@@ -38,14 +38,4 @@ public class SectionController {
         URI uri = uriBuilder.path("/section/search/{id}").buildAndExpand(sectionCadastrado.getSectionCode()).toUri();
         return ResponseEntity.created(uri).body(sectionCadastrado);
     }
-
-    @GetMapping("/buscar/{code}")
-    public Section getSectionById(@PathVariable("id") String code) {
-        return sectionService.getSectionByCode(code);
-    }
-
-    @GetMapping("/verificar/{code}")
-    public boolean verifyValidSection(@PathVariable("code") String code) {
-        return sectionService.verifyValidSection(code);
-    }
 }

@@ -53,7 +53,7 @@ public class BatchStockService {
         List<BatchStock> batchStock = batchStockPersistence.findByProductSeller(productSeller);
 
         for (BatchStock item : batchStock) {
-//            BatchStockResponseDto bat = new BatchStockResponseDto();
+            BatchStockResponseDto bat = new BatchStockResponseDto();
             SectionResponseDto sectionResponseDto = new SectionResponseDto();
             sectionResponseDto.setSectionCode(item.getInboundOrder().getSection().getSectionCode());
             sectionResponseDto.setWarehouseCode(item.getInboundOrder().getSection().getWarehouse().getWarehouseCode());
@@ -85,7 +85,7 @@ public class BatchStockService {
         List<BatchStock> batchStock = batchStockPersistence.findByProductSeller(productSeller);
 
         for (BatchStock item : batchStock) {
-//            BatchStockResponseDto bat = new BatchStockResponseDto();
+            BatchStockResponseDto bat = new BatchStockResponseDto();
             SectionResponseDto sectionResponseDto = new SectionResponseDto();
             sectionResponseDto.setSectionCode(item.getInboundOrder().getSection().getSectionCode());
             sectionResponseDto.setWarehouseCode(item.getInboundOrder().getSection().getWarehouse().getWarehouseCode());
