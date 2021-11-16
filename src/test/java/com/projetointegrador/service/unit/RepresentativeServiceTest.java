@@ -1,10 +1,12 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BuyerPersistence;
 import com.projetointegrador.repository.RepresentativePersistence;
 import com.projetointegrador.repository.SectionPersistence;
 import com.projetointegrador.repository.SellerPersistence;
+import com.projetointegrador.service.RepresentativeService;
+import com.projetointegrador.service.SectionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

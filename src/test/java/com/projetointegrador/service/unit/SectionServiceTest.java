@@ -1,9 +1,11 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.BatchStockDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import com.projetointegrador.repository.SectionPersistence;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.SectionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

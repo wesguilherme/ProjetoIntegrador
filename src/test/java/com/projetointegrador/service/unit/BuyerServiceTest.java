@@ -1,4 +1,4 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 
 import com.projetointegrador.entity.Address;
@@ -7,6 +7,7 @@ import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
 import com.projetointegrador.repository.BuyerPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
+import com.projetointegrador.service.BuyerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

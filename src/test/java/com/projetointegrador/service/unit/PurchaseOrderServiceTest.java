@@ -1,4 +1,4 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.ProductItemDto;
 import com.projetointegrador.dto.PurchaseOrderResponseDto;
@@ -7,6 +7,9 @@ import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.ProductService;
+import com.projetointegrador.service.PurchaseOrderService;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

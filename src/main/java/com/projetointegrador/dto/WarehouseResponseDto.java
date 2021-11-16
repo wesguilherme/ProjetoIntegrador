@@ -40,5 +40,4 @@ public class WarehouseResponseDto {
 
         return warehouseResponseDto1;
     }
-
 }
