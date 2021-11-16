@@ -2,6 +2,7 @@ package com.projetointegrador.repository;
 
 import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.ProductSeller;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,9 +32,11 @@ public interface BatchStockPersistence extends JpaRepository<BatchStock, Long> {
             " JOIN product_seller ps on ps.product_seller_id = bs.product_seller_id" +
             " JOIN product p on p.product_id = ps.product_id" +
             " JOIN type t on t.type_id = p.type_id" +
-            "    where due_date BETWEEN CURDATE() and DATE_ADD(CURDATE(), INTERVAL + :quantityOfDays DAY) and t.type_id = :typeId" +
-            "ORDER BY due_date :classification)", nativeQuery = true)
-    List<BatchStockListByFilter> listbatchByFilter(@Param("quantityOfDays") Integer quantityOfDays, @Param("typeId") Long typeId, @Param("classification") String classification);
+            " where bs.due_date BETWEEN CURDATE() and DATE_ADD(CURDATE(), INTERVAL + :quantityOfDays DAY) and t.type_id = :typeId"
+            , nativeQuery = true)
+
+
+    List<BatchStockListByFilter> listbatchByFilter(@Param("quantityOfDays") Integer quantityOfDays, @Param("typeId") Long typeId, Pageable pageable);
 
     public interface BatchStockListByDays {
         Long getBatch_stock_number();
