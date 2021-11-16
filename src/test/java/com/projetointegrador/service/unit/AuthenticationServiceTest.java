@@ -1,7 +1,8 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.User;
 import com.projetointegrador.repository.UserPersistence;
+import com.projetointegrador.service.AuthenticationService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

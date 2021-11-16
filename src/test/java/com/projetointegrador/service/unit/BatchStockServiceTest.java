@@ -1,20 +1,21 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
 
+import com.projetointegrador.service.BatchStockService;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -173,7 +174,7 @@ public class BatchStockServiceTest {
         ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(null).product(product).price(new BigDecimal("20")).build();
 
         List<BatchStock> batchStocks = new ArrayList<>();
-        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2022-12-03"),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
+        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2030-12-15"),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
         batchStocks.add(batchStock);
 
         List<ProductItemDto> productItemDtos = new ArrayList<>();
@@ -221,6 +222,47 @@ public class BatchStockServiceTest {
         });
 
         assertEquals("Não existe estoque para este produto: MLB-123", exception.getMessage());
+    }
+
+    @Test
+    void shouldbatchStockInSection(){
+        BatchStockPersistence batchStockPersistence = mock(BatchStockPersistence.class);
+        List<BatchStockPersistence.BatchStockListByDays> batchStocks = new ArrayList<>();
+        BatchStockPersistence.BatchStockListByDays batchStockListByDays = new BatchStockPersistence.BatchStockListByDays() {
+            @Override
+            public Long getBatch_stock_number() {
+                return 1L;
+            }
+
+            @Override
+            public String getProduct_id() {
+                return "MLB-410";
+            }
+
+            @Override
+            public String getEnvironment_type() {
+                return "RF";
+            }
+
+            @Override
+            public LocalDate getDue_date() {
+                return LocalDate.now();
+            }
+
+            @Override
+            public Integer getCurrent_quantity() {
+                return 10;
+            }
+        };
+        batchStocks.add(batchStockListByDays);
+
+        Section.builder().sectionCode("SEC-123").totalCapacity(200.0).usedSpace(30.0).warehouse(null).build();
+
+        when(batchStockPersistence.listbatchByDays("SEC-123", 15)).thenReturn(batchStocks);
+
+        BatchStockService batchStockService = new BatchStockService(batchStockPersistence);
+        List<BatchStockPersistence.BatchStockListByDays> batchStock1 = batchStockService.batchStockInSection("SEC-123", 15);
+        assertNotNull(batchStock1);
     }
 }
 

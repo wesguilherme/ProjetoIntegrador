@@ -1,9 +1,11 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.ProductItemListDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseItem;
 import com.projetointegrador.repository.PurchaseItemPersistence;
+import com.projetointegrador.service.ProductService;
+import com.projetointegrador.service.PurchaseItemService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
