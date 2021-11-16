@@ -1,17 +1,17 @@
 package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.BatchStockDto;
+import com.projetointegrador.dto.BatchStockResponseDtoDueDate;
 import com.projetointegrador.dto.InboundOrderDto;
 import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
-import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.service.BatchStockService;
 import com.projetointegrador.service.InboundOrderService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,15 +62,15 @@ public class InboundOrderController {
     }
 
     @GetMapping("/due-date/{sectionCode}/{quantityOfDays}")
-    public ResponseEntity<?> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
-        List<BatchStockPersistence.BatchStockListByDays> batchStock = batchStockService.batchStockInSection(sectionCode, quantityOfDays);
+    public ResponseEntity<BatchStockResponseDtoDueDate> batchStockInSection(@PathVariable("sectionCode") String sectionCode, @PathVariable("quantityOfDays") Integer quantityOfDays) {
+        BatchStockResponseDtoDueDate batchStock = BatchStockDto.convertByDueDate(batchStockService.batchStockInSection(sectionCode, quantityOfDays));
         return ResponseEntity.ok().body(batchStock);
     }
 
     @GetMapping(value = "/due-date/list")
-    public ResponseEntity<?> batchStockListWithFilter(@RequestParam("quantityOfDays") Integer quantityOfDays, @RequestParam("typeId") Long typeId,
-                                                      @PageableDefault(sort = "due_date", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable paginacao) {
-        List<BatchStockPersistence.BatchStockListByFilter> batchStockList = batchStockService.batchStockListWithFilter(quantityOfDays, typeId, paginacao);
-        return ResponseEntity.ok().body(batchStockList);
+    public ResponseEntity<BatchStockResponseDtoDueDate> batchStockListWithFilter(@RequestParam("quantityOfDays") Integer quantityOfDays, @RequestParam("typeId") Long typeId,
+                                                                                 @PageableDefault(sort = "dueDate", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+        BatchStockResponseDtoDueDate batchStockResponseDtoDueDate = BatchStockDto.convertByListWithFilter(batchStockService.batchStockListWithFilter(quantityOfDays, typeId, paginacao));
+        return ResponseEntity.ok().body(batchStockResponseDtoDueDate);
     }
 }

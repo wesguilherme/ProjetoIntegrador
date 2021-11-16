@@ -66,6 +66,7 @@ public class InboundOrderDto {
             bat.setMinimumTemperature(item.getMinimumTemperature());
             bat.setInitialQuantity(item.getInitialQuantity());
             bat.setManufacturingTime(item.getManufacturingTime());
+            bat.setBatchStockNumber(item.getBatchStockNumber());
 
             ProductSeller productSeller = productSellerService.getProductSeller(item.getProductSellerId());
 

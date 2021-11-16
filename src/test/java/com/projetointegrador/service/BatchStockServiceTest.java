@@ -1,23 +1,25 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.*;
+import com.projetointegrador.dto.BatchStockList;
+import com.projetointegrador.dto.BatchStockResponseDto;
+import com.projetointegrador.dto.ProductItemDto;
+import com.projetointegrador.dto.SectionResponseDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -221,6 +223,86 @@ public class BatchStockServiceTest {
         });
 
         assertEquals("Não existe estoque para este produto: MLB-123", exception.getMessage());
+    }
+
+    @Test
+    void shouldListBatchStockBySection() {
+        BatchStockPersistence batchStockPersistenceMock = mock(BatchStockPersistence.class);
+        List<BatchStockPersistence.BatchStockListByDays> batchStocks = new ArrayList<>();
+        BatchStockPersistence.BatchStockListByDays batchStockListByDays = new BatchStockPersistence.BatchStockListByDays() {
+
+            @Override
+            public Long getBatch_stock_number() {
+                return 1L;
+            }
+
+            @Override
+            public String getProduct_id() {
+                return "MLB-123";
+            }
+
+            @Override
+            public String getEnvironment_type() {
+                return "CONGELADOS";
+            }
+
+            @Override
+            public LocalDate getDue_date() {
+                return LocalDate.now();
+            }
+
+            @Override
+            public Integer getCurrent_quantity() {
+                return 100;
+            }
+        };
+        batchStocks.add(batchStockListByDays);
+
+        when(batchStockPersistenceMock.listbatchByDays(anyString(), anyInt())).thenReturn(batchStocks);
+
+        BatchStockService batchStockService = new BatchStockService(batchStockPersistenceMock);
+        List<BatchStockPersistence.BatchStockListByDays> batchStock1 = batchStockService.batchStockInSection("SEC-123", 15);
+        assertEquals(1, batchStock1.size());
+    }
+
+    @Test
+    void shouldListBatchStockByFilter() {
+        BatchStockPersistence batchStockPersistenceMock = mock(BatchStockPersistence.class);
+        List<BatchStockPersistence.BatchStockListByFilter> batchStocks = new ArrayList<>();
+        BatchStockPersistence.BatchStockListByFilter batchStockListByFilter = new BatchStockPersistence.BatchStockListByFilter() {
+
+            @Override
+            public Long getBatch_stock_number() {
+                return 1L;
+            }
+
+            @Override
+            public String getProduct_id() {
+                return "MLB-123";
+            }
+
+            @Override
+            public String getEnvironment_type() {
+                return "CONGELADOS";
+            }
+
+            @Override
+            public LocalDate getDue_date() {
+                return LocalDate.now();
+            }
+
+            @Override
+            public Integer getCurrent_quantity() {
+                return 100;
+            }
+        };
+        batchStocks.add(batchStockListByFilter);
+
+        when(batchStockPersistenceMock.listbatchByFilter(anyInt(), anyLong(), any())).thenReturn(batchStocks);
+
+        BatchStockService batchStockService = new BatchStockService(batchStockPersistenceMock);
+        List<BatchStockPersistence.BatchStockListByFilter> batchStock1 = batchStockService.batchStockListWithFilter(15, 2L, Pageable.unpaged());
+        assertEquals(1, batchStock1.size());
     }
 }
 
