@@ -1,7 +1,6 @@
 package com.projetointegrador.controller;
 
 import com.projetointegrador.dto.*;
-import com.projetointegrador.entity.OrderStatus;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseOrder;
 import com.projetointegrador.service.*;
@@ -40,7 +39,7 @@ public class ProductController {
     private OrderStatusService orderStatusService;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<?> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Product> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(productDto);
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(productCadastrado.getProductId()).toUri();
@@ -60,10 +59,10 @@ public class ProductController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<?> getProductSellerId() {
+    public ResponseEntity<List<ProductResponseDto>> getProductSellerId() {
         List<ProductResponseDto> productResponseDto = productSellerService.listProduct();
 
-        if(productResponseDto.isEmpty()) {
+        if (productResponseDto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -71,7 +70,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/orders/{id}")
-    public ResponseEntity<?> listOrdersByOrderId(@PathVariable("id") Long id){
+    public ResponseEntity<PurchaseOrderResponseDto> listOrdersByOrderId(@PathVariable("id") Long id) {
         PurchaseOrderResponseDto purchaseOrderResponseDto = purchaseOrderService.listOrdersByOrderId(id);
 
         if (purchaseOrderResponseDto.getBuyerId() == null) {
