@@ -95,8 +95,6 @@ public class SectionService {
         return true;
     }
 
-
-
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
         Double totalVolumeProduct = 0d;
         for (BatchStockDto item : batchStockDto) {

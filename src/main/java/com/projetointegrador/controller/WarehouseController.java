@@ -25,11 +25,6 @@ public class WarehouseController {
         return ResponseEntity.created(uri).body(warehouseCadastrado);
     }
 
-    @GetMapping("/{code}")
-    public boolean getWarehouseById(@PathVariable("code") String code) {
-        return warehouseService.validWarehouse(code);
-    }
-
     @GetMapping("/listWarehouseByProductId/{id}")
     public ResponseEntity<WarehouseResponseDto> getWarehouseByProductId(@PathVariable("id") String productId) {
         WarehouseResponseDto warehouses = warehouseService.warehouseListByProduct(productId);

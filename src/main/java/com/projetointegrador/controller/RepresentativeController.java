@@ -25,9 +25,4 @@ public class RepresentativeController {
         URI uri = uriBuilder.path("/representative/search/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();
         return ResponseEntity.created(uri).body(representativeCadastrado);
     }
-
-    @GetMapping("/verificar/{id}")
-    public boolean verifyRepresentativeBelongsToWarehouse(@PathVariable("id") Long id) {
-        return representativeService.verifyRepresentativeBelongsToWarehouse(id);
-    }
 }
