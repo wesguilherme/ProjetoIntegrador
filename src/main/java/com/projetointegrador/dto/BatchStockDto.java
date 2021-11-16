@@ -1,6 +1,7 @@
 package com.projetointegrador.dto;
 
 import com.projetointegrador.entity.BatchStock;
+import com.projetointegrador.repository.BatchStockPersistence;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class BatchStockDto {
     private Float minimumTemperature;
     private String currentTemperature;
     private Long productSellerId;
-    private Long batchStockNumberDto;
+    private Long batchStockNumber;
 
 
     public static List<BatchStockDto> convertBatchStock(List<BatchStock> batchStock){
@@ -40,12 +41,50 @@ public class BatchStockDto {
             bat.setMinimumTemperature(item.getMinimumTemperature());
             bat.setInitialQuantity(item.getInitialQuantity());
             bat.setManufacturingTime(item.getManufacturingTime());
-            bat.setBatchStockNumberDto(item.getBatchStockNumber());
+            bat.setBatchStockNumber(item.getBatchStockNumber());
 
             bat.setProductSellerId(item.getProductSeller().getProductSellerId());
             batchStockDto.add(bat);
         }
 
         return batchStockDto;
+    }
+
+    public static BatchStockResponseDtoDueDate convertByDueDate(List<BatchStockPersistence.BatchStockListByDays> batchStocks) {
+        BatchStockResponseDtoDueDate batchStockResponseDtoDueDate = new BatchStockResponseDtoDueDate();
+        List<BatchStockDtoDueDate> batchStockDtoDueDates = new ArrayList<>();
+
+        for (BatchStockPersistence.BatchStockListByDays item : batchStocks) {
+            BatchStockDtoDueDate batchStockDtoDueDate1 = new BatchStockDtoDueDate();
+            batchStockDtoDueDate1.setBatchStockNumber(item.getBatch_stock_number());
+            batchStockDtoDueDate1.setDueDate(item.getDue_date());
+            batchStockDtoDueDate1.setEnvironmentType(item.getEnvironment_type());
+            batchStockDtoDueDate1.setProductId(item.getProduct_id());
+            batchStockDtoDueDate1.setCurrentQuantity(item.getCurrent_quantity());
+
+            batchStockDtoDueDates.add(batchStockDtoDueDate1);
+        }
+
+        batchStockResponseDtoDueDate.setBatchStock(batchStockDtoDueDates);
+        return batchStockResponseDtoDueDate;
+    }
+
+    public static BatchStockResponseDtoDueDate convertByListWithFilter(List<BatchStockPersistence.BatchStockListByFilter> batchStocks) {
+        BatchStockResponseDtoDueDate batchStockResponseDtoDueDate = new BatchStockResponseDtoDueDate();
+        List<BatchStockDtoDueDate> batchStockDtoDueDates = new ArrayList<>();
+
+        for (BatchStockPersistence.BatchStockListByFilter item : batchStocks) {
+            BatchStockDtoDueDate batchStockDtoDueDate1 = new BatchStockDtoDueDate();
+            batchStockDtoDueDate1.setBatchStockNumber(item.getBatch_stock_number());
+            batchStockDtoDueDate1.setDueDate(item.getDue_date());
+            batchStockDtoDueDate1.setEnvironmentType(item.getEnvironment_type());
+            batchStockDtoDueDate1.setProductId(item.getProduct_id());
+            batchStockDtoDueDate1.setCurrentQuantity(item.getCurrent_quantity());
+
+            batchStockDtoDueDates.add(batchStockDtoDueDate1);
+        }
+
+        batchStockResponseDtoDueDate.setBatchStock(batchStockDtoDueDates);
+        return batchStockResponseDtoDueDate;
     }
 }

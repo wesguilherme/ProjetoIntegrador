@@ -1,7 +1,8 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.OrderStatus;
 import com.projetointegrador.repository.OrderStatusPersistence;
+import com.projetointegrador.service.OrderStatusService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

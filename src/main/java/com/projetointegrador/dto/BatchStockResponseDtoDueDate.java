@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WarehousesDto {
+public class BatchStockResponseDtoDueDate {
 
-    private String warehouseCode;
-    private Integer quantidade;
+    private List<BatchStockDtoDueDate> batchStock;
 }
