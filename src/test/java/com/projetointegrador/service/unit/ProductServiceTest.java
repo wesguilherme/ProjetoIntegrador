@@ -1,9 +1,11 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.ProductDto;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.Type;
 import com.projetointegrador.repository.ProductPersistence;
+import com.projetointegrador.service.ProductService;
+import com.projetointegrador.service.TypeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,8 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.Type;
 import com.projetointegrador.repository.TypePersistence;
+import com.projetointegrador.service.TypeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
