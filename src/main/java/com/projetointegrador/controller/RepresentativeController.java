@@ -4,7 +4,10 @@ import com.projetointegrador.entity.Representative;
 import com.projetointegrador.service.RepresentativeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -24,10 +27,5 @@ public class RepresentativeController {
 
         URI uri = uriBuilder.path("/representative/search/{id}").buildAndExpand(representativeCadastrado.getRepresentativeId()).toUri();
         return ResponseEntity.created(uri).body(representativeCadastrado);
-    }
-
-    @GetMapping("/verificar/{id}")
-    public boolean verifyRepresentativeBelongsToWarehouse(@PathVariable("id") Long id) {
-        return representativeService.verifyRepresentativeBelongsToWarehouse(id);
     }
 }

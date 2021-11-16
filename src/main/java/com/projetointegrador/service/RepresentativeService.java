@@ -17,7 +17,8 @@ public class RepresentativeService {
     @Autowired
     private SectionService sectionService;
 
-    public RepresentativeService() {}
+    public RepresentativeService() {
+    }
 
     /**
      * @param representativePersistence - é esperado um parâmetro do tipo representativePersistence para injeção de dependência
@@ -25,6 +26,11 @@ public class RepresentativeService {
      */
     public RepresentativeService(RepresentativePersistence representativePersistence) {
         this.representativePersistence = representativePersistence;
+    }
+
+    public RepresentativeService(RepresentativePersistence representativePersistence, SectionService sectionService) {
+        this.representativePersistence = representativePersistence;
+        this.sectionService = sectionService;
     }
 
     /**

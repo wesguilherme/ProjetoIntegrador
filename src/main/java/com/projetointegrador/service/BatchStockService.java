@@ -9,6 +9,7 @@ import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.repository.BatchStockPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -36,6 +37,12 @@ public class BatchStockService {
         this.batchStockPersistence = batchStockPersistence;
     }
 
+    public BatchStockService(BatchStockPersistence batchStockPersistence, ProductService productService, ProductSellerService productSellerService) {
+        this.batchStockPersistence = batchStockPersistence;
+        this.productService = productService;
+        this.productSellerService = productSellerService;
+    }
+
     public BatchStockResponseDto listBatchStockByProductId(String id) {
         BatchStockResponseDto batchStockResponseDto = new BatchStockResponseDto();
         List<BatchStockList> batchStockList = new ArrayList<>();
@@ -48,7 +55,6 @@ public class BatchStockService {
 
         for (BatchStock item : batchStock) {
             BatchStockResponseDto bat = new BatchStockResponseDto();
-
             SectionResponseDto sectionResponseDto = new SectionResponseDto();
             sectionResponseDto.setSectionCode(item.getInboundOrder().getSection().getSectionCode());
             sectionResponseDto.setWarehouseCode(item.getInboundOrder().getSection().getWarehouse().getWarehouseCode());
@@ -81,7 +87,6 @@ public class BatchStockService {
 
         for (BatchStock item : batchStock) {
             BatchStockResponseDto bat = new BatchStockResponseDto();
-
             SectionResponseDto sectionResponseDto = new SectionResponseDto();
             sectionResponseDto.setSectionCode(item.getInboundOrder().getSection().getSectionCode());
             sectionResponseDto.setWarehouseCode(item.getInboundOrder().getSection().getWarehouse().getWarehouseCode());
@@ -142,8 +147,8 @@ public class BatchStockService {
 
             int period = Period.between(startDate, endDate).getDays();
 
-            if(item.getQuantity() <= batchStock.get(0).getCurrentQuantity()){
-                if (period >= 21){
+            if (item.getQuantity() <= batchStock.get(0).getCurrentQuantity()) {
+                if (period >= 21) {
                     String resp = "Validade do produto: " + item.getProductId() + " é inferior a 3 semanas";
                     throw new RuntimeException(resp);
                 }
@@ -152,5 +157,15 @@ public class BatchStockService {
                 throw new RuntimeException(resp);
             }
         }
+    }
+
+    public List<BatchStockPersistence.BatchStockListByDays> batchStockInSection(String sectionCode, Integer quantityOfDays) {
+        List<BatchStockPersistence.BatchStockListByDays> batchStocks = batchStockPersistence.listbatchByDays(sectionCode, quantityOfDays);
+        return batchStocks;
+    }
+
+    public List<BatchStockPersistence.BatchStockListByFilter> batchStockListWithFilter(Integer quantityOfDays, Long typeId, Pageable pageable) {
+        List<BatchStockPersistence.BatchStockListByFilter> batchStocksFilter = batchStockPersistence.listbatchByFilter(quantityOfDays, typeId, pageable);
+        return batchStocksFilter;
     }
 }

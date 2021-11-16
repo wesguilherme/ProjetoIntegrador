@@ -5,16 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BatchStockList {
+public class BatchStockResponseDtoDueDate {
 
-    private Long batchStockNumber;
-    private Integer currentQuantity;
-    private LocalDate dueDate;
-
+    private List<BatchStockDtoDueDate> batchStock;
 }

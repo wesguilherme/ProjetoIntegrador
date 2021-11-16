@@ -1,8 +1,8 @@
 package com.projetointegrador.service;
 
 import com.projetointegrador.dto.BatchStockDto;
-import com.projetointegrador.dto.SectionDto;
-import com.projetointegrador.entity.*;
+import com.projetointegrador.entity.ProductSeller;
+import com.projetointegrador.entity.Section;
 import com.projetointegrador.repository.SectionPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,9 @@ public class SectionService {
 
     public SectionService(ProductSellerService productSellerService) {
         this.productSellerService = productSellerService;
+    }
+
+    public SectionService(SectionService sectionServiceMock) {
     }
 
     /**
@@ -91,8 +94,6 @@ public class SectionService {
         }
         return true;
     }
-
-
 
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
         Double totalVolumeProduct = 0d;

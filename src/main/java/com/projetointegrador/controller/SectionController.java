@@ -8,7 +8,10 @@ import com.projetointegrador.service.TypeService;
 import com.projetointegrador.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -37,15 +40,5 @@ public class SectionController {
 
         URI uri = uriBuilder.path("/section/search/{id}").buildAndExpand(sectionCadastrado.getSectionCode()).toUri();
         return ResponseEntity.created(uri).body(sectionCadastrado);
-    }
-
-    @GetMapping("/buscar/{code}")
-    public Section getSectionById(@PathVariable("id") String code) {
-        return sectionService.getSectionByCode(code);
-    }
-
-    @GetMapping("/verificar/{code}")
-    public boolean verifyValidSection(@PathVariable("code") String code) {
-        return sectionService.verifyValidSection(code);
     }
 }

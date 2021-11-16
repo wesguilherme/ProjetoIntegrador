@@ -11,10 +11,11 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BatchStockList {
+public class BatchStockDtoDueDate {
 
     private Long batchStockNumber;
-    private Integer currentQuantity;
+    private String productId;
+    private String environmentType;
     private LocalDate dueDate;
-
+    private Integer currentQuantity;
 }

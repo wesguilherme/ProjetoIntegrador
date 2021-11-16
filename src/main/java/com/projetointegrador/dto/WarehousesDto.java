@@ -13,5 +13,4 @@ public class WarehousesDto {
 
     private String warehouseCode;
     private Integer quantidade;
-
 }

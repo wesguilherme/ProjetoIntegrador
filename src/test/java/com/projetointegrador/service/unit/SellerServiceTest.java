@@ -1,8 +1,9 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.Address;
 import com.projetointegrador.entity.Seller;
 import com.projetointegrador.repository.SellerPersistence;
+import com.projetointegrador.service.SellerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
