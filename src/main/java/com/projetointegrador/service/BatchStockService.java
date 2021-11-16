@@ -9,6 +9,7 @@ import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.repository.BatchStockPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -163,8 +164,8 @@ public class BatchStockService {
         return batchStocks;
     }
 
-    public List<BatchStockPersistence.BatchStockListByFilter> batchStockListWithFilter(Integer quantityOfDays, Long typeId, String classification) {
-        List<BatchStockPersistence.BatchStockListByFilter> batchStocksFilter = batchStockPersistence.listbatchByFilter(quantityOfDays, typeId, classification);
+    public List<BatchStockPersistence.BatchStockListByFilter> batchStockListWithFilter(Integer quantityOfDays, Long typeId, Pageable pageable) {
+        List<BatchStockPersistence.BatchStockListByFilter> batchStocksFilter = batchStockPersistence.listbatchByFilter(quantityOfDays, typeId, pageable);
         return batchStocksFilter;
     }
 }
