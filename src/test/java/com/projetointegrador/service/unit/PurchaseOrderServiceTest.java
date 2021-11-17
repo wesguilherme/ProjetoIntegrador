@@ -38,11 +38,14 @@ public class PurchaseOrderServiceTest {
         Buyer buyer = Buyer.builder().buyerId(1L).build();
         OrderStatus orderStatus = OrderStatus.builder().orderStatusId(1L).statusCode("cart").build();
 
-        PurchaseItem purchaseItem1 = PurchaseItem.builder().purchaseItemId(1L).quantity(10).build();
+        Type type = Type.builder().typeId(1L).environmentType("REFRIGERADOS").initials("RF").build();
+        Product product = Product.builder().productId("MLB-123").description("Produto teste").name("Frango").type(type).build();
+
+        PurchaseItem purchaseItem1 = PurchaseItem.builder().purchaseItemId(1L).quantity(10).product(product).build();
         List<PurchaseItem> purchaseItems = new ArrayList<>();
         purchaseItems.add(purchaseItem1);
 
-        PurchaseOrder purchaseOrder = PurchaseOrder.builder().purchaseOrderId(1L).date(LocalDate.now()).buyer(buyer).orderStatus(orderStatus).purchaseItems(purchaseItems).build();
+        PurchaseOrder purchaseOrder = PurchaseOrder.builder().purchaseOrderId(1L).date(LocalDate.now()).buyer(buyer).orderStatus(orderStatus).purchaseItems(purchaseItems).purchaseOrderId(1L).build();
         when(purchaseOrderPersistenceMock.save(any(PurchaseOrder.class))).thenReturn(purchaseOrder);
 
         BatchStockPersistence.BatchStockByProductId batchStockProductId = new BatchStockPersistence.BatchStockByProductId() {
