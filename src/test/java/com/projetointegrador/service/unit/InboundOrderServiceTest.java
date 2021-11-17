@@ -56,20 +56,4 @@ public class InboundOrderServiceTest {
         List<Product> products = inboundOrderService.productList("RF");
         assertEquals("RF", products.get(0).getType().getInitials());
     }
-
-    @Test
-    void shouldWarehouseProductList(){
-        TypePersistence typePersistence = mock(TypePersistence.class);
-        ProductPersistence productPersistence = mock(ProductPersistence.class);
-
-        Type type = Type.builder().typeId(1L).initials("RF").environmentType("REFRIGERADOS").build();
-        Product product = new Product("MLB-125","Uva","Caixa de Uva",type);
-
-        when(productPersistence.findByProductId(anyString())).thenReturn(product);
-
-        InboundOrderService inboundOrderService = new InboundOrderService(typePersistence,productPersistence);
-        Product product1 = inboundOrderService.WarehouseProductList("MLB-125");
-
-        assertNotNull(product1);
-    }
 }

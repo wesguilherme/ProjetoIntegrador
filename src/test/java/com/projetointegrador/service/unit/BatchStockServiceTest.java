@@ -1,4 +1,4 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.BatchStockList;
 import com.projetointegrador.dto.BatchStockResponseDto;
@@ -6,6 +6,9 @@ import com.projetointegrador.dto.ProductItemDto;
 import com.projetointegrador.dto.SectionResponseDto;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
+import com.projetointegrador.service.BatchStockService;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
@@ -175,7 +178,7 @@ public class BatchStockServiceTest {
         ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(null).product(product).price(new BigDecimal("20")).build();
 
         List<BatchStock> batchStocks = new ArrayList<>();
-        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2022-12-03"),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
+        BatchStock batchStock = new BatchStock(1L, LocalDate.now().plusDays(28),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
         batchStocks.add(batchStock);
 
         List<ProductItemDto> productItemDtos = new ArrayList<>();
@@ -205,7 +208,7 @@ public class BatchStockServiceTest {
         ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(null).product(product).price(new BigDecimal("20")).build();
 
         List<BatchStock> batchStocks = new ArrayList<>();
-        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2022-12-03"), LocalDateTime.now(), LocalDate.now(), 45, 45, null, "4.5", 1L, null, productSeller);
+        BatchStock batchStock = new BatchStock(1L, LocalDate.now().plusDays(28), LocalDateTime.now(), LocalDate.now(), 45, 45, null, "4.5", 1L, null, productSeller);
         batchStocks.add(batchStock);
 
         List<ProductItemDto> productItemDtos = new ArrayList<>();

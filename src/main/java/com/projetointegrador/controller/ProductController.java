@@ -51,7 +51,6 @@ public class ProductController {
         batchStockService.verifyProductInBatchStock(purchaseOrderDto.getProducts());
         TotalPrice totalPrice = purchaseOrderService.getTotalprice(purchaseOrderDto.getProducts());
 
-
         PurchaseOrder purchaseOrder = purchaseOrderService.insert(purchaseOrderDto.convert(purchaseOrderDto, purchaseItemService, buyerService, productService, orderStatusService));
 
         URI uri = uriBuilder.path("/product/search/{id}").buildAndExpand(purchaseOrder.getPurchaseOrderId()).toUri();
