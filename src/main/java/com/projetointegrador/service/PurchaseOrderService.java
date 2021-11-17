@@ -2,6 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,20 @@ public class PurchaseOrderService {
     @Autowired
     private ProductSellerService productSellerService;
 
-    public PurchaseOrderService() {}
+    @Autowired
+    private BatchStockService batchStockService;
+
+    @Autowired
+    private BatchStockPersistence batchStockPersistence;
+
+    public PurchaseOrderService() {
+    }
+
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BatchStockService batchStockService, BatchStockPersistence batchStockPersistence) {
+        this.purchaseOrderPersistence = purchaseOrderPersistence;
+        this.batchStockService = batchStockService;
+        this.batchStockPersistence = batchStockPersistence;
+    }
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
@@ -37,7 +51,20 @@ public class PurchaseOrderService {
     }
 
     public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
+        atualizaBatchStock(purchaseOrder);
         return purchaseOrderPersistence.save(purchaseOrder);
+    }
+
+    private void atualizaBatchStock(PurchaseOrder purchaseOrder){
+        for (PurchaseItem item: purchaseOrder.getPurchaseItems()) {
+            ProductItemCartDto productItemCartDto = batchStockService.getBatchStockByProductId(item.getProduct().getProductId());
+            Optional<BatchStock> batchStock = batchStockService.getBatchStockById(productItemCartDto.getBatchStockId());
+
+            if(!batchStock.isEmpty()){
+                int qtdStock = batchStock.get().getCurrentQuantity() - item.getQuantity();
+                batchStock.get().setCurrentQuantity(qtdStock);
+            }
+        }
     }
 
     public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){

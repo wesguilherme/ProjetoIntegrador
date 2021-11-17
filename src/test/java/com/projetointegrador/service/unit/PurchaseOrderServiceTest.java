@@ -1,12 +1,15 @@
 package com.projetointegrador.service.unit;
 
+import com.projetointegrador.dto.ProductItemCartDto;
 import com.projetointegrador.dto.ProductItemDto;
 import com.projetointegrador.dto.PurchaseOrderResponseDto;
 import com.projetointegrador.dto.TotalPrice;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
+import com.projetointegrador.service.BatchStockService;
 import com.projetointegrador.service.ProductSellerService;
 import com.projetointegrador.service.ProductService;
 import com.projetointegrador.service.PurchaseOrderService;
@@ -29,6 +32,8 @@ public class PurchaseOrderServiceTest {
     @Test
     void shouldInsertPurchaseOrder(){
         PurchaseOrderPersistence purchaseOrderPersistenceMock = mock(PurchaseOrderPersistence.class);
+        BatchStockPersistence batchStockPersistenceMock = mock(BatchStockPersistence.class);
+        BatchStockService batchStockServiceMock = mock(BatchStockService.class);
 
         Buyer buyer = Buyer.builder().buyerId(1L).build();
         OrderStatus orderStatus = OrderStatus.builder().orderStatusId(1L).statusCode("cart").build();
@@ -38,14 +43,37 @@ public class PurchaseOrderServiceTest {
         purchaseItems.add(purchaseItem1);
 
         PurchaseOrder purchaseOrder = PurchaseOrder.builder().purchaseOrderId(1L).date(LocalDate.now()).buyer(buyer).orderStatus(orderStatus).purchaseItems(purchaseItems).build();
-
         when(purchaseOrderPersistenceMock.save(any(PurchaseOrder.class))).thenReturn(purchaseOrder);
+
+        BatchStockPersistence.BatchStockByProductId batchStockProductId = new BatchStockPersistence.BatchStockByProductId() {
+            @Override
+            public Long getBatch_stock_id() {
+                return 1L;
+            }
+
+            @Override
+            public String getProduct_id() {
+                return "MLB-129";
+            }
+
+            @Override
+            public Integer getCurrent_quantity() {
+                return 10;
+            }
+        };
+
+        when(batchStockPersistenceMock.batchStockByProductId(anyString())).thenReturn(batchStockProductId);
+        ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().productId("MLB-129").quantity(10).batchStockId(1L).build();
+        when(batchStockServiceMock.getBatchStockByProductId(anyString())).thenReturn(productItemCartDto);
+
+        BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
+        when(batchStockServiceMock.getBatchStockById(anyLong())).thenReturn(Optional.ofNullable(batchStock));
 
         ProductItemDto prod = ProductItemDto.builder().productId("MLB-123").quantity(10).build();
         List<ProductItemDto> productsItemDtos = new ArrayList<>();
         productsItemDtos.add(prod);
 
-        PurchaseOrderService purchaseOrderService = new PurchaseOrderService(purchaseOrderPersistenceMock);
+        PurchaseOrderService purchaseOrderService = new PurchaseOrderService(purchaseOrderPersistenceMock,batchStockServiceMock, batchStockPersistenceMock);
 
         PurchaseOrder purchaseOrder1 = purchaseOrderService.insert(purchaseOrder);
         assertNotNull(purchaseOrder1.getPurchaseOrderId());

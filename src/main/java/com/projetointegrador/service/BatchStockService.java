@@ -1,9 +1,6 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.BatchStockList;
-import com.projetointegrador.dto.BatchStockResponseDto;
-import com.projetointegrador.dto.ProductItemDto;
-import com.projetointegrador.dto.SectionResponseDto;
+import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +38,17 @@ public class BatchStockService {
         this.batchStockPersistence = batchStockPersistence;
         this.productService = productService;
         this.productSellerService = productSellerService;
+    }
+
+    public Optional<BatchStock> getBatchStockById(Long batchStockId) {
+
+        Optional<BatchStock> val = batchStockPersistence.findById(batchStockId);
+
+        if (val.isPresent()) {
+            return val;
+        } else {
+            throw new RuntimeException("Não existe batchStock para esse produto.");
+        }
     }
 
     public BatchStockResponseDto listBatchStockByProductId(String id) {
@@ -166,5 +175,14 @@ public class BatchStockService {
     public List<BatchStockPersistence.BatchStockListByFilter> batchStockListWithFilter(Integer quantityOfDays, Long typeId, Pageable pageable) {
         List<BatchStockPersistence.BatchStockListByFilter> batchStocksFilter = batchStockPersistence.listbatchByFilter(quantityOfDays, typeId, pageable);
         return batchStocksFilter;
+    }
+
+    public ProductItemCartDto getBatchStockByProductId(String productId){
+        BatchStockPersistence.BatchStockByProductId batchStockProductId = batchStockPersistence.batchStockByProductId(productId);
+        ProductItemCartDto productItemCartDto = new ProductItemCartDto();
+        productItemCartDto.setBatchStockId(batchStockProductId.getBatch_stock_id());
+        productItemCartDto.setProductId(batchStockProductId.getProduct_id());
+        productItemCartDto.setQuantity(batchStockProductId.getCurrent_quantity());
+        return productItemCartDto;
     }
 }

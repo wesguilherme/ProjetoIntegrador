@@ -18,6 +18,12 @@ public class AuthenticationService implements UserDetailsService {
         this.persistence = persistence;
     }
 
+    /**
+     * @param username
+     * @return  efetua a autenticação dos usuários
+     * @author - Grupo 5
+     * @throws UsernameNotFoundException  retorna exceção caso usuário não esteja cadastrado
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = persistence.findByUser(username);
