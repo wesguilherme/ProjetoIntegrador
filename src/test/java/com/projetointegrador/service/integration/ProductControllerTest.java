@@ -20,7 +20,7 @@ public class ProductControllerTest {
     public void shouldInsert() throws Exception {
 
         String payLoad = "{\n" +
-                "    \"productId\": \"MLB-151\",\n" +
+                "    \"productId\": \"MLB-162\",\n" +
                 "    \"name\": \"Banana\",\n" +
                 "    \"description\":\"Caixa de Banana\",\n" +
                 "    \"typeId\": \"1\"\n" +
@@ -38,18 +38,14 @@ public class ProductControllerTest {
 
         String payLoad = "{\n" +
                 "    \"date\":\"2021-10-31\",\n" +
-                "    \"buyerId\": 2,\n" +
+                "    \"buyerId\": 1,\n" +
                 "    \"orderStatus\":{\n" +
-                "        \"statusCode\":\"1\"\n" +
+                "        \"statusCode\":\"cart\"\n" +
                 "    },\n" +
                 "    \"products\":[\n" +
                 "        {\n" +
-                "            \"productId\": \"MLB-150\",\n" +
+                "            \"productId\": \"MLB-120\",\n" +
                 "            \"quantity\": 6            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"productId\": \"MLB-151\",\n" +
-                "            \"quantity\": 1            \n" +
                 "        }\n" +
                 "    ]\n" +
                 "}";
@@ -78,4 +74,26 @@ public class ProductControllerTest {
 
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void shoulupdate() throws Exception {
+
+        String payLoad = "{\n" +
+                "    \"products\":[\n" +
+                "        {\n" +
+                "            \"purchaseItemId\": 1,\n" +
+                "            \"productId\": \"MLB-120\",\n" +
+                "            \"quantity\": 1           \n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.put("http://localhost:8090/api/v1/product/orders/update")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(payLoad))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
 }
