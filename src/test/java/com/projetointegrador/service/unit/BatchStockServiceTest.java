@@ -1,11 +1,9 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.BatchStockList;
-import com.projetointegrador.dto.BatchStockResponseDto;
-import com.projetointegrador.dto.ProductItemDto;
-import com.projetointegrador.dto.SectionResponseDto;
+import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
+import com.projetointegrador.repository.BuyerPersistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -170,12 +169,13 @@ public class BatchStockServiceTest {
         BatchStockPersistence batchStockPersistenceMock = mock(BatchStockPersistence.class);
         ProductService productServiceMock = mock(ProductService.class);
         ProductSellerService productSellerServiceMock = mock(ProductSellerService.class);
+        BatchStockService batchStockServiceMock = mock(BatchStockService.class);
 
         Product product = Product.builder().productId("MLB-123").name("Uva").description("Caixa de Uva").type(null).build();
         ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(null).product(product).price(new BigDecimal("20")).build();
 
         List<BatchStock> batchStocks = new ArrayList<>();
-        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2022-12-03"),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
+        BatchStock batchStock = new BatchStock(1L, LocalDate.now().plusDays(28),LocalDateTime.now(),LocalDate.now(),45,45,null,"4.5",1L,null,productSeller);
         batchStocks.add(batchStock);
 
         List<ProductItemDto> productItemDtos = new ArrayList<>();
@@ -205,7 +205,7 @@ public class BatchStockServiceTest {
         ProductSeller productSeller = ProductSeller.builder().productSellerId(1L).volume(10.0).maximumTemperature(5.0).minimumTemperature(1.0).seller(null).product(product).price(new BigDecimal("20")).build();
 
         List<BatchStock> batchStocks = new ArrayList<>();
-        BatchStock batchStock = new BatchStock(1L, LocalDate.parse("2022-12-03"), LocalDateTime.now(), LocalDate.now(), 45, 45, null, "4.5", 1L, null, productSeller);
+        BatchStock batchStock = new BatchStock(1L, LocalDate.now().plusDays(28), LocalDateTime.now(), LocalDate.now(), 45, 45, null, "4.5", 1L, null, productSeller);
         batchStocks.add(batchStock);
 
         List<ProductItemDto> productItemDtos = new ArrayList<>();
@@ -303,6 +303,65 @@ public class BatchStockServiceTest {
         BatchStockService batchStockService = new BatchStockService(batchStockPersistenceMock);
         List<BatchStockPersistence.BatchStockListByFilter> batchStock1 = batchStockService.batchStockListWithFilter(15, 2L, Pageable.unpaged());
         assertEquals(1, batchStock1.size());
+    }
+
+    @Test
+    void shouldGetBatchStockByProductId(){
+
+        BatchStockPersistence batchStockPersistenceMock = mock(BatchStockPersistence.class);
+        BatchStockService batchStockServiceMock = mock(BatchStockService.class);
+        BatchStockPersistence.BatchStockByProductId batchStockProductId = new BatchStockPersistence.BatchStockByProductId() {
+            @Override
+            public Long getBatch_stock_id() {
+                return 1L;
+            }
+
+            @Override
+            public String getProduct_id() {
+                return "MLB-129";
+            }
+
+            @Override
+            public Integer getCurrent_quantity() {
+                return 10;
+            }
+        };
+
+        when(batchStockPersistenceMock.batchStockByProductId(anyString())).thenReturn(batchStockProductId);
+
+        ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().productId("MLB-129").quantity(10).batchStockId(1L).build();
+
+        when(batchStockServiceMock.getBatchStockByProductId(anyString())).thenReturn(productItemCartDto);
+
+        BatchStockService batchStockService = new BatchStockService(batchStockPersistenceMock);
+
+        ProductItemCartDto productItemCartDto1 = batchStockService.getBatchStockByProductId("MLB-129");
+        assertEquals("MLB-129", productItemCartDto1.getProductId());
+    }
+
+    @Test
+    void shouldGetBatchStockById ( ) {
+        BatchStockPersistence mock = mock(BatchStockPersistence.class);
+
+        BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
+
+        when(mock.findById(anyLong())).thenReturn(Optional.ofNullable(batchStock));
+
+        BatchStockService batchStockService = new BatchStockService(mock);
+        Optional<BatchStock> batchStock1 = batchStockService.getBatchStockById(1L);
+        assertNotNull(batchStock1);
+    }
+
+    @Test
+    void shouldNotGetBatchStockById ( ) {
+        BatchStockPersistence mock = mock(BatchStockPersistence.class);
+
+        BatchStockService batchStockService = new BatchStockService(mock);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
+            batchStockService.getBatchStockById(1L);
+        });
+
+        assertEquals("Não existe batchStock para esse produto.", exception.getMessage());
     }
 }
 
