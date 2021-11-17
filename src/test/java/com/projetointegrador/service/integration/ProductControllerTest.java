@@ -20,7 +20,7 @@ public class ProductControllerTest {
     public void shouldInsert() throws Exception {
 
         String payLoad = "{\n" +
-                "    \"productId\": \"MLB-162\",\n" +
+                "    \"productId\": \"MLB-122\",\n" +
                 "    \"name\": \"Banana\",\n" +
                 "    \"description\":\"Caixa de Banana\",\n" +
                 "    \"typeId\": \"1\"\n" +
@@ -44,7 +44,7 @@ public class ProductControllerTest {
                 "    },\n" +
                 "    \"products\":[\n" +
                 "        {\n" +
-                "            \"productId\": \"MLB-120\",\n" +
+                "            \"productId\": \"MLB-126\",\n" +
                 "            \"quantity\": 6            \n" +
                 "        }\n" +
                 "    ]\n" +
@@ -82,7 +82,7 @@ public class ProductControllerTest {
                 "    \"products\":[\n" +
                 "        {\n" +
                 "            \"purchaseItemId\": 1,\n" +
-                "            \"productId\": \"MLB-120\",\n" +
+                "            \"productId\": \"MLB-126\",\n" +
                 "            \"quantity\": 1           \n" +
                 "        }\n" +
                 "    ]\n" +
