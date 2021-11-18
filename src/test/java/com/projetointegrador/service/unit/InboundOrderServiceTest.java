@@ -1,7 +1,6 @@
 package com.projetointegrador.service.unit;
 
 import com.projetointegrador.entity.*;
-import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.repository.InboundOrderPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.TypePersistence;
@@ -46,14 +45,30 @@ public class InboundOrderServiceTest {
         Type type = Type.builder().typeId(1L).initials("RF").environmentType("REFRIGERADOS").build();
 
         List<Product> productList = new ArrayList<>();
-        Product product = new Product("MLB-125","Uva","Caixa de Uva",type);
+        Product product = new Product("MLB-125", "Uva", "Caixa de Uva", type);
         productList.add(product);
 
         when(typePersistenceMock.findByInitials(anyString())).thenReturn(type);
         when(productPersistenceMock.findByType(any(Type.class))).thenReturn(productList);
 
-        InboundOrderService inboundOrderService = new InboundOrderService(typePersistenceMock,productPersistenceMock);
+        InboundOrderService inboundOrderService = new InboundOrderService(typePersistenceMock, productPersistenceMock);
         List<Product> products = inboundOrderService.productList("RF");
         assertEquals("RF", products.get(0).getType().getInitials());
     }
+
+//    @Test
+//    void shouldWarehouseProductList(){
+//        TypePersistence typePersistence = mock(TypePersistence.class);
+//        ProductPersistence productPersistence = mock(ProductPersistence.class);
+//
+//        Type type = Type.builder().typeId(1L).initials("RF").environmentType("REFRIGERADOS").build();
+//        Product product = new Product("MLB-125","Uva","Caixa de Uva",type);
+//
+//        when(productPersistence.findByProductId(anyString())).thenReturn(product);
+//
+//        InboundOrderService inboundOrderService = new InboundOrderService(typePersistence,productPersistence);
+//        Product product1 = inboundOrderService.WarehouseProductList("MLB-125");
+//
+//        assertNotNull(product1);
+//    }
 }
