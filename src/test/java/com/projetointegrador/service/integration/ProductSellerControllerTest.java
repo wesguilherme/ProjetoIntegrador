@@ -24,7 +24,7 @@ public class ProductSellerControllerTest {
                 "\t\"maximumTemperature\": 23,\n" +
                 "\t\"minimumTemperature\": 9.5,\n" +
                 "    \"sellerId\": 1,\n" +
-                "    \"productId\": \"MLB-413\",\n" +
+                "    \"productId\": \"MLB-122\",\n" +
                 "    \"price\":20\n" +
                 "}";
 

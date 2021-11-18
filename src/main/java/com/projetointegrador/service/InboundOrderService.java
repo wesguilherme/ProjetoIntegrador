@@ -86,6 +86,11 @@ public class InboundOrderService {
         throw new RuntimeException("Não existe inboundOrder com esse id!");
     }
 
+    /**
+     *
+     * @param initials
+     * @return
+     */
     public List<Product> productList(String initials) {
         Type type = typePersistence.findByInitials(initials);
 

@@ -38,6 +38,11 @@ public class ProductController {
     @Autowired
     private OrderStatusService orderStatusService;
 
+    /**
+     * @param productDto é esperado um objeto do tipo productDto
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return um produto cadastrado
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Product> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
         Product productCadastrado = productService.insert(productDto);
@@ -46,6 +51,11 @@ public class ProductController {
         return ResponseEntity.created(uri).body(productCadastrado);
     }
 
+    /**
+     * @param purchaseOrderDto é esperado um objeto do tipo purchaseOrderDto
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return o preço do total dos produtos cadastrados
+     */
     @PostMapping(value = "/orders")
     public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder) {
         batchStockService.verifyProductInBatchStock(purchaseOrderDto.getProducts());
@@ -57,6 +67,9 @@ public class ProductController {
         return ResponseEntity.created(uri).body(totalPrice);
     }
 
+    /**
+     * @return uma lista de productResponseDto
+     */
     @GetMapping(value = "/list")
     public ResponseEntity<List<ProductResponseDto>> getProductSellerId() {
         List<ProductResponseDto> productResponseDto = productSellerService.listProduct();
@@ -68,6 +81,11 @@ public class ProductController {
         return ResponseEntity.ok().body(productResponseDto);
     }
 
+    /**
+     *
+     * @param id é esperado um parâmetro id do tipo listOrdersByOrderId
+     * @return a lista de produtos do comprador
+     */
     @GetMapping(value = "/orders/{id}")
     public ResponseEntity<PurchaseOrderResponseDto> listOrdersByOrderId(@PathVariable("id") Long id) {
         PurchaseOrderResponseDto purchaseOrderResponseDto = purchaseOrderService.listOrdersByOrderId(id);
@@ -79,6 +97,10 @@ public class ProductController {
         return ResponseEntity.ok().body(purchaseOrderResponseDto);
     }
 
+    /**
+     * @param purchaseOrderListDto é esperado um objeto do tipo purchaseOrderListDto
+     * @return atualização do preço total dos produtos
+     */
     @PutMapping(value = "/orders/update")
     public ResponseEntity<TotalPrice> update(@RequestBody @Valid PurchaseOrderListDto purchaseOrderListDto){
         batchStockService.verifyProductInBatchStock(PurchaseOrderListDto.convert(purchaseOrderListDto.getProducts()));

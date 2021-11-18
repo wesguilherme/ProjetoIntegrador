@@ -22,7 +22,7 @@ public class BuyerControllerTest {
 
         String payLoad = "{\n" +
                 "    \"name\": \"Alessandro\",\n" +
-                "    \"cpf\": \"150.555.833-157\",\n" +
+                "    \"cpf\": \"150.555.833-167\",\n" +
                 "    \"address\": \n" +
                 "        {\n" +
                 "            \"street\": \"Rua das Bananeiras\",\n" +

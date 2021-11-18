@@ -21,6 +21,12 @@ public class BuyerController {
     @Autowired
     private BuyerService buyerService;
 
+    /**
+     * @param buyer é esperado um objeto do tipo buyer
+     * @param uriBuilder é esperado um objeto do tipo UriBuilder
+     * @return o buyer cadastrado na lista
+     * @throws IOException
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Buyer> insert(@RequestBody @Valid Buyer buyer, UriComponentsBuilder uriBuilder) throws IOException {
         Buyer buyerCadastrado = buyerService.insert(buyer);

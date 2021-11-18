@@ -44,7 +44,7 @@ public class ProductControllerTest {
                 "    },\n" +
                 "    \"products\":[\n" +
                 "        {\n" +
-                "            \"productId\": \"MLB-126\",\n" +
+                "            \"productId\": \"MLB-122\",\n" +
                 "            \"quantity\": 6            \n" +
                 "        }\n" +
                 "    ]\n" +
@@ -76,13 +76,13 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void shoulupdate() throws Exception {
+    public void shouldUpdate() throws Exception {
 
         String payLoad = "{\n" +
                 "    \"products\":[\n" +
                 "        {\n" +
                 "            \"purchaseItemId\": 1,\n" +
-                "            \"productId\": \"MLB-126\",\n" +
+                "            \"productId\": \"MLB-120\",\n" +
                 "            \"quantity\": 1           \n" +
                 "        }\n" +
                 "    ]\n" +

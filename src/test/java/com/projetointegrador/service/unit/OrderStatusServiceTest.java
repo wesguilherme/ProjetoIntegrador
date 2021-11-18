@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class OrderStatusServiceTest {
 
     @Test
-    void mustInsertOrderStatus ( ) {
+    void shouldInsertOrderStatus ( ) {
         OrderStatusPersistence mock1 = mock(OrderStatusPersistence.class);
         OrderStatusService mock = mock(OrderStatusService.class);
         OrderStatus orderStatus = new OrderStatus(1L, "ok");
