@@ -37,6 +37,15 @@ public class InboundOrderController {
         return ResponseEntity.created(uri).body(BatchStockDto.convertBatchStock(inboundOrderCadastrado.getBatchStock()));
     }
 
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<List<BatchStockDto>> update(@RequestBody @Valid InboundOrderDto inboundOrderDto, @PathVariable("id") Long id, UriComponentsBuilder uriBuilder) {
+        InboundOrder inboundOrderCadastrado = inboundOrderService.update(inboundOrderDto.convert(inboundOrderDto, sectionService, productSellerService), id);
+
+        URI uri = uriBuilder.path("/inboundorder/search/{id}").buildAndExpand(inboundOrderCadastrado.getInboundOrderId()).toUri();
+        return ResponseEntity.created(uri).body(BatchStockDto.convertBatchStock(inboundOrderCadastrado.getBatchStock()));
+    }
+
+
     @GetMapping("/list/{initials}")
     public ResponseEntity<List<Product>> productList(@PathVariable("initials") String initials) {
         List<Product> product = inboundOrderService.productList(initials);

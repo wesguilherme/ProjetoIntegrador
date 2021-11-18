@@ -27,6 +27,9 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
+    public User() {
+    }
+
     public User(String user, String password, boolean enabled) {
         this.user = user;
         this.password = password;
