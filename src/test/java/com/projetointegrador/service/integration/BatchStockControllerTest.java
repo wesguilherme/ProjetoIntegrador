@@ -20,7 +20,7 @@ public class BatchStockControllerTest {
     public void shouldlistBatchStockByProductId() throws Exception {
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/listById/MLB-126"))
+                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/listById/MLB-122"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -28,12 +28,12 @@ public class BatchStockControllerTest {
     public void shouldlistBatchStockWithFilter() throws Exception {
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/list/MLB-126/F"))
+                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/list/MLB-120/F"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    public void shouldbatchStockInSection() throws Exception {
+    public void shouldBatchStockInSection() throws Exception {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/due-date/SEC-412/15"))
@@ -41,7 +41,7 @@ public class BatchStockControllerTest {
     }
 
     @Test
-    public void shouldbatchStockListWithFilter() throws Exception {
+    public void shouldBatchStockListWithFilter() throws Exception {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/due-date/list?quantityOfDays=15&typeId=2&sort=due_date,ASC"))

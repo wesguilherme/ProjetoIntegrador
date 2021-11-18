@@ -20,7 +20,7 @@ public class WarehouseControllerTest {
     public void shouldInsert() throws Exception {
 
         String payLoad = "{\n" +
-                "    \"warehouseCode\":\"MLB-411\",\n" +
+                "    \"warehouseCode\":\"MLB-410\",\n" +
                 "    \"description\":\"Teste de cadastro\"\n" +
                 "}";
 
@@ -35,7 +35,7 @@ public class WarehouseControllerTest {
     public void shouldGetWarehouseByProductId() throws Exception {
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.get("http://localhost:8090/api/v1/warehouse/listWarehouseByProductId/MLB-129"))
+                        MockMvcRequestBuilders.get("http://localhost:8090/api/v1/warehouse/listWarehouseByProductId/MLB-122"))
 
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }

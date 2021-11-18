@@ -22,7 +22,7 @@ public class InboundOrderControllerTest {
         String payLoad = "{\n" +
                 "    \"orderNumber\": 45,\n" +
                 "    \"orderDate\":\"1998-07-23\",\n" +
-                "    \"sectionCode\": \"SEC-412\",\n" +
+                "    \"sectionCode\": \"SEC-126\",\n" +
                 "    \"batchStockDto\":[\n" +
                 "        {\n" +
                 "            \"productSellerId\": 1,\n" +

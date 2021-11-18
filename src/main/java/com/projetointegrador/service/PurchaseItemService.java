@@ -27,16 +27,29 @@ public class PurchaseItemService {
 
     public PurchaseItemService() {}
 
+    /**
+     * @param purchaseItemPersistence é esperado um objeto do tipo purchaseItemPersistence para injeção de depêndencia
+     */
     public PurchaseItemService(PurchaseItemPersistence purchaseItemPersistence) {
         this.purchaseItemPersistence = purchaseItemPersistence;
     }
 
+    /**
+     * @param purchaseItemPersistence é esperado um objeto do tipo purchaseItemPersistence para injeção de depêndencia
+     * @param productService é esperado um objeto do tipo productService para injeção de depêndencia
+     * @param batchStockService é esperado um objeto do tipo batchStockService para injeção de depêndencia
+     */
     public PurchaseItemService(PurchaseItemPersistence purchaseItemPersistence, ProductService productService, BatchStockService batchStockService) {
         this.purchaseItemPersistence = purchaseItemPersistence;
         this.productService = productService;
         this.batchStockService = batchStockService;
     }
 
+    /**
+     * @param products é esperado uma lista de objetos do tipo ProductItemListDto
+     * @throws RuntimeException caso não exista um purchaseItem com esse id!
+     * @throws RuntimeException caso a lista de produtos esteja vazia!!
+     */
     public void update(List<ProductItemListDto> products) {
         if(!products.isEmpty()){
             for (ProductItemListDto item: products) {
@@ -56,6 +69,12 @@ public class PurchaseItemService {
         }
     }
 
+    /**
+     *
+     * @param productId é esperado um parâmetro do tipo productId
+     * @param qtdAtual é esperado um parâmetro do tipo qtdAtual
+     * @param qtdAlterar é esperado um parâmetro do tipo qtdAlterar
+     */
     private void atualizaBatchStock(String productId, int qtdAtual, int qtdAlterar){
         ProductItemCartDto productItemCartDto = batchStockService.getBatchStockByProductId(productId);
         Optional<BatchStock> batchStock = batchStockService.getBatchStockById(productItemCartDto.getBatchStockId());

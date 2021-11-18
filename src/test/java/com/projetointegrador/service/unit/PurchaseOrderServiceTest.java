@@ -53,7 +53,7 @@ public class PurchaseOrderServiceTest {
 
             @Override
             public String getProduct_id() {
-                return "MLB-129";
+                return "MLB-122";
             }
 
             @Override
@@ -63,13 +63,13 @@ public class PurchaseOrderServiceTest {
         };
 
         when(batchStockPersistenceMock.batchStockByProductId(anyString())).thenReturn(batchStockProductId);
-        ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().productId("MLB-129").quantity(10).batchStockId(1L).build();
+        ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().productId("MLB-122").quantity(10).batchStockId(1L).build();
         when(batchStockServiceMock.getBatchStockByProductId(anyString())).thenReturn(productItemCartDto);
 
         BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
         when(batchStockServiceMock.getBatchStockById(anyLong())).thenReturn(Optional.ofNullable(batchStock));
 
-        ProductItemDto prod = ProductItemDto.builder().productId("MLB-123").quantity(10).build();
+        ProductItemDto prod = ProductItemDto.builder().productId("MLB-122").quantity(10).build();
         List<ProductItemDto> productsItemDtos = new ArrayList<>();
         productsItemDtos.add(prod);
 
@@ -108,7 +108,7 @@ public class PurchaseOrderServiceTest {
     }
 
     @Test
-    void ShoudListOrdersByOrderId(){
+    void shoudListOrdersByOrderId(){
         PurchaseOrderPersistence purchaseOrderPersistenceMock = mock(PurchaseOrderPersistence.class);
 
         Buyer buyer = Buyer.builder().buyerId(1L).build();

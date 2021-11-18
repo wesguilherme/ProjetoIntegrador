@@ -14,6 +14,9 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private UserPersistence persistence;
 
+    /**
+     * @param persistence é esperado um parâmetro do tipo persistence para injeção de dependência
+     */
     public AuthenticationService(UserPersistence persistence) {
         this.persistence = persistence;
     }

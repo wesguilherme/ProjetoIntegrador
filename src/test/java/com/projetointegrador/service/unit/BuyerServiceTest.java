@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 public class BuyerServiceTest {
 
     @Test
-    void mustInsertBuyer ( ) {
+    void shouldInsertBuyer ( ) {
         BuyerPersistence mock1 = mock(BuyerPersistence.class);
         BuyerService mock = mock(BuyerService.class);
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
@@ -36,7 +36,7 @@ public class BuyerServiceTest {
     }
 
     @Test
-    void mustNotInsertBuyer ( ) {
+    void shouldNotInsertBuyer ( ) {
         BuyerPersistence mock1 = mock(BuyerPersistence.class);
         String cpf = "33399977788";
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");

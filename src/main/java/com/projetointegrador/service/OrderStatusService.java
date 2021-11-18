@@ -16,14 +16,29 @@ public class OrderStatusService {
     public OrderStatusService() {
     }
 
+    /**
+     * @param orderStatusPersistence é esperado o parâmetro orderStatusPersistence para injeção de depêndencia
+     * @author - Grupo 5
+     */
     public OrderStatusService(OrderStatusPersistence orderStatusPersistence) {
         this.orderStatusPersistence = orderStatusPersistence;
     }
 
+    /**
+     * @param orderStatus é esperado o parâmetro do tipo orderStatus
+     * @return orderStatus cadastrado
+     * @author - Grupo 5
+     */
     public OrderStatus insert(OrderStatus orderStatus) {
         return orderStatusPersistence.save(orderStatus);
     }
 
+    /**
+     * @param statusCode é esperado o parâmetro do tipo statusCode
+     * @return orderStatus se estiver presente
+     * @throws RuntimeException caso não exista orderStatus
+     * @author - Grupo 5
+     */
     public OrderStatus getByOrderStatus(String statusCode) {
         Optional<OrderStatus> val;
 

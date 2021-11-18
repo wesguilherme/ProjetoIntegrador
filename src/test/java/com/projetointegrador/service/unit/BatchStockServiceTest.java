@@ -1,9 +1,12 @@
-package com.projetointegrador.service;
+package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.repository.BuyerPersistence;
+import com.projetointegrador.service.BatchStockService;
+import com.projetointegrador.service.ProductSellerService;
+import com.projetointegrador.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Pageable;
