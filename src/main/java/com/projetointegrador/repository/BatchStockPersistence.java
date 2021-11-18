@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -22,6 +23,8 @@ public interface BatchStockPersistence extends JpaRepository<BatchStock, Long> {
                 " JOIN product_seller ps on ps.product_seller_id = bs.product_seller_id" +
                 " WHERE ps.product_id = :productId limit 1", nativeQuery = true)
     BatchStockByProductId batchStockByProductId(@Param("productId") String productId);
+
+    Optional<BatchStock> findByBatchStockNumber(Long batchStockNumber);
 
     public interface BatchStockByProductId{
         Long getBatch_stock_id();

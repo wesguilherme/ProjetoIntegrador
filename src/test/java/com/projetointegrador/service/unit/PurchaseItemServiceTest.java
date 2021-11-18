@@ -2,6 +2,7 @@ package com.projetointegrador.service.unit;
 
 import com.projetointegrador.dto.ProductItemCartDto;
 import com.projetointegrador.dto.ProductItemListDto;
+import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseItem;
 import com.projetointegrador.repository.PurchaseItemPersistence;
@@ -10,6 +11,7 @@ import com.projetointegrador.service.ProductService;
 import com.projetointegrador.service.PurchaseItemService;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,6 +79,9 @@ public class PurchaseItemServiceTest {
 
         ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().batchStockId(1L).productId("MLB-123").quantity(10).build();
         when(batchStockServiceMock.getBatchStockByProductId(anyString())).thenReturn(productItemCartDto);
+
+        BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
+        when(batchStockServiceMock.getBatchStockById(anyLong())).thenReturn(Optional.ofNullable(batchStock));
 
         PurchaseItemService purchaseItemService = new PurchaseItemService(mock,mockProd,batchStockServiceMock);
         purchaseItemService.update(products);

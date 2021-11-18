@@ -2,6 +2,7 @@ package com.projetointegrador.service;
 
 import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.BatchStock;
+import com.projetointegrador.entity.InboundOrder;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.ProductSeller;
 import com.projetointegrador.repository.BatchStockPersistence;
@@ -48,6 +49,17 @@ public class BatchStockService {
             return val;
         } else {
             throw new RuntimeException("Não existe batchStock para esse produto.");
+        }
+    }
+
+    public Optional<BatchStock> getBatchStockNumber(Long batchStockNumber) {
+
+        Optional<BatchStock> val = batchStockPersistence.findByBatchStockNumber(batchStockNumber);
+
+        if (val.isPresent()) {
+            return val;
+        } else {
+            throw new RuntimeException("Não existe batchStock com esse batchStockNumber.");
         }
     }
 

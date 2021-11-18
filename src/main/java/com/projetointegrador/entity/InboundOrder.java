@@ -29,7 +29,6 @@ public class InboundOrder {
     @OneToMany(mappedBy = "inboundOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BatchStock> batchStock;
 
-
     @Override
     public String toString() {
         return "{" +

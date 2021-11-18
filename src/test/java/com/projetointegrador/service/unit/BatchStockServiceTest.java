@@ -363,5 +363,30 @@ public class BatchStockServiceTest {
 
         assertEquals("Não existe batchStock para esse produto.", exception.getMessage());
     }
+
+    @Test
+    void shouldGetBatchStockNumber (){
+        BatchStockPersistence mock = mock(BatchStockPersistence.class);
+
+        BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
+
+        when(mock.findByBatchStockNumber(anyLong())).thenReturn(Optional.ofNullable(batchStock));
+
+        BatchStockService batchStockService = new BatchStockService(mock);
+        Optional<BatchStock> batchStock1 = batchStockService.getBatchStockNumber(1L);
+        assertNotNull(batchStock1);
+    }
+
+    @Test
+    void shouldNotGetBatchStockNumber ( ) {
+        BatchStockPersistence mock = mock(BatchStockPersistence.class);
+
+        BatchStockService batchStockService = new BatchStockService(mock);
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, ( ) -> {
+            batchStockService.getBatchStockNumber(1L);
+        });
+
+        assertEquals("Não existe batchStock com esse batchStockNumber.", exception.getMessage());
+    }
 }
 
