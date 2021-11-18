@@ -50,6 +50,12 @@ public class PurchaseOrderService {
         this.productSellerService = productSellerService;
     }
 
+    /**
+     *
+     * @param purchaseOrder
+     * @return  retorna a verificaçao da quantidade do produto no estoque
+     * @author - Grupo 5
+     */
     public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
         atualizaBatchStock(purchaseOrder);
         return purchaseOrderPersistence.save(purchaseOrder);
@@ -89,6 +95,12 @@ public class PurchaseOrderService {
         return totalPrice;
     }
 
+    /**
+     *
+     * @param id
+     * @return  retorna a verificaçao do produto através do id
+     * @author - Grupo 5
+     */
     public PurchaseOrderResponseDto listOrdersByOrderId(Long id) {
 
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findById(id);

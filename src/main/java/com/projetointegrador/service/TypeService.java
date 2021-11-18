@@ -13,6 +13,10 @@ public class TypeService {
     @Autowired
     TypePersistence typePersistence;
 
+    /**
+     *  @return - verifique através do Id so type existe
+     *  @author - Grupo 5
+     */
     public TypeService() {}
 
     public TypeService(TypePersistence typePersistence) {
