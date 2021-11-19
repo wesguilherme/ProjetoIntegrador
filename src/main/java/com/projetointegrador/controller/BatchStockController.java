@@ -20,7 +20,7 @@ public class BatchStockController {
 
     /**
      * @param id é esperado o parâmetro do tipo id
-     * @return uma lista de batchStockResponseDto cada produto
+     * @return uma lista de batchStockResponseDto para cada produto
      * @author - Grupo 5
      */
     @GetMapping(value = "listById/{id}")
@@ -38,9 +38,7 @@ public class BatchStockController {
      * @param id é esperado o parâmetro do tipo id
      * @param ordination é esperado o parâmetro do tipo ordination
      * @return uma lista de batchStockResponseDto por produto ordenado por
-     * L - lote
-     * C - quantidade atual
-     * F - data de validade
+     * L - lote | C - quantidade atual | F - data de validade
      * @author - Grupo 5
      */
     @GetMapping(value = "list/{id}/{ordination}")

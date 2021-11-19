@@ -28,6 +28,6 @@ public class AuthenticationControllerTest {
                 MockMvcRequestBuilders.post("http://localhost:8090/api/v1/auth")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payLoad))
-                        .andExpect(MockMvcResultMatchers.status().isCreated());
+                        .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

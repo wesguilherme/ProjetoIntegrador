@@ -28,7 +28,7 @@ public class WarehouseService {
     }
 
     /**
-     * @param code - é esperado o parametro code do warehouse
+     * @param code - é esperado o parâmetro code do warehouse
      * @return - retorna a verificaçao de duplicidade do código
      * @author - Grupo 5 - Tester Ana
      */
@@ -53,7 +53,7 @@ public class WarehouseService {
     }
 
     /**
-     * @param code - é esperado o parametro code de warehouse
+     * @param code - é esperado o parâmetro code de warehouse
      * @return - retorna a verificação tru ou false sobre a validade de warehouse
      * @author - Grupo 5 - Tester Ana
      */
@@ -66,7 +66,7 @@ public class WarehouseService {
     }
 
     /**
-     * @param code - é esperado o parametro code de warehouse
+     * @param code - é esperado o parâmetro code de warehouse
      * @return - retorna se o warehouse existe ou não através do code
      * @author - Grupo 5 - Tester Ana
      */
@@ -83,6 +83,10 @@ public class WarehouseService {
         }
     }
 
+    /**
+     * @param productId é esperado o parâmetro id do produto
+     * @return o warehouseResponseDto e converte para listWarehouseByProduct
+     */
     public WarehouseResponseDto warehouseListByProduct(String productId){
         return WarehouseResponseDto.convert(warehousePersistence.listWarehouseByProduct(productId));
     }

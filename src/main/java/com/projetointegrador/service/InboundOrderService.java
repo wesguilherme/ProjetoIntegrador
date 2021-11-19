@@ -30,28 +30,45 @@ public class InboundOrderService {
     public InboundOrderService() {
     }
 
+    /**
+     * @param inboundOrderPersistence é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
+     * @param batchStockService é esperado um parâmetro do tipo batchStockService para injeção de dependência
+     */
     public InboundOrderService(InboundOrderPersistence inboundOrderPersistence, BatchStockService batchStockService) {
         this.inboundOrderPersistence = inboundOrderPersistence;
         this.batchStockService = batchStockService;
     }
 
     /**
-     * @param inboundOrderPersistence - é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
+     * @param inboundOrderPersistence é esperado um parâmetro do tipo inboundPersistence para injeção de dependência
      * @author - Grupo 5 - Tester Ana
      */
     public InboundOrderService(InboundOrderPersistence inboundOrderPersistence) {
         this.inboundOrderPersistence = inboundOrderPersistence;
     }
 
+    /**
+     * @param typePersistence é esperado um parâmetro do tipo typePersistence para injeção de dependência
+     * @param productPersistence é esperado um parâmetro do tipo typePersistence para injeção de dependência
+     */
     public InboundOrderService(TypePersistence typePersistence, ProductPersistence productPersistence) {
         this.typePersistence = typePersistence;
         this.productPersistence = productPersistence;
     }
 
+    /**
+     * @param inboundOrder é esperado um objeto do tipo inboundOrder
+     * @return um inboundOrder cadastrado
+     */
     public InboundOrder insert(InboundOrder inboundOrder) {
         return inboundOrderPersistence.save(inboundOrder);
     }
 
+    /**
+     * @param inboundOrder é esperado um objeto do tipo inboundOrder
+     * @param id é esperado um id do inboundOrder
+     * @return uma alteração no inbound order
+     */
     public InboundOrder update(InboundOrder inboundOrder, Long id) {
         Optional<InboundOrder> inboundOrder1 = inboundOrderPersistence.findById(id);
 
@@ -88,8 +105,8 @@ public class InboundOrderService {
 
     /**
      *
-     * @param initials
-     * @return
+     * @param initials é esperado um parâmetro do tipo initials
+     * @return uma lista de produtos pelo type
      */
     public List<Product> productList(String initials) {
         Type type = typePersistence.findByInitials(initials);
