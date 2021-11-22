@@ -25,6 +25,10 @@ public class WarehouseController {
         return ResponseEntity.created(uri).body(warehouseCadastrado);
     }
 
+    /**
+     * @param productId é esperado um objeto do tipo productId
+     * @return um warehouse cadastrado
+     */
     @GetMapping("/listWarehouseByProductId/{id}")
     public ResponseEntity<WarehouseResponseDto> getWarehouseByProductId(@PathVariable("id") String productId) {
         WarehouseResponseDto warehouses = warehouseService.warehouseListByProduct(productId);
