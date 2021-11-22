@@ -34,11 +34,10 @@ public class BuyerControllerTest {
                 "        }\n" +
                 "}";
 
-         mockMvc.perform(
-                 MockMvcRequestBuilders.post("http://localhost:8090/api/v1/buyer/insert")
-                         .contentType(MediaType.APPLICATION_JSON)
-                         .content(payLoad))
-                         .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("http://localhost:8090/api/v1/buyer/insert")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(payLoad))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }
-

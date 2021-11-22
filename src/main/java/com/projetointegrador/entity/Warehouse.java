@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Embeddable
 @Entity
 @Data
 @Builder
@@ -25,11 +28,15 @@ public class Warehouse {
     @NotBlank
     private String description;
 
+    @Embedded
+    private Address address;
+
     @Override
     public String toString() {
-        return "{" +
-                " \"warehouseCode\":\"" + warehouseCode + "\"" +
-                ", \"description\":\"" + description + "\"" +
-                "}";
+        return "Warehouse{" +
+                "warehouseCode='" + warehouseCode + '\'' +
+                ", description='" + description + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

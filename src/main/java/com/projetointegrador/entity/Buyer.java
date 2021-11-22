@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 
+@Embeddable
 @Data
 @Entity
 @Builder
@@ -32,5 +33,6 @@ public class Buyer {
 
     @Embedded
     private Address address;
+
 }
 

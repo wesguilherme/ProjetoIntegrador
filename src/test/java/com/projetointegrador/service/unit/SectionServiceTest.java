@@ -70,7 +70,7 @@ public class SectionServiceTest {
         Type type = new Type(1L, "RF", "REFRIGERADOS");
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", address);
 
         Optional<Section> section = Optional.of(new Section("SEC-123", 200.0, 30.0, type, representative, warehouse));
 
@@ -89,7 +89,7 @@ public class SectionServiceTest {
         Type type = new Type(1L, "RF", "REFRIGERADOS");
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", address);
 
         Optional<Section> section = Optional.of(new Section("SEC-123", 200.0, 30.0, type, representative, warehouse));
 
@@ -112,7 +112,7 @@ public class SectionServiceTest {
         Type type = new Type(1L, "RF", "REFRIGERADOS");
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", address);
 
         Optional<Section> section = Optional.of(new Section("SEC-123", 200.0, 30.0, type, representative, warehouse));
 
@@ -144,7 +144,7 @@ public class SectionServiceTest {
         Type type = new Type(1L, "RF", "REFRIGERADOS");
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", address);
 
         Optional<Section> section = Optional.of(new Section("SEC-123", 200.0, 30.0, type, representative, warehouse));
 
@@ -179,7 +179,7 @@ public class SectionServiceTest {
         Seller seller = new Seller(1L,"111.222.333-44","Rafael",address);
         Product product = new Product("MLB-123", "Uva", "Caixa de Uva",type);
         Representative representative = new Representative(1L, "111.222.333-44", "Rafael", address);
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", address);
 
         ProductSeller productSeller = new ProductSeller(1L,10.0,5.0,1.0, seller, product,new BigDecimal("20"));
         Section section = new Section("SEC-123", 200.0, 30.0, type, representative, warehouse);
