@@ -17,6 +17,11 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
+    /**
+     * @param warehouse é esperado um objeto do tipo warehouse
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return um warehouse cadastrado
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Warehouse> insert(@RequestBody Warehouse warehouse, UriComponentsBuilder uriBuilder){
         Warehouse warehouseCadastrado = warehouseService.insert(warehouse);
@@ -27,7 +32,7 @@ public class WarehouseController {
 
     /**
      * @param productId é esperado um objeto do tipo productId
-     * @return um warehouse cadastrado
+     * @return o produtos em warehouse atraves do productId
      */
     @GetMapping("/listWarehouseByProductId/{id}")
     public ResponseEntity<WarehouseResponseDto> getWarehouseByProductId(@PathVariable("id") String productId) {
