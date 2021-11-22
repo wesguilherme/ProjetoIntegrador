@@ -31,7 +31,12 @@ public class PurchaseOrderService {
     @Autowired
     private BatchStockPersistence batchStockPersistence;
 
-    public PurchaseOrderService() {
+    @Autowired
+    private BuyerService buyerService;
+
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BuyerService buyerService) {
+        this.purchaseOrderPersistence = purchaseOrderPersistence;
+        this.buyerService = buyerService;
     }
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BatchStockService batchStockService, BatchStockPersistence batchStockPersistence) {
@@ -112,7 +117,7 @@ public class PurchaseOrderService {
 
         purchaseOrderResponseDto.setOrderStatus(orderStatus);
 
-        purchaseOrderResponseDto.setBuyerId(purchaseOrder.get().getPurchaseOrderId());
+        purchaseOrderResponseDto.setBuyerId(purchaseOrder.get().getBuyer().getBuyerId());
         purchaseOrderResponseDto.setDate(purchaseOrder.get().getDate());
 
         List<ProductItemDto> productItemDtoList = new ArrayList<>();
@@ -127,5 +132,41 @@ public class PurchaseOrderService {
         purchaseOrderResponseDto.setProducts(productItemDtoList);
 
         return purchaseOrderResponseDto;
+    }
+
+
+    public List<PurchaseOrderResponseDto> getPurchaseByBuyer(Long buyerId){
+        Buyer buyer = buyerService.getByIdBuyer(buyerId);
+        List<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findPurchaseOrderByBuyer(buyer);
+
+        List<PurchaseOrderResponseDto> purchaseOrderResponseDtoList = new ArrayList<>();
+
+        for (PurchaseOrder item: purchaseOrder) {
+            PurchaseOrderResponseDto purchaseOrderResponseDto = new PurchaseOrderResponseDto();
+
+            OrderStatus orderStatus = new OrderStatus();
+            orderStatus.setOrderStatusId(item.getOrderStatus().getOrderStatusId());
+            orderStatus.setStatusCode(item.getOrderStatus().getStatusCode());
+
+            purchaseOrderResponseDto.setOrderStatus(orderStatus);
+
+            purchaseOrderResponseDto.setBuyerId(item.getBuyer().getBuyerId());
+            purchaseOrderResponseDto.setDate(item.getDate());
+
+            List<ProductItemDto> productItemDtoList = new ArrayList<>();
+
+            for (PurchaseItem item2: item.getPurchaseItems()) {
+                ProductItemDto productItemDto = new ProductItemDto();
+                productItemDto.setProductId(item2.getProduct().getProductId());
+                productItemDto.setQuantity(item2.getQuantity());
+                productItemDtoList.add(productItemDto);
+            }
+
+            purchaseOrderResponseDto.setProducts(productItemDtoList);
+
+            purchaseOrderResponseDtoList.add(purchaseOrderResponseDto);
+        }
+
+        return purchaseOrderResponseDtoList;
     }
 }

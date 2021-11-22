@@ -84,7 +84,7 @@ public class ProductController {
     /**
      *
      * @param id é esperado um parâmetro id do tipo listOrdersByOrderId
-     * @return a lista de produtos do comprador
+     * @return a lista de produtos de uma compra
      */
     @GetMapping(value = "/orders/{id}")
     public ResponseEntity<PurchaseOrderResponseDto> listOrdersByOrderId(@PathVariable("id") Long id) {
@@ -109,5 +109,21 @@ public class ProductController {
         purchaseItemService.update(purchaseOrderListDto.getProducts());
 
         return ResponseEntity.ok().body(totalPrice);
+    }
+
+    /**
+     *
+     * @param id é esperado um parâmetro id do buyer listOrdersByBuyerId
+     * @return a lista de produtos comprados por um cliente
+     */
+    @GetMapping(value = "/orders/buyer/{id}")
+    public ResponseEntity<List<PurchaseOrderResponseDto>> listOrdersByBuyerId(@PathVariable("id") Long id) {
+        List<PurchaseOrderResponseDto> purchaseOrderList = purchaseOrderService.getPurchaseByBuyer(id);
+
+        if (purchaseOrderList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(purchaseOrderList);
     }
 }

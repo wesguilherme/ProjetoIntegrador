@@ -9,10 +9,7 @@ import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.ProductSellerPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
-import com.projetointegrador.service.BatchStockService;
-import com.projetointegrador.service.ProductSellerService;
-import com.projetointegrador.service.ProductService;
-import com.projetointegrador.service.PurchaseOrderService;
+import com.projetointegrador.service.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -134,6 +131,39 @@ public class PurchaseOrderServiceTest {
         PurchaseOrderResponseDto purchaseOrderResponseDto = purchaseOrderService.listOrdersByOrderId(1L);
 
         assertNotNull(purchaseOrderResponseDto.getOrderStatus());
+
+    }
+
+    @Test
+    void shoudListOrdersByBuyerId(){
+        PurchaseOrderPersistence purchaseOrderPersistenceMock = mock(PurchaseOrderPersistence.class);
+        BuyerService buyerServiceMock = mock(BuyerService.class);
+
+        Buyer buyer = Buyer.builder().buyerId(1L).build();
+        when(buyerServiceMock.getByIdBuyer(anyLong())).thenReturn(buyer);
+
+        OrderStatus orderStatus = OrderStatus.builder().orderStatusId(1L).statusCode("cart").build();
+
+        Type type = Type.builder().typeId(1L).environmentType("REFRIGERADOS").initials("RF").build();
+        Product product = Product.builder().productId("MLB-123").description("Produto teste").name("Frango").type(type).build();
+
+        PurchaseItem purchaseItem1 = PurchaseItem.builder().purchaseItemId(1L).quantity(10).product(product).build();
+        List<PurchaseItem> purchaseItems = new ArrayList<>();
+        purchaseItems.add(purchaseItem1);
+
+        PurchaseOrder purchaseOrder = PurchaseOrder.builder().purchaseOrderId(1L).date(LocalDate.now()).buyer(buyer).orderStatus(orderStatus).purchaseItems(purchaseItems).build();
+
+        List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+        purchaseOrderList.add(purchaseOrder);
+
+        when(purchaseOrderPersistenceMock.findPurchaseOrderByBuyer(buyer)).thenReturn(purchaseOrderList);
+
+
+        PurchaseOrderService purchaseOrderService = new PurchaseOrderService(purchaseOrderPersistenceMock, buyerServiceMock);
+
+        List<PurchaseOrderResponseDto> purchaseOrderResponseDto = purchaseOrderService.getPurchaseByBuyer(1L);
+
+        assertEquals(1,purchaseOrderResponseDto.size());
 
     }
 }
