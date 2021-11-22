@@ -34,6 +34,9 @@ public class PurchaseOrderService {
     @Autowired
     private BuyerService buyerService;
 
+    public PurchaseOrderService() {
+    }
+
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BuyerService buyerService) {
         this.purchaseOrderPersistence = purchaseOrderPersistence;
         this.buyerService = buyerService;
@@ -134,7 +137,6 @@ public class PurchaseOrderService {
         return purchaseOrderResponseDto;
     }
 
-
     public List<PurchaseOrderResponseDto> getPurchaseByBuyer(Long buyerId){
         Buyer buyer = buyerService.getByIdBuyer(buyerId);
         List<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findPurchaseOrderByBuyer(buyer);
@@ -168,5 +170,24 @@ public class PurchaseOrderService {
         }
 
         return purchaseOrderResponseDtoList;
+    }
+
+    public BigDecimal getTotalPricePurchaseByBuyer(Long buyerId){
+        Buyer buyer = buyerService.getByIdBuyer(buyerId);
+        List<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findPurchaseOrderByBuyer(buyer);
+
+        BigDecimal valorTotal = new BigDecimal(0);
+        for (PurchaseOrder itemPO : purchaseOrder) {
+
+            for (PurchaseItem item : itemPO.getPurchaseItems()) {
+                ProductSeller productSeller = productSellerService.getProductSellerByProduto(item.getProduct());
+
+                BigDecimal newQtd = new BigDecimal(item.getQuantity());
+                BigDecimal newQtd2 = newQtd.multiply(productSeller.getPrice());
+
+                valorTotal = valorTotal.add(newQtd2);
+            }
+        }
+        return valorTotal;
     }
 }

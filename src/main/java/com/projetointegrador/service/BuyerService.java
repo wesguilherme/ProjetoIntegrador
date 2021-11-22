@@ -13,8 +13,7 @@ public class BuyerService {
     @Autowired
     private BuyerPersistence buyerPersistence;
 
-    public BuyerService() {
-    }
+    public BuyerService() {}
 
     /**
      * @param buyerPersistence é esperado parâmetro do tipo buyerPersistence para injeção de dependência
