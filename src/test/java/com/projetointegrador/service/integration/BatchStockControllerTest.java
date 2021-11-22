@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 public class BatchStockControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -20,7 +19,7 @@ public class BatchStockControllerTest {
     public void shouldlistBatchStockByProductId() throws Exception {
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/listById/MLB-122"))
+                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/listById/MLB-120"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -36,7 +35,7 @@ public class BatchStockControllerTest {
     public void shouldBatchStockInSection() throws Exception {
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/due-date/SEC-412/15"))
+                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/batchStock/due-date/SEC-126/15"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 

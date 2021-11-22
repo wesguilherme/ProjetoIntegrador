@@ -41,7 +41,7 @@ public class ProductController {
     /**
      * @param productDto é esperado um objeto do tipo productDto
      * @param uriBuilder é esperado um objeto do tipo uriBuilder
-     * @return um produto cadastrado
+     * @return o product cadastrado no banco
      */
     @PostMapping(value = "/insert")
     public ResponseEntity<Product> insert(@RequestBody @Valid ProductDto productDto, UriComponentsBuilder uriBuilder) {
@@ -54,7 +54,7 @@ public class ProductController {
     /**
      * @param purchaseOrderDto é esperado um objeto do tipo purchaseOrderDto
      * @param uriBuilder é esperado um objeto do tipo uriBuilder
-     * @return o preço do total dos produtos cadastrados
+     * @return o preço do total dos produtos cadastrados no banco
      */
     @PostMapping(value = "/orders")
     public ResponseEntity<TotalPrice> insert(@RequestBody @Valid PurchaseOrderDto purchaseOrderDto, UriComponentsBuilder uriBuilder) {

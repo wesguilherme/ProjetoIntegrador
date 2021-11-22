@@ -22,6 +22,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+
     @PostMapping(value = "/auth")
     public ResponseEntity<TokenDto> realizaAutenticacao(@RequestBody LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken dadosLogin = loginRequest.converter();

@@ -66,6 +66,11 @@ public class BatchStockService {
         }
     }
 
+    /**
+     * @param batchStockNumber é esperado o parâmetro batchStockNumber do batchStock
+     * @return um batchStock  se estiver presente
+     * @throws RuntimeException quando não existe um batchNumber
+     */
     public Optional<BatchStock> getBatchStockNumber(Long batchStockNumber) {
 
         Optional<BatchStock> val = batchStockPersistence.findByBatchStockNumber(batchStockNumber);
@@ -119,9 +124,7 @@ public class BatchStockService {
      * @param id é esperado o parâmetro id do produto
      * @param ordination é esperado o parâmetro de ordenação
      * @return lista de batchStockResponseDto por produto ordenada por
-     * L - lote
-     * C - quantidade atual
-     * F - data de validade
+     * L - lote | C - quantidade atual |  F - data de validade
      * @author - Grupo 5
      */
     public BatchStockResponseDto listBatchStockWithFilter(String id, String ordination) {
