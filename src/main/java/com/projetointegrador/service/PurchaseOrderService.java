@@ -172,6 +172,11 @@ public class PurchaseOrderService {
         return purchaseOrderResponseDtoList;
     }
 
+    /**
+     *
+     * @param buyerId é esperado
+     * @return
+     */
     public BigDecimal getTotalPricePurchaseByBuyer(Long buyerId){
         Buyer buyer = buyerService.getByIdBuyer(buyerId);
         List<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findPurchaseOrderByBuyer(buyer);

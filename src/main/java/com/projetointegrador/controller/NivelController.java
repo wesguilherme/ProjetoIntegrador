@@ -29,17 +29,35 @@ public class NivelController {
      * @param uriBuilder é esperado um objeto do tipo UriBuilder
      * @return o nivel cadastrado no banco
      * @throws IOException
+     * @author - Ana Carolina
      */
     @PostMapping(value = "/insert")
     public ResponseEntity<Nivel> insert(@RequestBody @Valid Nivel nivel, UriComponentsBuilder uriBuilder) throws IOException {
         Nivel nivelCadastrado = nivelService.insert(nivel);
 
-        URI uri = uriBuilder.path("/nivel/search/{id}").buildAndExpand(nivelCadastrado.getId()).toUri();
+        URI uri = uriBuilder.path("/nivel/{id}").buildAndExpand(nivelCadastrado.getId()).toUri();
+        return ResponseEntity.created(uri).body(nivelCadastrado);
+    }
+
+    /**
+     *
+     * @param nivel é esperado um objeto do tipo nivel
+     * @param id é esperado o id do nivel que vai ser editado
+     * @param uriBuilder tem que ser passada uma classe uriBuilder
+     * @return o nivel editado no banco
+     * @author - Ana Carolina
+     */
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Nivel> update(@RequestBody @Valid Nivel nivel, @PathVariable("id") Long id, UriComponentsBuilder uriBuilder) throws IOException{
+        Nivel nivelCadastrado = nivelService.update(nivel,id);
+
+        URI uri = uriBuilder.path("/nivel/{id}").buildAndExpand(nivelCadastrado.getId()).toUri();
         return ResponseEntity.created(uri).body(nivelCadastrado);
     }
 
     /**
      * @return uma lista de niveis cadastrados
+     * @author - Ana Carolina
      */
     @GetMapping("/list/")
     public ResponseEntity<List<Nivel>> nivelList() {
@@ -53,6 +71,7 @@ public class NivelController {
 
     /**
      * @return uma lista de niveis cadastrados
+     * @author - Ana Carolina
      */
     @GetMapping("/list/nivelBuyer/{id}")
     public ResponseEntity<LevelBuyerResponseDto> nivelBuyer(@PathVariable("id") Long id) {
@@ -63,6 +82,4 @@ public class NivelController {
         }
         return ResponseEntity.ok().body(levelBuyerResponseDto);
     }
-
-
 }
