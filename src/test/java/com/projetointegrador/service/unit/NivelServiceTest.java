@@ -60,12 +60,9 @@ public class NivelServiceTest {
     void shouldGetAllNivel () {
         NivelPersistence nivelPersistenceMock = mock(NivelPersistence.class);
         Nivel nivel = Nivel.builder().id(1L).beneficios("Desconto").percentualDesconto(30L).valorTotalDeCompra(new BigDecimal(200)).build();
-
         List<Nivel> nivelList = new ArrayList<>();
         nivelList.add(nivel);
-
         when(nivelPersistenceMock.findAll()).thenReturn(nivelList);
-
         NivelService nivelService = new NivelService(nivelPersistenceMock);
         List<Nivel> nivel1 = nivelService.getAllNivel();
         assertEquals(1, nivel1.size());
@@ -76,29 +73,62 @@ public class NivelServiceTest {
         NivelPersistence nivelPersistenceMock = mock(NivelPersistence.class);
         PurchaseOrderService purchaseOrderServiceMock = mock(PurchaseOrderService.class);
         NivelService nivelServiceMock = mock(NivelService.class);
-
         Nivel nivel = Nivel.builder().id(1L).beneficios("Desconto").percentualDesconto(10L).valorTotalDeCompra(new BigDecimal(100)).build();
         Nivel nivel2 = Nivel.builder().id(2L).beneficios("Desconto e Frete Grátis").percentualDesconto(20L).valorTotalDeCompra(new BigDecimal(200)).build();
-
         List<Nivel> nivels = new ArrayList<>();
         nivels.add(nivel);
         nivels.add(nivel2);
-
         when(nivelPersistenceMock.findAll()).thenReturn(nivels);
-
         List<Nivel> nivelList = new ArrayList<>();
         nivelList.add(nivel);
-
         LevelBuyerDto levelBuyerDto = LevelBuyerDto.builder().buyerId(1L).nivelAtual(nivel).proximoNivel(nivel2).totalCompras(new BigDecimal(150)).build();
-
         when(purchaseOrderServiceMock.getTotalPricePurchaseByBuyer(anyLong())).thenReturn(new BigDecimal(150));
-
         when(nivelServiceMock.customerLevelHistory(anyLong())).thenReturn(levelBuyerDto);
-
         NivelService nivelService = new NivelService(nivelPersistenceMock,purchaseOrderServiceMock);
         LevelBuyerDto levelBuyerDto1 = nivelService.customerLevelHistory(1L);
         assertNotNull(levelBuyerDto1.getBuyerId());
+    }
 
+    @Test
+    void shouldLevel1CustomerLevelHistory(){
+        NivelPersistence nivelPersistenceMock = mock(NivelPersistence.class);
+        PurchaseOrderService purchaseOrderServiceMock = mock(PurchaseOrderService.class);
+        NivelService nivelServiceMock = mock(NivelService.class);
+        Nivel nivel = Nivel.builder().id(1L).beneficios("Desconto").percentualDesconto(10L).valorTotalDeCompra(new BigDecimal(100)).build();
+        Nivel nivel2 = Nivel.builder().id(2L).beneficios("Desconto e Frete Grátis").percentualDesconto(20L).valorTotalDeCompra(new BigDecimal(200)).build();
+        List<Nivel> nivels = new ArrayList<>();
+        nivels.add(nivel);
+        nivels.add(nivel2);
+        when(nivelPersistenceMock.findAll()).thenReturn(nivels);
+        List<Nivel> nivelList = new ArrayList<>();
+        nivelList.add(nivel);
+        LevelBuyerDto levelBuyerDto = LevelBuyerDto.builder().buyerId(1L).nivelAtual(nivel).proximoNivel(nivel2).totalCompras(new BigDecimal(80)).build();
+        when(purchaseOrderServiceMock.getTotalPricePurchaseByBuyer(anyLong())).thenReturn(new BigDecimal(80));
+        when(nivelServiceMock.customerLevelHistory(anyLong())).thenReturn(levelBuyerDto);
+        NivelService nivelService = new NivelService(nivelPersistenceMock,purchaseOrderServiceMock);
+        LevelBuyerDto levelBuyerDto1 = nivelService.customerLevelHistory(1L);
+        assertNotNull(levelBuyerDto1.getBuyerId());
+    }
+
+    @Test
+    void shouldLevelTopCustomerLevelHistory(){
+        NivelPersistence nivelPersistenceMock = mock(NivelPersistence.class);
+        PurchaseOrderService purchaseOrderServiceMock = mock(PurchaseOrderService.class);
+        NivelService nivelServiceMock = mock(NivelService.class);
+        Nivel nivel = Nivel.builder().id(1L).beneficios("Desconto").percentualDesconto(10L).valorTotalDeCompra(new BigDecimal(100)).build();
+        Nivel nivel2 = Nivel.builder().id(2L).beneficios("Desconto e Frete Grátis").percentualDesconto(20L).valorTotalDeCompra(new BigDecimal(200)).build();
+        List<Nivel> nivels = new ArrayList<>();
+        nivels.add(nivel);
+        nivels.add(nivel2);
+        when(nivelPersistenceMock.findAll()).thenReturn(nivels);
+        List<Nivel> nivelList = new ArrayList<>();
+        nivelList.add(nivel);
+        LevelBuyerDto levelBuyerDto = LevelBuyerDto.builder().buyerId(1L).nivelAtual(nivel).proximoNivel(nivel2).totalCompras(new BigDecimal(700)).build();
+        when(purchaseOrderServiceMock.getTotalPricePurchaseByBuyer(anyLong())).thenReturn(new BigDecimal(700));
+        when(nivelServiceMock.customerLevelHistory(anyLong())).thenReturn(levelBuyerDto);
+        NivelService nivelService = new NivelService(nivelPersistenceMock,purchaseOrderServiceMock);
+        LevelBuyerDto levelBuyerDto1 = nivelService.customerLevelHistory(1L);
+        assertNotNull(levelBuyerDto1.getBuyerId());
     }
 
 }
