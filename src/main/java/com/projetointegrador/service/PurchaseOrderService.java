@@ -89,8 +89,6 @@ public class PurchaseOrderService {
             Product product = productService.getByIdProduct(item.getProductId());
             ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-            productSeller.getPrice();
-
             BigDecimal newQtd = new BigDecimal(item.getQuantity());
             BigDecimal newQtd2 = newQtd.multiply(productSeller.getPrice());
 
