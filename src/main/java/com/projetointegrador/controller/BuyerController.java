@@ -24,7 +24,7 @@ public class BuyerController {
     /**
      * @param buyer é esperado um objeto do tipo buyer
      * @param uriBuilder é esperado um objeto do tipo UriBuilder
-     * @return o buyer cadastrado na lista
+     * @return o buyer cadastrado no banco
      * @throws IOException
      */
     @PostMapping(value = "/insert")

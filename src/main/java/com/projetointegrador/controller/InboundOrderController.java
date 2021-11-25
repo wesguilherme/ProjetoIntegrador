@@ -32,7 +32,7 @@ public class InboundOrderController {
     /**
      * @param inboundOrderDto é esperado um objeto do tipo inboundOrderDto
      * @param uriBuilder é esperado um objeto do tipo uriBuilder
-     * @return inboundOrder cadastrado na lista
+     * @return inboundOrder cadastrado no banco
      */
     @PostMapping(value = "/insert")
     public ResponseEntity<List<BatchStockDto>> insert(@RequestBody @Valid InboundOrderDto inboundOrderDto, UriComponentsBuilder uriBuilder) {
@@ -52,7 +52,7 @@ public class InboundOrderController {
 
     /**
      * @param initials é esperado um parâmetro do tipo initials
-     * @return product cadastrado na lista
+     * @return product cadastrado no banco
      */
     @GetMapping("/list/{initials}")
     public ResponseEntity<List<Product>> productList(@PathVariable("initials") String initials) {

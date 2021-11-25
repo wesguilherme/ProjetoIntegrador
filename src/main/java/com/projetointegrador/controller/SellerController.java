@@ -21,6 +21,12 @@ public class SellerController {
     @Autowired
     private SellerService sellerService;
 
+    /**
+     * @param seller é esperado um objeto do tipo seller
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return um seller cadastrado
+     * @throws IOException
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Seller> insert(@RequestBody @Valid Seller seller, UriComponentsBuilder uriBuilder) throws IOException {
         Seller sellerCadastrado = sellerService.insert(seller);

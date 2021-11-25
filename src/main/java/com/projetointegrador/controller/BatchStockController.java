@@ -19,7 +19,7 @@ public class BatchStockController {
     private BatchStockService batchStockService;
 
     /**
-     * @param id é esperado o parâmetro do tipo id
+     * @param id é esperado o parâmetro do tipo productId
      * @return uma lista de batchStockResponseDto para cada produto
      * @author - Grupo 5
      */
@@ -35,7 +35,7 @@ public class BatchStockController {
     }
 
     /**
-     * @param id é esperado o parâmetro do tipo id
+     * @param id é esperado o parâmetro do tipo productId
      * @param ordination é esperado o parâmetro do tipo ordination
      * @return uma lista de batchStockResponseDto por produto ordenado por
      * L - lote | C - quantidade atual | F - data de validade
