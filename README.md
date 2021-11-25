@@ -83,6 +83,11 @@ Para atualizar o pedido de entrada no sistema √© necessario efetuar uma requisi√
         }
     ]
 }
+
+***Link para uso:***
+
+http://localhost:8090/api/v1/fresh-products/inboundorder/update/1
+
 ```
 
 ### GET 2.1 - Product - list all
