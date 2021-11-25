@@ -63,7 +63,7 @@ public class InboundOrderControllerTest {
                 "            \"batchStockNumber\": 77\n" +
                 "        },\n" +
                 "        {\n" +
-                "            \"productSellerId\": 1,\n" +
+                "            \"productSellerId\": 2,\n" +
                 "            \"currentTemperature\": 25,\n" +
                 "            \"minimumTemperature\": 9.5,\n" +
                 "            \"initialQuantity\": 100,\n" +
@@ -85,10 +85,52 @@ public class InboundOrderControllerTest {
     }
 
     @Test
+    public void shouldUpdate() throws Exception {
+
+        String payLoad = "{\n" +
+                "    \"orderNumber\": 40,\n" +
+                "    \"orderDate\":\"2021-07-23\",\n" +
+                "    \"sectionCode\": \"SEC-125\",\n" +
+                "    \"batchStockDto\":[\n" +
+                "        {\n" +
+                "            \"productSellerId\": 1,\n" +
+                "            \"currentTemperature\": 25,\n" +
+                "            \"minimumTemperature\": 8,\n" +
+                "            \"initialQuantity\": 100,\n" +
+                "            \"currentQuantity\": 80,\n" +
+                "            \"manufacturingDate\": \"1998-07-23\",\n" +
+                "            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n" +
+                "            \"dueDate\": \"2021-11-23\",\n" +
+                "            \"batchStockNumber\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"productSellerId\": 1,\n" +
+                "            \"currentTemperature\": 25,\n" +
+                "            \"minimumTemperature\": 9,\n" +
+                "            \"initialQuantity\": 120,\n" +
+                "            \"currentQuantity\": 90,\n" +
+                "            \"manufacturingDate\": \"1998-07-23\",\n" +
+                "            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n" +
+                "            \"dueDate\": \"2021-11-29\",\n" +
+                "            \"batchStockNumber\": 2\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("http://localhost:8090/api/v1/fresh-products/inboundorder/update/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payLoad)
+                        .header("Authorization", "Bearer " + auth().getToken()))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
     public void shouldlistBatchStockByProductId() throws Exception {
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/inboundorder/list/RF"))
+                MockMvcRequestBuilders.get("http://localhost:8090/api/v1/fresh-products/inboundorder/list/RF")
+                        .header("Authorization", "Bearer " + auth().getToken()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

@@ -1,14 +1,17 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.*;
+import com.projetointegrador.dto.ProductItemCartDto;
+import com.projetointegrador.dto.ProductItemDto;
+import com.projetointegrador.dto.PurchaseOrderResponseDto;
+import com.projetointegrador.dto.TotalPrice;
 import com.projetointegrador.entity.*;
 import com.projetointegrador.repository.BatchStockPersistence;
-import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,9 @@ public class PurchaseOrderService {
 
     @Autowired
     private BatchStockPersistence batchStockPersistence;
+
+    @Autowired
+    private BlackFridayService blackFridayService;
 
     public PurchaseOrderService() {
     }
@@ -66,14 +72,32 @@ public class PurchaseOrderService {
             ProductItemCartDto productItemCartDto = batchStockService.getBatchStockByProductId(item.getProduct().getProductId());
             Optional<BatchStock> batchStock = batchStockService.getBatchStockById(productItemCartDto.getBatchStockId());
 
-            if(!batchStock.isEmpty()){
+            if (!batchStock.isEmpty()) {
                 int qtdStock = batchStock.get().getCurrentQuantity() - item.getQuantity();
                 batchStock.get().setCurrentQuantity(qtdStock);
             }
         }
     }
 
-    public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){
+    public BigDecimal blackFridayDiscounts(String productId, BigDecimal price) {
+        BlackFriday blackFriday = blackFridayService.getByIdProduct(productId);
+        if (blackFriday != null) {
+            BigDecimal valor = price.multiply(blackFriday.getDiscount());
+            return valor;
+        }
+        return null;
+    }
+
+    private boolean verifyDate(String productId) {
+        BlackFriday blackFriday = blackFridayService.getByIdProduct(productId);
+        LocalDate dataHoje = LocalDate.now();
+        if (blackFriday.getInitialDate().compareTo(dataHoje) >= 0 || dataHoje.compareTo(blackFriday.getFinalDate()) <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public TotalPrice getTotalprice(List<ProductItemDto> productItemDto) {
         BigDecimal valorTotal = new BigDecimal(0);
 
         for (ProductItemDto item : productItemDto) {
@@ -81,10 +105,15 @@ public class PurchaseOrderService {
             Product product = productService.getByIdProduct(item.getProductId());
             ProductSeller productSeller = productSellerService.getProductSellerByProduto(product);
 
-            productSeller.getPrice();
-
             BigDecimal newQtd = new BigDecimal(item.getQuantity());
-            BigDecimal newQtd2 = newQtd.multiply(productSeller.getPrice());
+            BigDecimal newQtd2 = new BigDecimal(0);
+
+            if (blackFridayDiscounts(item.getProductId(), productSeller.getPrice()) != null && verifyDate(item.getProductId()) == true) {
+                BigDecimal valWDiscount = blackFridayDiscounts(item.getProductId(), productSeller.getPrice());
+                newQtd2 = newQtd.multiply(valWDiscount);
+            } else {
+                newQtd2 = newQtd.multiply(productSeller.getPrice());
+            }
 
             valorTotal = valorTotal.add(newQtd2);
         }
