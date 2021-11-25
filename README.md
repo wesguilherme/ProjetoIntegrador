@@ -8,7 +8,7 @@
 
 ### POST 1.1 - InboundOrder - Insert
 
-Para cadastrar o pedido de entrada no sistema é necessario efetuar uma requisição via postman
+Para cadastrar o pedido de entrada no sistema é necessário efetuar uma requisição via postman
 
 ```
 {
@@ -51,7 +51,7 @@ http://localhost:8090/api/v1/fresh-products/inboundorder/insert
 ### PUT 1.2 - InboundOrder - Update
 
 
-Para atualizar o pedido de entrada no sistema é necessario efetuar uma requisição via postman
+Para atualizar o pedido de entrada no sistema é necessário efetuar uma requisição via postman
 
 ```
 {
@@ -88,8 +88,6 @@ Para atualizar o pedido de entrada no sistema é necessario efetuar uma requisi�
 ***Link para uso:***
 
 http://localhost:8090/api/v1/fresh-products/inboundorder/update/1
-
-
 
 ### GET 2.1 - Product - list all
 
@@ -297,7 +295,7 @@ Exemplo de lista de produtos
 ### PUT 2.5 - PurchaseOrder - Update
 
 
-Para atualizar o pedido de entrada no sistema é necessario efetuar uma requisição via postman
+Para atualizar o pedido de entrada no sistema é necessário efetuar uma requisição via postman
 
 ```
 {
