@@ -25,7 +25,7 @@ public class BlackFridayService {
     }
 
     /**
-     * @return retorna a lista de BlackFridayResponseDto
+     * @return retorna a lista blackFridayResponseDtoList
      * @author - Grupo 5
      */
     public List<BlackFridayResponseDto> listProduct() {
@@ -42,11 +42,12 @@ public class BlackFridayService {
         return blackFridayResponseDtoList;
     }
 
-    //    /**
-//     * @param blackFriday é esperado um objeto do tipo inboundOrder
-//     * @param productId é esperado um id do inboundOrder
-//     * @return uma alteração no inbound order
-//     */
+    /**
+     * @param blackFriday é esperado um objeto do tipo blackFriday
+     * @param productId   é esperado um parametro do tipo productId
+     * @return retorna o produto atualizado
+     * @author - Grupo 5
+     */
     public BlackFriday update(BlackFriday blackFriday, String productId) {
         Optional<BlackFriday> blackFriday1 = blackFridayPersistence.findByProductId(productId);
 
@@ -62,6 +63,10 @@ public class BlackFridayService {
         throw new RuntimeException("Não existe esse produto no hall de descontos!");
     }
 
+    /**
+     * @param productId é esperado um parametro do tipo productId
+     * @author - Grupo 5
+     */
     public void delete(String productId) {
         Optional<BlackFriday> blackFriday1 = blackFridayPersistence.findByProductId(productId);
         if (blackFriday1.isPresent()) {
@@ -69,6 +74,11 @@ public class BlackFridayService {
         }
     }
 
+    /**
+     * @param productId é esperado um parametro do tipo productId
+     * @return retorna o produto pelo productId
+     * @author - Grupo 5
+     */
     public BlackFriday getByIdProduct(String productId) {
         Optional<BlackFriday> val = blackFridayPersistence.findByProductId(productId);
         if (val.isPresent()) {
