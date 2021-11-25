@@ -24,7 +24,7 @@ public class WarehouseServiceTest {
     void shouldInsertWarehouse() {
         WarehousePersistence mock1 = mock(WarehousePersistence.class);
 
-        Warehouse warehouse = new Warehouse("MLB-207", "Deposito de refrigerados",null);
+        Warehouse warehouse = new Warehouse("MLB-207", "Deposito de refrigerados");
         when(mock1.save(any(Warehouse.class))).thenReturn(warehouse);
 
         WarehouseService warehouseService = new WarehouseService(mock1);
@@ -36,7 +36,7 @@ public class WarehouseServiceTest {
     void shouldNotInsertWarehouse() {
         WarehousePersistence mock1 = mock(WarehousePersistence.class);
         String warehouse = "MLB-207";
-        Warehouse warehouse1 = new Warehouse("MLB-207", "Código já utilizado", null);
+        Warehouse warehouse1 = new Warehouse("MLB-207", "Código já utilizado");
         when(mock1.findByWarehouseCode(warehouse)).thenReturn(Optional.of(warehouse1));
 
 
@@ -54,7 +54,7 @@ public class WarehouseServiceTest {
     void shouldValidWarehouse() {
         WarehousePersistence mock = mock(WarehousePersistence.class);
 
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", null);
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
 
         when(mock.findByWarehouseCode("MLB-410")).thenReturn(Optional.of(warehouse));
         WarehouseService warehouseService = new WarehouseService(mock);
@@ -76,7 +76,7 @@ public class WarehouseServiceTest {
     void shouldGetWarehouseByCode() {
         WarehousePersistence mock = mock(WarehousePersistence.class);
 
-        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro", null);
+        Warehouse warehouse = new Warehouse("MLB-410", "Teste de cadastro");
 
         when(mock.findByWarehouseCode("MLB-410")).thenReturn(Optional.of(warehouse));
 

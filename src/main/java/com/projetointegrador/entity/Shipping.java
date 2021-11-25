@@ -1,6 +1,5 @@
 package com.projetointegrador.entity;
 
-import com.projetointegrador.dto.ShippingDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+@Embeddable
+@Entity
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Shipping {
@@ -30,5 +30,9 @@ public class Shipping {
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "cep")
+    private States states;
 
 }

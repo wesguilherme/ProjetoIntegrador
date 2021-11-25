@@ -28,15 +28,11 @@ public class Warehouse {
     @NotBlank
     private String description;
 
-    @Embedded
-    private Address address;
-
     @Override
     public String toString() {
         return "Warehouse{" +
                 "warehouseCode='" + warehouseCode + '\'' +
                 ", description='" + description + '\'' +
-                ", address=" + address +
                 '}';
     }
 }

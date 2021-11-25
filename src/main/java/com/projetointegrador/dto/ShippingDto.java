@@ -1,32 +1,52 @@
 package com.projetointegrador.dto;
 
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.BatchStockPersistence;
 import com.projetointegrador.service.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Repository
 public class ShippingDto {
 
     @NotNull
     @NotBlank
     private String shippingId;
-
     private String warehouseCode;
-
     private Long buyerId;
-
     private String productId;
+    private String name;
+    private String description;
+    private String cep;
 
-    public Shipping convert(ShippingDto shippingDto, WarehouseService warehouseService, BuyerService buyerService, ProductService productService) {
+
+
+//    private File arquivo;
+//
+//    public ShippingDto(File arquivo){
+//        this.arquivo = arquivo;
+//    }
+
+    public Shipping convert(ShippingDto shippingDto, WarehouseService warehouseService, BuyerService buyerService, ProductService productService, StatesService statesService) {
         Shipping shipping = new Shipping();
         shipping.setShippingId(shippingDto.getShippingId());
 
@@ -39,22 +59,37 @@ public class ShippingDto {
         Product product = productService.getByIdProduct(shippingDto.getProductId());
         shipping.setProduct(product);
 
+        Product name = productService.getByIdProduct(shippingDto.getName());
+        shipping.setProduct(name);
+
+        Product description = productService.getByIdProduct(shippingDto.getDescription());
+        shipping.setProduct(description);
+
+        States states = statesService.getStates(shippingDto.getCep());
+        shipping.setStates(states);
+
+
         return shipping;
     }
 
-//    public static List<ShippingDto> convertDto(List<Shipping> shipping){
-//        List<ShippingDto> shippingDtos = new ArrayList<>();
-//
-//        for (Shipping item : shipping) {
-//            ShippingDto shippingDto = new ShippingDto();
-//            shippingDto.setShippingId(item.getShippingId());
-//            shippingDto.setWarehouseCode(item.getWarehouse().getWarehouseCode());
-//            shippingDto.setBuyerId(item.getBuyer().getBuyerId());
-//            shippingDto.setProductId(item.getProduct().getProductId());
-//
-//            shippingDtos.add(shippingDto);
+//    public void cadastro(List<Shipping> shippings) throws IOException {
+//        try(FileOutputStream fos = new FileOutputStream(shippingId);
+//            OutputStreamWriter osw = new OutputStreamWriter(fos);
+//            BufferedWriter bw = new BufferedWriter(osw)
+//        ){
+//            bw.write("");
 //        }
 //
-//        return shippingDtos;
+//        try(
+//                FileOutputStream fos = new FileOutputStream(shippingId);
+//                OutputStreamWriter osw = new OutputStreamWriter(fos);
+//                BufferedWriter bw = new BufferedWriter(osw)
+//        ){
+//            for (ShippingDto shippingDto : shippings) {
+//                String registro = shippingDto.getShippingId() + ";" + shippingDto.getProductId() + ";" + shippingDto.getWarehouseCode() + ";" + shippingDto.getBuyerId();
+//                bw.append(registro);
+//                bw.newLine();
+//            }
+//        }
 //    }
 }
