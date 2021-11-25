@@ -2,11 +2,8 @@
 
 ## Grupo 5 Wave - 3
 
-xxxRequisito 0xxx
 
-Requisito 1
-
-<img src="" alt=""/>
+### Requisito 1
 
 
 ### POST 1.1 - InboundOrder - Insert
