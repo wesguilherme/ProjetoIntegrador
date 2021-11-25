@@ -28,24 +28,28 @@ public class LevelBuyerResponseDto {
      */
     public static LevelBuyerResponseDto convert(LevelBuyerDto levelBuyerDto, BuyerService buyerService) {
         Buyer buyer = buyerService.getByIdBuyer(levelBuyerDto.getBuyerId());
-        BigDecimal valor = levelBuyerDto.getProximoNivel().getValorTotalDeCompra().subtract(levelBuyerDto.getTotalCompras());
-        String mensagem = "";
-        Nivel proximo = null;
-        if(levelBuyerDto.getNivelAtual() == levelBuyerDto.getProximoNivel()){
-            mensagem = "Cliente já está no nível máximo. Aguarde novas promoções!";
-            proximo = null;
-        }else{
-            mensagem = "Falta "+valor+" para o cliente atingir o próximo nível!";
-            proximo = levelBuyerDto.getProximoNivel();
+        if(buyer != null){
+            BigDecimal valor = levelBuyerDto.getProximoNivel().getValorTotalDeCompra().subtract(levelBuyerDto.getTotalCompras());
+            String mensagem = "";
+            Nivel proximo = null;
+            if(levelBuyerDto.getNivelAtual() == levelBuyerDto.getProximoNivel()){
+                mensagem = "Cliente já está no nível máximo. Aguarde novas promoções!";
+                proximo = null;
+            }else{
+                mensagem = "Falta "+valor+" para o cliente atingir o próximo nível!";
+                proximo = levelBuyerDto.getProximoNivel();
+            }
+
+            LevelBuyerResponseDto levelBuyerResponseDto = new LevelBuyerResponseDto(
+                    buyer.getName(),
+                    levelBuyerDto.getTotalCompras(),
+                    levelBuyerDto.getNivelAtual(),
+                    proximo,
+                    mensagem
+            );
+            return levelBuyerResponseDto;
         }
 
-        LevelBuyerResponseDto levelBuyerResponseDto = new LevelBuyerResponseDto(
-                buyer.getName(),
-                levelBuyerDto.getTotalCompras(),
-                levelBuyerDto.getNivelAtual(),
-                proximo,
-                mensagem
-        );
-        return levelBuyerResponseDto;
+        return null;
     }
 }

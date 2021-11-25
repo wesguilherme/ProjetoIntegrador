@@ -61,7 +61,7 @@ public class BuyerService {
         if (val.isPresent()) {
             return val.get();
         } else {
-            throw new RuntimeException("Não existe comprador cadastrado!");
+            return null;
         }
     }
 }

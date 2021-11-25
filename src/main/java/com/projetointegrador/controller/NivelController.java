@@ -77,7 +77,7 @@ public class NivelController {
     public ResponseEntity<LevelBuyerResponseDto> nivelBuyer(@PathVariable("id") Long id) {
         LevelBuyerResponseDto levelBuyerResponseDto = LevelBuyerResponseDto.convert(nivelService.customerLevelHistory(id),buyerService);
 
-        if (levelBuyerResponseDto.getBuyerName() == null) {
+        if (levelBuyerResponseDto == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(levelBuyerResponseDto);
