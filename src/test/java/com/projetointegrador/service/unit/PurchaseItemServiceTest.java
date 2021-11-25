@@ -1,26 +1,31 @@
 package com.projetointegrador.service.unit;
 
+import com.projetointegrador.dto.ProductItemCartDto;
 import com.projetointegrador.dto.ProductItemListDto;
+import com.projetointegrador.entity.BatchStock;
 import com.projetointegrador.entity.Product;
 import com.projetointegrador.entity.PurchaseItem;
 import com.projetointegrador.repository.PurchaseItemPersistence;
+import com.projetointegrador.service.BatchStockService;
 import com.projetointegrador.service.ProductService;
 import com.projetointegrador.service.PurchaseItemService;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PurchaseItemServiceTest {
 
     @Test
-    void shouldUpdateForNullPurchaseItem() {
+    void shouldUpdateForNullPurchaseItem(){
         PurchaseItemPersistence mock = mock(PurchaseItemPersistence.class);
         List<ProductItemListDto> products = new ArrayList<>();
 
@@ -35,7 +40,7 @@ public class PurchaseItemServiceTest {
     }
 
     @Test
-    void shouldUpdatePurchaseItemNoPresent() {
+    void shouldUpdatePurchaseItemNoPresent(){
         PurchaseItemPersistence mock = mock(PurchaseItemPersistence.class);
 
         ProductItemListDto prod = ProductItemListDto.builder().purchaseItemId(1L).productId("MLB-123").quantity(10).build();
@@ -56,9 +61,10 @@ public class PurchaseItemServiceTest {
     }
 
     @Test
-    void shouldUpdatePurchaseItemPresent() {
+    void shouldUpdatePurchaseItemPresent(){
         PurchaseItemPersistence mock = mock(PurchaseItemPersistence.class);
         ProductService mockProd = mock(ProductService.class);
+        BatchStockService batchStockServiceMock = mock(BatchStockService.class);
 
         ProductItemListDto prod = ProductItemListDto.builder().purchaseItemId(1L).productId("MLB-123").quantity(10).build();
         List<ProductItemListDto> products = new ArrayList<>();
@@ -71,9 +77,15 @@ public class PurchaseItemServiceTest {
         PurchaseItem purchaseItem = PurchaseItem.builder().product(produto).quantity(5).build();
         when(mock.findById(anyLong())).thenReturn(Optional.ofNullable(purchaseItem));
 
-        PurchaseItemService purchaseItemService = new PurchaseItemService(mock, mockProd);
+        ProductItemCartDto productItemCartDto = ProductItemCartDto.builder().batchStockId(1L).productId("MLB-123").quantity(10).build();
+        when(batchStockServiceMock.getBatchStockByProductId(anyString())).thenReturn(productItemCartDto);
+
+        BatchStock batchStock = BatchStock.builder().batchStockNumber(1L).batchStockId(1L).currentQuantity(10).dueDate(LocalDate.now()).build();
+        when(batchStockServiceMock.getBatchStockById(anyLong())).thenReturn(Optional.ofNullable(batchStock));
+
+        PurchaseItemService purchaseItemService = new PurchaseItemService(mock,mockProd,batchStockServiceMock);
         purchaseItemService.update(products);
 
-        assertEquals(10, purchaseItem.getQuantity());
+        assertEquals(10,purchaseItem.getQuantity());
     }
 }

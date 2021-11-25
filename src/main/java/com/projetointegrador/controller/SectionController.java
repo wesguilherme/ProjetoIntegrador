@@ -34,6 +34,12 @@ public class SectionController {
     @Autowired
     private TypeService typeService;
 
+    /**
+     * @param sectionDto é esperado um objeto do tipo sectionDto
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return o section cadastrado
+     * @throws IOException lança a excessão caso ocorra um erro de cadastro
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Section> insert(@RequestBody @Valid SectionDto sectionDto, UriComponentsBuilder uriBuilder) throws IOException {
         Section sectionCadastrado = sectionService.insert(sectionDto.convert(sectionDto,typeService,representativeService,warehouseService));

@@ -1,9 +1,9 @@
 package com.projetointegrador.service;
 
-import com.projetointegrador.dto.ProductItemDto;
-import com.projetointegrador.dto.PurchaseOrderResponseDto;
-import com.projetointegrador.dto.TotalPrice;
+import com.projetointegrador.dto.*;
 import com.projetointegrador.entity.*;
+import com.projetointegrador.repository.BatchStockPersistence;
+import com.projetointegrador.repository.ProductPersistence;
 import com.projetointegrador.repository.PurchaseOrderPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,19 @@ public class PurchaseOrderService {
     @Autowired
     private ProductSellerService productSellerService;
 
+    @Autowired
+    private BatchStockService batchStockService;
+
+    @Autowired
+    private BatchStockPersistence batchStockPersistence;
+
     public PurchaseOrderService() {
+    }
+
+    public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence, BatchStockService batchStockService, BatchStockPersistence batchStockPersistence) {
+        this.purchaseOrderPersistence = purchaseOrderPersistence;
+        this.batchStockService = batchStockService;
+        this.batchStockPersistence = batchStockPersistence;
     }
 
     public PurchaseOrderService(PurchaseOrderPersistence purchaseOrderPersistence) {
@@ -38,8 +50,27 @@ public class PurchaseOrderService {
         this.productSellerService = productSellerService;
     }
 
+    /**
+     *
+     * @param purchaseOrder
+     * @return  retorna a verificaçao da quantidade do produto no estoque
+     * @author - Grupo 5
+     */
     public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
+        atualizaBatchStock(purchaseOrder);
         return purchaseOrderPersistence.save(purchaseOrder);
+    }
+
+    private void atualizaBatchStock(PurchaseOrder purchaseOrder){
+        for (PurchaseItem item: purchaseOrder.getPurchaseItems()) {
+            ProductItemCartDto productItemCartDto = batchStockService.getBatchStockByProductId(item.getProduct().getProductId());
+            Optional<BatchStock> batchStock = batchStockService.getBatchStockById(productItemCartDto.getBatchStockId());
+
+            if(!batchStock.isEmpty()){
+                int qtdStock = batchStock.get().getCurrentQuantity() - item.getQuantity();
+                batchStock.get().setCurrentQuantity(qtdStock);
+            }
+        }
     }
 
     public TotalPrice getTotalprice(List<ProductItemDto> productItemDto){
@@ -64,6 +95,12 @@ public class PurchaseOrderService {
         return totalPrice;
     }
 
+    /**
+     *
+     * @param id
+     * @return  retorna a verificaçao do produto através do id
+     * @author - Grupo 5
+     */
     public PurchaseOrderResponseDto listOrdersByOrderId(Long id) {
 
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderPersistence.findById(id);

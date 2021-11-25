@@ -20,6 +20,11 @@ public class ProductService {
 
     public ProductService() {}
 
+    /**
+     * @param productPersistence é esperado um parâmetro do tipo productPersistence para injeção de depêndencia
+     * @param typeService é esperado um parâmetro do tipo typeService para injeção de depêndencia
+     * @author - Grupo 5
+     */
     public ProductService(ProductPersistence productPersistence, TypeService typeService) {
         this.productPersistence = productPersistence;
         this.typeService = typeService;
@@ -27,16 +32,16 @@ public class ProductService {
 
     /**
      * @param productPersistence - é esperado um parâmetro do tipo productPersistence para injeção de dependência
-     * @author - Grupo 5 - Tester Ana
+     * @author - Grupo 5
      */
     public ProductService(ProductPersistence productPersistence) {
         this.productPersistence = productPersistence;
     }
 
     /**
-     * @param id - é esperado o parametro id do product
+     * @param id - é esperado o parâmetro id do product
      * @return - retorna a verificaçao de duplicidade do código
-     * @author - Grupo 5 - Tester Ana
+     * @author - Grupo 5
      */
     private boolean UtilizedCode(String id) {
         Product productExistente = productPersistence.findByProductId(id);
@@ -49,7 +54,8 @@ public class ProductService {
     /**
      * @param productDto - é esperado um objeto do tipo product
      * @return - retorna product cadastrado na lista
-     * @author - Grupo 5 - Tester Ana
+     * @author - Grupo 5
+     * @throws RuntimeException caso o codigo já esta sendo utilizado
      */
     public Product insert(ProductDto productDto) {
         if (!UtilizedCode(productDto.getProductId())) {
@@ -60,9 +66,10 @@ public class ProductService {
     }
 
     /**
-     * @param id - é esperado o parametro id do product
+     * @param id - é esperado o parâmetro id do product
      * @return - retorna se o product existe ou não através do id
-     * @author - Grupo 5 - Tester Ana
+     * @author - Grupo 5
+     * @throws RuntimeException caso não exista protudo com esse id
      */
     public Product getByIdProduct(String id) {
         Optional<Product> val;

@@ -29,6 +29,11 @@ public class ProductSellerController {
     @Autowired
     private SellerService sellerService;
 
+    /**
+     * @param productSellerDto é esperado um objeto do tipo productSellerDto
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return o productSeller cadastrado
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<ProductSeller> insert(@RequestBody @Valid ProductSellerDto productSellerDto, UriComponentsBuilder uriBuilder) {
         ProductSeller productSellerCadastrado = productSellerService.insert(productSellerDto.convert(productSellerDto, productService, sellerService));

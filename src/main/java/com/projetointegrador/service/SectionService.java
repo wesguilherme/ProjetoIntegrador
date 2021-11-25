@@ -38,9 +38,6 @@ public class SectionService {
         this.productSellerService = productSellerService;
     }
 
-    public SectionService(SectionService sectionServiceMock) {
-    }
-
     /**
      * @param section - é esperado um objeto do tipo sectionDto
      * @return - retorna section cadastrado na lista
@@ -95,6 +92,13 @@ public class SectionService {
         return true;
     }
 
+    /**
+     *
+     * @param section
+     * @param batchStockDto
+     * @return retorna a verificação do espaço na section
+     * @author - Grupo 5
+     */
     public Boolean verifyAvailableSpace(Section section, List<BatchStockDto> batchStockDto) {
         Double totalVolumeProduct = 0d;
         for (BatchStockDto item : batchStockDto) {

@@ -21,6 +21,12 @@ public class RepresentativeController {
     @Autowired
     private RepresentativeService representativeService;
 
+    /**
+     * @param representative é esperado um objeto do tipo representative
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return o representative cadastrado
+     * @throws IOException lança a excessão caso ocorra um erro de cadastro
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<Representative> insert(@RequestBody @Valid Representative representative, UriComponentsBuilder uriBuilder) throws IOException {
         Representative representativeCadastrado = representativeService.insert(representative);

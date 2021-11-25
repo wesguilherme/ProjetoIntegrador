@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class OrderStatusServiceTest {
 
     @Test
-    void mustInsertOrderStatus() {
+    void shouldInsertOrderStatus ( ) {
         OrderStatusPersistence mock1 = mock(OrderStatusPersistence.class);
         OrderStatusService mock = mock(OrderStatusService.class);
         OrderStatus orderStatus = new OrderStatus(1L, "ok");
@@ -30,7 +30,7 @@ public class OrderStatusServiceTest {
     }
 
     @Test
-    void shouldGetByOrderStatus() {
+    void shouldGetByOrderStatus ( ) {
         OrderStatusPersistence mock1 = mock(OrderStatusPersistence.class);
 
         OrderStatus orderStatus = new OrderStatus(1L, "cart");
@@ -44,7 +44,7 @@ public class OrderStatusServiceTest {
     }
 
     @Test
-    void shouldNotGetByOrderStatus() {
+    void shouldNotGetByOrderStatus ( ) {
         OrderStatusPersistence mock = mock(OrderStatusPersistence.class);
 
         OrderStatusService orderStatusService = new OrderStatusService(mock);

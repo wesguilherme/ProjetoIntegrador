@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class SellerServiceTest {
 
     @Test
-    void mustInsertSeller() {
+    void shouldInsertSeller() {
         SellerPersistence mock1 = mock(SellerPersistence.class);
         SellerService mock = mock(SellerService.class);
         Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
@@ -31,7 +31,7 @@ public class SellerServiceTest {
     }
 
     @Test
-    void mustNotInsertSeller() {
+    void shouldNotInsertSeller() {
         SellerPersistence mock1 = mock(SellerPersistence.class);
         String cpf = "33399977788";
         Address address = new Address("rua goias", "44","99999-000", "sp", "sp", "cs");
@@ -49,7 +49,7 @@ public class SellerServiceTest {
     }
 
     @Test
-    void mustgetByIdSeller() {
+    void shouldGetByIdSeller() {
         SellerPersistence mock1 = mock(SellerPersistence.class);
         Address address = new Address("rua goias", "44", "99999-000", "sp", "sp", "cs");
         Optional<Seller> seller = Optional.of(new Seller(1L, "33399977788", "Wes", address));
@@ -61,7 +61,7 @@ public class SellerServiceTest {
     }
 
     @Test
-    void mustNotGetByIdSeller() {
+    void shouldNotGetByIdSeller() {
 
         SellerPersistence mock1 = mock(SellerPersistence.class);
 
