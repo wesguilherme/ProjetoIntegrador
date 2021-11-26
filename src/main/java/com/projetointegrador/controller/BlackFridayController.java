@@ -78,6 +78,4 @@ public class BlackFridayController {
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
-
-//    novo endpoint que compara carrinhos com e sem desconto
 }
