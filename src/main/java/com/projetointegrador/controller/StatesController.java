@@ -22,6 +22,13 @@ public class StatesController {
     private StatesService statesService;
 
 
+    /**
+     * @param states é esperado um objeto do tipo states
+     * @param uriBuilder é esperado um objeto do tipo uriBuilder
+     * @return um States cadastrado
+     * @throws IOException
+     * @author Rafael
+     */
     @PostMapping(value = "/insert")
     public ResponseEntity<States> insert(@RequestBody @Valid States states, UriComponentsBuilder uriBuilder) throws IOException {
         States statesCadastrado = statesService.insert(states);

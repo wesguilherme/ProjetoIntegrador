@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "70762b98-5950-457d-9342-6c3db21bcca2",
+		"name": "Requisito 6 - Rafael",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Envios - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenRafael}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"shippingId\": \"Envio-001\",\n    \"warehouseCode\": \"ARM-001\",\n    \"buyerId\": 1,\n    \"productId\": \"MLB-129\",\n    \"cep\": \"55641-715\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/Shipping/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"Shipping",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envios - State insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenRafael}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Cep\": \"69921-000\",\n  \"nome\": \"Acre\",\n  \"valorFrete\": 400.50 \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/States/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"States",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envios - list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenRafael}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/Shipping/Envio-001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"Shipping",
+						"Envio-001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envios - update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenRafael}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"shippingId\": \"Envio-001\",\n    \"warehouseCode\": \"ARM-001\",\n    \"buyerId\": 1,\n    \"productId\": \"MLB-129\",\n    \"cep\": \"55641-715\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/Shipping/update/Envio-001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"Shipping",
+						"update",
+						"Envio-001"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

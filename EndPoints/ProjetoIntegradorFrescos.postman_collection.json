@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "59556595-b191-494a-8a86-9a84c16954ec",
+		"name": "ProjetoIntegradorFrescos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Warehouse - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"warehouseCode\":\"MLB-410\",\n    \"description\":\"Teste de cadastro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/warehouse/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"warehouse",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Representative - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rafael\",\n    \"cpf\": \"150.222.332-60\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/representative/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"representative",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InboudOrder - insert",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 45,\n    \"orderDate\":\"1998-07-23\",\n    \"sectionCode\": \"SEC-126\",\n    \"batchStockDto\":[\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-11-23\",\n            \"batchStockNumber\": 77\n        },\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9.5,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 100,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-11-29\",\n            \"batchStockNumber\": 99\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/inboundorder/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProductSeller - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"volume\": 80,\n\t\"maximumTemperature\": 23,\n\t\"minimumTemperature\": 9.5,\n    \"sellerId\": 1,\n    \"productId\": \"MLB-126\",\n    \"price\":20\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product-seller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product-seller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seller - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ana\",\n    \"cpf\": \"150.555.333-160\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/seller/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"seller",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"MLB-126\",\n    \"name\": \"Uva\",\n    \"description\":\"Caixa de Uva\",\n    \"typeId\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sectionCode\": \"SEC-126\",\n    \"totalCapacity\": 200.0,\n    \"typeId\": 2,\n    \"representativeId\": 1,\n    \"warehouseCode\": \"MLB-410\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/section/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"section",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buyer - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenWesley}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alessandro\",\n    \"cpf\": \"150.555.333-177\",\n    \"address\": \n        {\n            \"street\": \"Rua das Bananeiras\",\n            \"number\": \"80\",\n            \"postalCode\": \"123455000\",\n            \"city\": \"Mogi das Cruzes\",\n            \"state\": \"São Paulo\",\n            \"complement\": \"Casa\"\n        }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/buyer/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"buyer",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PurchaseOrder - insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokenRafael}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\":\"2021-10-31\",\n    \"buyerId\": 1,\n    \"orderStatus\":{\n        \"statusCode\":\"cart\"\n    },\n    \"products\":[\n        {\n            \"productId\": \"MLB-129\",\n            \"quantity\": 6            \n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacao - token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"wesley\",\n    \"senha\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InboudOrder - update",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJ3ZXNsZXkiLCJpYXQiOjE2MzcyNjQ5MDAsImV4cCI6MTYzNzM1MTMwMH0.51ySMNHRot_S1csD1WZOr9WvQfgPb9JhXFyXgQUDN4c",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderNumber\": 40,\n    \"orderDate\":\"2021-07-23\",\n    \"sectionCode\": \"SEC-125\",\n    \"batchStockDto\":[\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 8,\n            \"initialQuantity\": 100,\n            \"currentQuantity\": 80,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-11-23\",\n            \"batchStockNumber\": 1\n        },\n        {\n            \"productSellerId\": 1,\n            \"currentTemperature\": 25,\n            \"minimumTemperature\": 9,\n            \"initialQuantity\": 120,\n            \"currentQuantity\": 90,\n            \"manufacturingDate\": \"1998-07-23\",\n            \"manufacturingTime\": \"2021-09-15T12:23:37.206794\",\n            \"dueDate\": \"2021-11-29\",\n            \"batchStockNumber\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/inboundorder/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Order -  update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\":[\n        {\n            \"purchaseItemId\": 15,\n            \"productId\": \"MLB-123\",\n            \"quantity\": 1           \n        },\n        {\n            \"purchaseItemId\": 16,\n            \"productId\": \"MLB-129\",\n            \"quantity\": 2            \n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchStock - list all by product id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/batchStock/listById/MLB-126",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchStock",
+						"listById",
+						"MLB-126"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BactchStock - list all by product id and filter ordination (F-Validade/L-lote/C-quantidade atual)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/batchStock/list/MLB-126/F",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchStock",
+						"list",
+						"MLB-126",
+						"F"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PurchaseOrder - list by cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/product/orders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchStock - list all by duedate",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/batchStock/due-date/SEC-412/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchStock",
+						"due-date",
+						"SEC-412",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchStock - llst filtered",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/batchStock/due-date/list?quantityOfDays=15&typeId=2&sort=due_date,ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchStock",
+						"due-date",
+						"list"
+					],
+					"query": [
+						{
+							"key": "quantityOfDays",
+							"value": "15"
+						},
+						{
+							"key": "typeId",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "due_date,ASC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InboundOrder - list initials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/inboundorder/list/FS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						"list",
+						"FS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchStock - ordinated list (L, C, F)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/fresh-products/batchStock/list/MLB-126/L",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchStock",
+						"list",
+						"MLB-126",
+						"L"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

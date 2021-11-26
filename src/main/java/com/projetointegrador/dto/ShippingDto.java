@@ -38,14 +38,6 @@ public class ShippingDto {
     private String description;
     private String cep;
 
-
-
-//    private File arquivo;
-//
-//    public ShippingDto(File arquivo){
-//        this.arquivo = arquivo;
-//    }
-
     public Shipping convert(ShippingDto shippingDto, WarehouseService warehouseService, BuyerService buyerService, ProductService productService, StatesService statesService) {
         Shipping shipping = new Shipping();
         shipping.setShippingId(shippingDto.getShippingId());
@@ -59,37 +51,10 @@ public class ShippingDto {
         Product product = productService.getByIdProduct(shippingDto.getProductId());
         shipping.setProduct(product);
 
-        Product name = productService.getByIdProduct(shippingDto.getName());
-        shipping.setProduct(name);
-
-        Product description = productService.getByIdProduct(shippingDto.getDescription());
-        shipping.setProduct(description);
-
         States states = statesService.getStates(shippingDto.getCep());
         shipping.setStates(states);
 
 
         return shipping;
     }
-
-//    public void cadastro(List<Shipping> shippings) throws IOException {
-//        try(FileOutputStream fos = new FileOutputStream(shippingId);
-//            OutputStreamWriter osw = new OutputStreamWriter(fos);
-//            BufferedWriter bw = new BufferedWriter(osw)
-//        ){
-//            bw.write("");
-//        }
-//
-//        try(
-//                FileOutputStream fos = new FileOutputStream(shippingId);
-//                OutputStreamWriter osw = new OutputStreamWriter(fos);
-//                BufferedWriter bw = new BufferedWriter(osw)
-//        ){
-//            for (ShippingDto shippingDto : shippings) {
-//                String registro = shippingDto.getShippingId() + ";" + shippingDto.getProductId() + ";" + shippingDto.getWarehouseCode() + ";" + shippingDto.getBuyerId();
-//                bw.append(registro);
-//                bw.newLine();
-//            }
-//        }
-//    }
 }
