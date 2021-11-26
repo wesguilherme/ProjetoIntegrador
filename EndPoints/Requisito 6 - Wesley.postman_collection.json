@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "6fe8202f-2d56-4bdf-bfb0-50ea092156d4",
+    "name": "Requisito 6 - Wesley",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Blackfriday - update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenWesley}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"productId\": \"MLB-129\",\n    \"discount\": 0.10,\n    \"initialDate\": \"2021-11-22\",\n    \"finalDate\": \"2021-11-26\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8090/api/v1/fresh-products/blackfriday/update/MLB-129",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "api",
+            "v1",
+            "fresh-products",
+            "blackfriday",
+            "update",
+            "MLB-129"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Blackfriday - insert",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenWesley}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"productId\": \"MLB-129\",\n    \"discount\": 0.90,\n    \"initialDate\": \"2021-11-22\",\n    \"finalDate\": \"2021-11-26\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8090/api/v1/fresh-products/blackfriday/insert",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "api",
+            "v1",
+            "fresh-products",
+            "blackfriday",
+            "insert"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Blackfriday - list",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenWesley}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8090/api/v1/fresh-products/blackfriday/list",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "api",
+            "v1",
+            "fresh-products",
+            "blackfriday",
+            "list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Blackfriday - delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenWesley}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8090/api/v1/fresh-products/blackfriday/delete/MLB-129",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8090",
+          "path": [
+            "api",
+            "v1",
+            "fresh-products",
+            "blackfriday",
+            "delete",
+            "MLB-129"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
