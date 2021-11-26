@@ -510,3 +510,13 @@ Exemplo de lista
     ]
 }
 ```
+
+### Grupo 5 - Wave 3
+
+* Alessandro
+* Ana Carolina
+* Rafael
+* Wesley
+
+![alt text](https://raw.githubusercontent.com/wesguilherme/ProjetoIntegrador/branch_ana/FotoGrupo/foto_grupo_5_melicidade.jpeg)
+
