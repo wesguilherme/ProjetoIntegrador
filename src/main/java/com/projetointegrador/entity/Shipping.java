@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Builder
 @Embeddable
@@ -17,6 +18,10 @@ public class Shipping {
 
     @Id
     private String shippingId;
+    private Long width;
+    private Long length;
+    private LocalDate day;
+
 
     @ManyToOne
     @JoinColumn(name = "warehouseCode")

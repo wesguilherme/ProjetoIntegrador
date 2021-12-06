@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShippingService {
@@ -35,23 +36,23 @@ public class ShippingService {
     }
 
 
-    // Metodo criado, mais seria necessário adicionar atributos e não daria tempo.
+    public Shipping update(Shipping shipping, String id) {
+        Optional<Shipping> shipping1 = shippingPersistence.findById(id);
 
+        if (shipping1.isPresent()){
+            shipping1.get().setWidth(shipping.getWidth());
+            shipping1.get().setLength(shipping.getLength());
+            shipping1.get().setDay(shipping.getDay());
+            shipping1.get().setWarehouse(shipping.getWarehouse());
+            shipping1.get().setBuyer(shipping.getBuyer());
+            shipping1.get().setProduct(shipping.getProduct());
+            shipping1.get().setStates(shipping.getStates());
 
-//    public Shipping update(Shipping shipping, String id) {
-//        Optional<Shipping> shipping1 = shippingPersistence.findById(id);
-//
-//        if (shipping1.isPresent()){
-//            shipping1.get().setWarehouse(shipping.getWarehouse());
-//            shipping1.get().setBuyer(shipping.getBuyer());
-//            shipping1.get().setProduct(shipping.getProduct());
-//            shipping1.get().setStates(shipping.getStates());
-//
-//            return shippingPersistence.save(shipping1.get());
-//        }
-//
-//        throw new RuntimeException("Não existe entrega com esse id!");
-//    }
+            return shippingPersistence.save(shipping1.get());
+        }
+
+        throw new RuntimeException("Não existe entrega com esse id!");
+    }
 
     /**
      * @return uma lista de ShippingResponseDto

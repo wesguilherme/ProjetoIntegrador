@@ -59,15 +59,12 @@ public class ShippingController {
         return ResponseEntity.ok().body(shippingResponseDto);
     }
 
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Shipping> update(@RequestBody @Valid ShippingDto shippingDto, @PathVariable("id") String id, UriComponentsBuilder uriBuilder){
+        Shipping shippingCadastrado = shippingService.update(shippingDto.convert(shippingDto,warehouseService,buyerService,productService,statesService), id);
 
-    // Metodo criado, mais seria necessário adicionar atributos e não daria tempo.
-
-//    @PutMapping(value = "/update/{id}")
-//    public ResponseEntity<Shipping> update(@RequestBody @Valid ShippingDto shippingDto, @PathVariable("id") String id, UriComponentsBuilder uriBuilder){
-//        Shipping shippingCadastrado = shippingService.update(shippingDto.convert(shippingDto,warehouseService,buyerService,productService,statesService), id);
-//
-//        URI uri = uriBuilder.path("/shipping/search/{id}").buildAndExpand(shippingCadastrado.getShippingId()).toUri();
-//        return ResponseEntity.created(uri).body(shippingCadastrado);
-//    }
+        URI uri = uriBuilder.path("/shipping/search/{id}").buildAndExpand(shippingCadastrado.getShippingId()).toUri();
+        return ResponseEntity.created(uri).body(shippingCadastrado);
+    }
 }
 

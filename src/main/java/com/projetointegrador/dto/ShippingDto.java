@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,10 @@ import java.util.List;
 @Repository
 public class ShippingDto {
 
-    @NotNull
-    @NotBlank
     private String shippingId;
+    private Long width;
+    private Long length;
+    private LocalDate day;
     private String warehouseCode;
     private Long buyerId;
     private String productId;
@@ -40,7 +42,11 @@ public class ShippingDto {
 
     public Shipping convert(ShippingDto shippingDto, WarehouseService warehouseService, BuyerService buyerService, ProductService productService, StatesService statesService) {
         Shipping shipping = new Shipping();
+
         shipping.setShippingId(shippingDto.getShippingId());
+        shipping.setWidth(shippingDto.getWidth());
+        shipping.setLength(shippingDto.getLength());
+        shipping.setDay(shippingDto.getDay());
 
         Warehouse warehouse = warehouseService.getByCode(shippingDto.getWarehouseCode());
         shipping.setWarehouse(warehouse);
